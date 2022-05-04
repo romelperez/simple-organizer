@@ -1,0 +1,49 @@
+{
+  "name": "simple-organizer",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "^16.14"
+  },
+  "scripts": {
+    "mockapi-setup": "rm ./mockdb.json && echo '{\"tasks\":[]}' > ./mockdb.json",
+    "mockapi": "json-server ./mockdb.json -w -H 0.0.0.0 -p 4001 -d 500",
+    "clean": "rm -rf ./build",
+    "dev": "webpack serve",
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --progress",
+    "serve": "serve ./build -p 4000",
+    "lint": "eslint .",
+    "test": "exit 1"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@types/lodash": "^4.14.182",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "ky": "^0.30.0",
+    "lodash": "^4.17.21",
+    "motion": "^10.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.3.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^4.33.0",
+    "copy-webpack-plugin": "^10.2.4",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "html-webpack-plugin": "^5.5.0",
+    "json-server": "^0.17.0",
+    "serve": "^13.0.2",
+    "ts-loader": "^9.3.0",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
+    "typescript": "^4.6.4",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
+  }
+}
