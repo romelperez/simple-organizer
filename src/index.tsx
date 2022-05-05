@@ -1,7 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import { Router } from '@app/containers/Router';
+
 render(
-  <h1>Simple Organizer</h1>,
+  <Router />,
   document.querySelector('#root')
 );
