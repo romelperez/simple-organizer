@@ -1,19 +1,19 @@
-const path = require('path')
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const tsConfigFilePath = path.join(__dirname, 'tsconfig.json')
+const tsConfigFilePath = path.join(__dirname, 'tsconfig.json');
 
-const { NODE_ENV } = process.env
-const SRC_PATH = path.join(__dirname, 'src')
-const STATIC_PATH = path.join(__dirname, 'static')
-const BUILD_PATH = path.join(__dirname, 'build')
+const { NODE_ENV } = process.env;
+const SRC_PATH = path.join(__dirname, 'src');
+const STATIC_PATH = path.join(__dirname, 'static');
+const BUILD_PATH = path.join(__dirname, 'build');
 
-const isProduction = NODE_ENV === 'production'
+const isProduction = NODE_ENV === 'production';
 
 module.exports = {
-  mode: NODE_ENV || 'development',
+  mode: NODE_ENV ?? 'development',
   devtool: isProduction ? false : 'eval-source-map',
   entry: path.join(SRC_PATH, 'index.tsx'),
   output: {
@@ -80,4 +80,4 @@ module.exports = {
     port: 4000,
     open: true
   }
-}
+};
