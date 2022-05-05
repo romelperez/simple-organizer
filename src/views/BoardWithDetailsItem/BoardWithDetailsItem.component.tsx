@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 
-import { DataBoardWithDetails } from '@app/types';
+import { DataBoard_WithDetails } from '@app/types';
 
 interface BoardWithDetailsItemProps {
-  boardWithDetails: DataBoardWithDetails
+  boardWithDetails: DataBoard_WithDetails
 }
 
 const BoardWithDetailsItem = (props: BoardWithDetailsItemProps): ReactElement => {

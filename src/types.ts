@@ -3,7 +3,11 @@ export interface DataBoard {
   name: string
 }
 
-export interface DataBoardWithDetails extends DataBoard {
+export interface DataBoard_Initial {
+  name: string
+}
+
+export interface DataBoard_WithDetails extends DataBoard {
   tasksLength: number
   tasksCompleted: number
 }
@@ -16,6 +20,7 @@ export interface DataTask {
 }
 
 export interface Store {
-  boardsWithDetails: DataBoardWithDetails[]
-  fetchBoardsWithDetails: (boardId?: DataBoardWithDetails['id']) => Promise<void>
+  boardsWithDetails: DataBoard_WithDetails[]
+  fetchBoardsWithDetails: (boardId?: DataBoard_WithDetails['id']) => Promise<void>
+  createBoard: (initialData: DataBoard_Initial) => Promise<void>
 }

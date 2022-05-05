@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useStore } from '@app/services/store';
+import { BoardCreator } from '@app/containers/BoardCreator';
 import { BoardWithDetailsItem } from '@app/views/BoardWithDetailsItem';
 
 const Home = (): ReactElement => {
@@ -18,13 +19,7 @@ const Home = (): ReactElement => {
 
   return (
     <div>
-      <div>
-        <input
-          type='text'
-          placeholder='Type new board name..'
-        />
-        <button>Create</button>
-      </div>
+      <BoardCreator />
       <main>
         {!isLoading && !boardsWithDetails.length && <p>No boards to show.</p>}
 
