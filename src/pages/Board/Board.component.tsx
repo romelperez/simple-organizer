@@ -19,9 +19,7 @@ const Board = (): ReactElement => {
 
   if (!board) {
     return (
-      <main>
-        Loading...
-      </main>
+      <p>Loading board...</p>
     );
   }
 

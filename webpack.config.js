@@ -15,10 +15,12 @@ const isProduction = NODE_ENV === 'production';
 module.exports = {
   mode: NODE_ENV ?? 'development',
   devtool: isProduction ? false : 'eval-source-map',
-  entry: path.join(SRC_PATH, 'index.tsx'),
+  entry: {
+    app: path.join(SRC_PATH, 'index.tsx')
+  },
   output: {
     path: BUILD_PATH,
-    filename: 'app.js',
+    filename: '[name].bundle.js',
     publicPath: '/'
   },
   module: {

@@ -1,9 +1,8 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { Router } from '@app/containers/Router';
 
-render(
-  <Router />,
-  document.querySelector('#root')
-);
+const root = createRoot(document.querySelector('#root') as HTMLDivElement);
+
+root.render(<Router />);
