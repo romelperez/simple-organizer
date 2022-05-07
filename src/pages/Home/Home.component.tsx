@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useStore } from '@app/services/store';
@@ -6,16 +6,9 @@ import { BoardCreator } from '@app/containers/BoardCreator';
 import { BoardWithDetailsItem } from '@app/views/BoardWithDetailsItem';
 
 const Home = (): ReactElement => {
+  const [isLoading] = useState(false);
+
   const boardsWithDetails = useStore(state => state.boardsWithDetails);
-  const fetchBoardsWithDetails = useStore(state => state.fetchBoardsWithDetails);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-
-    fetchBoardsWithDetails()
-      .finally(() => setIsLoading(false));
-  }, []);
 
   return (
     <div>

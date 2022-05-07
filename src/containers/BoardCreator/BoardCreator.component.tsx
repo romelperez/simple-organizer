@@ -1,10 +1,7 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
 
-import { useStore } from '@app/services/store';
-
 const BoardCreator = (): ReactElement => {
   const [name, setName] = useState('');
-  const createBoard = useStore(state => state.createBoard);
 
   const nameFormatted = name.trim();
   const nameIsValid = nameFormatted !== '' &&
@@ -18,7 +15,8 @@ const BoardCreator = (): ReactElement => {
       return;
     }
 
-    createBoard({ name }).finally(null);
+    // TODO: Create board.
+
     setName('');
   };
 

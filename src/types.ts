@@ -21,6 +21,4 @@ export interface DataTask {
 
 export interface Store {
   boardsWithDetails: DataBoard_WithDetails[]
-  fetchBoardsWithDetails: (boardId?: DataBoard_WithDetails['id']) => Promise<void>
-  createBoard: (initialData: DataBoard_Initial) => Promise<void>
 }

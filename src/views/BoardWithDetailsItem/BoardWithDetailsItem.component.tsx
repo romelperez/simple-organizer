@@ -8,9 +8,9 @@ interface BoardWithDetailsItemProps {
 
 const BoardWithDetailsItem = (props: BoardWithDetailsItemProps): ReactElement => {
   const { boardWithDetails } = props;
-  const { name, tasksLength, tasksCompleted } = boardWithDetails;
+  const { name, tasksLength = 0, tasksCompleted = 0 } = boardWithDetails;
 
-  const tasksCompletationPercentage = Math.round((tasksCompleted / tasksLength) * 100);
+  const tasksCompletationPercentage = Math.round((tasksCompleted / tasksLength || 0) * 100);
 
   return (
     <article>

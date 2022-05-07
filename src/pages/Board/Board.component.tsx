@@ -1,27 +1,15 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import shallow from 'zustand/shallow';
 
 import { useStore } from '@app/services/store';
 
 const Board = (): ReactElement => {
   const { boardId } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
-  const { boardsWithDetails, fetchBoardsWithDetails } = useStore(
-    ({ boardsWithDetails, fetchBoardsWithDetails }) => ({ boardsWithDetails, fetchBoardsWithDetails }),
-    shallow
-  );
+  const [isLoading] = useState(false);
+  const boardsWithDetails = useStore(state => state.boardsWithDetails);
 
   const board = boardsWithDetails
     .find(boardWithDetails => boardWithDetails.id === boardId);
-
-  useEffect(() => {
-    if (!board) {
-      setIsLoading(true);
-      fetchBoardsWithDetails(boardId)
-        .finally(() => setIsLoading(false));
-    }
-  }, [board]);
 
   if (isLoading) {
     return <p>Loading board...</p>;
