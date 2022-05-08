@@ -1,14 +1,14 @@
 import React, { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useStore } from '@app/services/store';
+import { DataBoard_WithDetails } from '@app/types';
 import { BoardCreator } from '@app/containers/BoardCreator';
 import { BoardWithDetailsItem } from '@app/views/BoardWithDetailsItem';
 
 const Home = (): ReactElement => {
   const [isLoading] = useState(false);
 
-  const boardsWithDetails = useStore(state => state.boardsWithDetails);
+  const boardsWithDetails: DataBoard_WithDetails[] = [];
 
   return (
     <div>

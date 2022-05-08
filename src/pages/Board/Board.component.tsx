@@ -1,12 +1,11 @@
+import { DataBoard_WithDetails } from '@app/types';
 import React, { ReactElement, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
-import { useStore } from '@app/services/store';
 
 const Board = (): ReactElement => {
   const { boardId } = useParams();
   const [isLoading] = useState(false);
-  const boardsWithDetails = useStore(state => state.boardsWithDetails);
+  const boardsWithDetails: DataBoard_WithDetails[] = [];
 
   const board = boardsWithDetails
     .find(boardWithDetails => boardWithDetails.id === boardId);

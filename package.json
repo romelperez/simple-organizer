@@ -5,26 +5,15 @@
   "engines": {
     "node": "^16.14"
   },
-  "scripts": {
-    "mockapi-setup": "rm ./mockdb.json && echo '{\"boards\":[],\"tasks\":[]}' > ./mockdb.json",
-    "mockapi": "json-server ./mockdb.json -w -H 0.0.0.0 -p 4001 -d 500",
-    "clean": "rm -rf ./build",
-    "dev": "webpack serve",
-    "build": "npm run clean && cross-env NODE_ENV=production webpack --progress",
-    "serve": "serve ./build -p 4000",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
-    "test": "jest",
-    "test-watch": "jest --watch",
-    "integration": "npm run lint && npm run test && npm run build"
-  },
+  "type": "module",
   "dependencies": {
+    "@nhost/nhost-js": "^1.1.9",
     "@types/react": "^18.0.8",
     "@types/react-dom": "^18.0.3",
+    "graphql": "^16.4.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-router-dom": "^6.3.0",
-    "zustand": "^4.0.0-rc.1"
+    "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
     "@testing-library/react": "^13.2.0",
@@ -32,6 +21,7 @@
     "@typescript-eslint/parser": "^4.33.0",
     "copy-webpack-plugin": "^10.2.4",
     "cross-env": "^7.0.3",
+    "dotenv-webpack": "^7.1.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-config-standard-with-typescript": "^21.0.1",
@@ -49,5 +39,16 @@
     "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
+  },
+  "scripts": {
+    "clean": "rm -rf ./build",
+    "dev": "webpack serve",
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --progress",
+    "serve": "serve ./build -p 4000",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "test": "jest",
+    "test-watch": "jest --watch",
+    "integration": "npm run lint && npm run test && npm run build"
   }
 }

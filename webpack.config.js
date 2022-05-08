@@ -1,18 +1,20 @@
-const path = require('path');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+import path from 'path';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import DotEnv from 'dotenv-webpack';
 
-const tsConfigFilePath = path.join(__dirname, 'tsconfig.json');
+const cwd = process.cwd();
+const tsConfigFilePath = path.join(cwd, 'tsconfig.json');
 
 const { NODE_ENV } = process.env;
-const SRC_PATH = path.join(__dirname, 'src');
-const STATIC_PATH = path.join(__dirname, 'static');
-const BUILD_PATH = path.join(__dirname, 'build');
+const SRC_PATH = path.join(cwd, 'src');
+const STATIC_PATH = path.join(cwd, 'static');
+const BUILD_PATH = path.join(cwd, 'build');
 
 const isProduction = NODE_ENV === 'production';
 
-module.exports = {
+export default {
   mode: NODE_ENV ?? 'development',
   devtool: isProduction ? false : 'eval-source-map',
   entry: {
@@ -52,6 +54,9 @@ module.exports = {
     }
   },
   plugins: [
+    new DotEnv({
+      path: isProduction ? 'production.env' : 'development.env'
+    }),
     new HtmlWebpackPlugin({
       publicPath: '/',
       template: path.join(SRC_PATH, 'index.html'),
