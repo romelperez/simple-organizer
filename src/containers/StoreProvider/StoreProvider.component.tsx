@@ -1,7 +1,6 @@
-import React, { ReactElement, ReactNode, useMemo } from 'react';
-import { NhostClient } from '@nhost/nhost-js';
+import React, { ReactElement, ReactNode, Fragment, useEffect } from 'react';
 
-import { StoreContext } from './StoreContext';
+import { useStore } from './useStore';
 
 interface StoreProviderProps {
   children: ReactNode
@@ -10,18 +9,21 @@ interface StoreProviderProps {
 const StoreProvider = (props: StoreProviderProps): ReactElement => {
   const { children } = props;
 
-  const store = useMemo(() => {
-    const nhost = new NhostClient({
-      backendUrl: process.env.NHOST_BACKEND_URL as string
-    });
+  const nhost = useStore(state => state.nhost);
+  const setup = useStore(state => state.setup);
 
-    return { nhost };
+  useEffect(() => {
+    setup();
   }, []);
 
+  if (!nhost) {
+    return <Fragment />;
+  }
+
   return (
-    <StoreContext.Provider value={store}>
+    <Fragment>
       {children}
-    </StoreContext.Provider>
+    </Fragment>
   );
 };
 

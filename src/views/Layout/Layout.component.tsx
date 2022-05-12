@@ -1,26 +1,21 @@
-import React, { ReactElement, Suspense } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import React, { ReactElement, ReactNode } from 'react';
 
-const Layout = (): ReactElement => {
+import { Header } from '@app/views/Header';
+
+interface LayoutProps {
+  children: ReactNode
+}
+
+const Layout = (props: LayoutProps): ReactElement => {
+  const { children } = props;
+
   return (
     <div>
-      <header
-        style={{
-          marginBottom: 20,
-          borderBottom: '1px solid black'
-        }}
-      >
-        <Link to='/'>
-          <h1>Simple Organizer</h1>
-        </Link>
-      </header>
-      <div>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Outlet />
-        </Suspense>
-      </div>
+      <Header />
+      {children}
     </div>
   );
 };
 
+export type { LayoutProps };
 export { Layout };
