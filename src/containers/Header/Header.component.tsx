@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react';
+import { useUserData } from '@nhost/react';
 
-import { useStore } from '@app/containers/Store';
+import { DataUser } from '@app/types';
 import { HeaderStructure } from '@app/views/HeaderStructure';
 
 const Header = (): ReactElement => {
-  const user = useStore(state => state.user);
+  const user = useUserData() as DataUser | null;
 
   return (
     <HeaderStructure

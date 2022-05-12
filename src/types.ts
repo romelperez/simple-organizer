@@ -1,5 +1,3 @@
-import type { NhostClient } from '@nhost/nhost-js';
-
 export interface DataUser {
   id: string
   email: string
@@ -36,13 +34,4 @@ export interface DataTask_Initial {
   boardId: string
   name: string
   isCompleted: boolean
-}
-
-export interface Store {
-  nhost: NhostClient
-  user: DataUser | null
-  setup: () => void
-  isAuthenticated: () => boolean
-  signIn: (email: string, password: string) => Promise<void>
-  signOut: () => Promise<void>
 }

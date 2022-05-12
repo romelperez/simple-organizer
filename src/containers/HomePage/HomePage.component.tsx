@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useAuthenticated } from '@nhost/react';
 
 import { BoardWithDetailsItem } from '@app/views/BoardWithDetailsItem';
 import { BoardCreator } from '@app/containers/BoardCreator';
@@ -38,6 +39,12 @@ const HomePageList = (): ReactElement => {
 };
 
 const HomePage = (): ReactElement => {
+  const isAuthenticated = useAuthenticated();
+
+  if (!isAuthenticated) {
+    return <Navigate to='/signin' />;
+  }
+
   return (
     <>
       <BoardCreator />

@@ -1,11 +1,10 @@
 import useSWR, { SWRResponse } from 'swr';
-
-import { useStore } from '@app/containers/Store';
+import { useNhostClient } from '@nhost/react';
 
 type QueryResponse<R, E = Error> = SWRResponse<R, E>;
 
 const useQuery = <QueryData>(key: string, query: string): QueryResponse<QueryData> => {
-  const nhost = useStore(state => state.nhost);
+  const nhost = useNhostClient();
 
   return useSWR<QueryData>(key, async () => {
     const response = await nhost.graphql.request<QueryData>(query);
