@@ -1,0 +1,1 @@
+export * from './SignOutPage.component';

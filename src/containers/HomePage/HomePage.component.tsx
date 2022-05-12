@@ -2,17 +2,16 @@ import React, { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { DataBoard_WithDetails } from '@app/types';
-import { Layout } from '@app/views/Layout';
 import { BoardWithDetailsItem } from '@app/views/BoardWithDetailsItem';
 import { BoardCreator } from '@app/containers/BoardCreator';
 
-const Home = (): ReactElement => {
+const HomePage = (): ReactElement => {
   const [isLoading] = useState(false);
 
   const boardsWithDetails: DataBoard_WithDetails[] = [];
 
   return (
-    <Layout>
+    <>
       <BoardCreator />
       <main>
         {!isLoading && !boardsWithDetails.length && <p>No boards to show.</p>}
@@ -30,8 +29,8 @@ const Home = (): ReactElement => {
           </Link>
         )}
       </main>
-    </Layout>
+    </>
   );
 };
 
-export { Home };
+export { HomePage };

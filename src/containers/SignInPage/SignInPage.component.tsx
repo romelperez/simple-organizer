@@ -1,10 +1,9 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { Layout } from '@app/views/Layout';
-import { useStore } from '@app/containers/StoreProvider';
+import { useStore } from '@app/containers/Store';
 
-const SignIn = (): ReactElement => {
+const SignInPage = (): ReactElement => {
   const user = useStore(state => state.user);
   const signIn = useStore(state => state.signIn);
 
@@ -36,7 +35,7 @@ const SignIn = (): ReactElement => {
   }
 
   return (
-    <Layout>
+    <>
       <h2>Sign In</h2>
 
       {isLoading && <p>Loading data...</p>}
@@ -68,8 +67,8 @@ const SignIn = (): ReactElement => {
           </button>
         </div>
       </form>
-    </Layout>
+    </>
   );
 };
 
-export { SignIn };
+export { SignInPage };

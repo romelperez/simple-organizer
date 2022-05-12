@@ -5,26 +5,26 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import { App } from '@app/containers/App';
 
-const Home = React.lazy(() => import('@app/pages/Home').then(c => ({ default: c.Home })));
-const Board = React.lazy(() => import('@app/pages/Board').then(c => ({ default: c.Board })));
-const SignUp = React.lazy(() => import('@app/pages/SignUp').then(c => ({ default: c.SignUp })));
-const SignIn = React.lazy(() => import('@app/pages/SignIn').then(c => ({ default: c.SignIn })));
-const SignOut = React.lazy(() => import('@app/pages/SignOut').then(c => ({ default: c.SignOut })));
-const Settings = React.lazy(() => import('@app/pages/Settings').then(c => ({ default: c.Settings })));
+const HomePage = React.lazy(() => import('@app/containers/HomePage').then(c => ({ default: c.HomePage })));
+const BoardPage = React.lazy(() => import('@app/containers/BoardPage').then(c => ({ default: c.BoardPage })));
+const SignUpPage = React.lazy(() => import('@app/containers/SignUpPage').then(c => ({ default: c.SignUpPage })));
+const SignInPage = React.lazy(() => import('@app/containers/SignInPage').then(c => ({ default: c.SignInPage })));
+const SignOutPage = React.lazy(() => import('@app/containers/SignOutPage').then(c => ({ default: c.SignOutPage })));
+const SettingsPage = React.lazy(() => import('@app/containers/SettingsPage').then(c => ({ default: c.SettingsPage })));
 
 const Router = (): ReactElement => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />}>
-          <Route index element={<Home />} />
+          <Route index element={<HomePage />} />
           <Route path='boards'>
-            <Route path=':boardId' element={<Board />} />
+            <Route path=':boardId' element={<BoardPage />} />
           </Route>
-          <Route path='signup' element={<SignUp />} />
-          <Route path='signin' element={<SignIn />} />
-          <Route path='signout' element={<SignOut />} />
-          <Route path='settings' element={<Settings />} />
+          <Route path='signup' element={<SignUpPage />} />
+          <Route path='signin' element={<SignInPage />} />
+          <Route path='signout' element={<SignOutPage />} />
+          <Route path='settings' element={<SettingsPage />} />
           <Route path='*' element={<Navigate to='/' replace />} />
         </Route>
       </Routes>

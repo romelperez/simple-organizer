@@ -1,18 +1,19 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { Header } from '@app/views/Header';
-
 interface LayoutProps {
+  header?: ReactNode
   children: ReactNode
 }
 
 const Layout = (props: LayoutProps): ReactElement => {
-  const { children } = props;
+  const { header, children } = props;
 
   return (
     <div>
-      <Header />
-      {children}
+      {header}
+      <div>
+        {children}
+      </div>
     </div>
   );
 };

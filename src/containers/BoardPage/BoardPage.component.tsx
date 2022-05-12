@@ -1,8 +1,9 @@
-import { DataBoard_WithDetails } from '@app/types';
 import React, { ReactElement, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const Board = (): ReactElement => {
+import { DataBoard_WithDetails } from '@app/types';
+
+const BoardPage = (): ReactElement => {
   const { boardId } = useParams();
   const [isLoading] = useState(false);
   const boardsWithDetails: DataBoard_WithDetails[] = [];
@@ -21,9 +22,9 @@ const Board = (): ReactElement => {
   return (
     <main>
       <h1>{board.name}</h1>
-      <p>Board details.</p>
+      <p>BoardPage details.</p>
     </main>
   );
 };
 
-export { Board };
+export { BoardPage };

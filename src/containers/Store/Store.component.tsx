@@ -2,11 +2,11 @@ import React, { ReactElement, ReactNode, Fragment, useEffect } from 'react';
 
 import { useStore } from './useStore';
 
-interface StoreProviderProps {
+interface StoreProps {
   children: ReactNode
 }
 
-const StoreProvider = (props: StoreProviderProps): ReactElement => {
+const Store = (props: StoreProps): ReactElement => {
   const { children } = props;
 
   const nhost = useStore(state => state.nhost);
@@ -27,5 +27,5 @@ const StoreProvider = (props: StoreProviderProps): ReactElement => {
   );
 };
 
-export type { StoreProviderProps };
-export { StoreProvider };
+export type { StoreProps };
+export { Store };

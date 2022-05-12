@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useStore } from '@app/containers/StoreProvider';
+import { useStore } from '@app/containers/Store';
 
-const SignOut = (): ReactElement => {
+const SignOutPage = (): ReactElement => {
   const user = useStore(state => state.user);
   const signOut = useStore(state => state.signOut);
 
@@ -22,4 +22,4 @@ const SignOut = (): ReactElement => {
   );
 };
 
-export { SignOut };
+export { SignOutPage };
