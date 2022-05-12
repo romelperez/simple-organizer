@@ -1,7 +1,6 @@
 # Requirements
 
-"Simple Organizer" is a simple web application to manage personal tasks with a
-basic UI experience for a single user.
+"Simple Organizer" is a simple single page web application to manage personal tasks.
 
 ## Stories
 
