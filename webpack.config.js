@@ -1,8 +1,9 @@
+import 'dotenv/config';
 import path from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import DotEnv from 'dotenv-webpack';
+import webpack from 'webpack';
 
 const cwd = process.cwd();
 const tsConfigFilePath = path.join(cwd, 'tsconfig.json');
@@ -54,8 +55,8 @@ export default {
     }
   },
   plugins: [
-    new DotEnv({
-      path: isProduction ? 'production.env' : 'development.env'
+    new webpack.DefinePlugin({
+      'process.env.NHOST_BACKEND_URL': JSON.stringify(process.env.NHOST_BACKEND_URL)
     }),
     new HtmlWebpackPlugin({
       publicPath: '/',
