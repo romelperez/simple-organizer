@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import { DataUser } from '@app/types';
 
 interface HeaderStructureProps {
+  isLoading?: boolean
   isUserLoggedIn?: boolean
   user?: DataUser | null
 }
 
 const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
-  const { isUserLoggedIn, user } = props;
+  const { isLoading, isUserLoggedIn, user } = props;
 
   return (
     <header
@@ -23,7 +24,7 @@ const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
       </Link>
       <nav>
         <ul>
-          {!!isUserLoggedIn && (
+          {!isLoading && !!isUserLoggedIn && (
             <>
               <li><Link to='/signout'>Sign Out</Link></li>
               <li>
@@ -42,7 +43,7 @@ const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
               </li>
             </>
           )}
-          {!isUserLoggedIn && (
+          {!isLoading && !isUserLoggedIn && (
             <>
               <li><Link to='/signin'>Sign In</Link></li>
               <li><Link to='/signup'>Sign Up</Link></li>

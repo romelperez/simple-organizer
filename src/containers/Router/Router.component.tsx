@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import { App } from '@app/containers/App';
+import { RouteUserPrivate } from '@app/tools/RouteUserPrivate';
 
 const HomePage = React.lazy(() => import('@app/containers/HomePage').then(c => ({ default: c.HomePage })));
 const BoardPage = React.lazy(() => import('@app/containers/BoardPage').then(c => ({ default: c.BoardPage })));
@@ -17,14 +18,14 @@ const Router = (): ReactElement => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<RouteUserPrivate element={<HomePage />} />} />
           <Route path='boards'>
-            <Route path=':boardId' element={<BoardPage />} />
+            <Route path=':boardId' element={<RouteUserPrivate element={<BoardPage />} />} />
           </Route>
           <Route path='signup' element={<SignUpPage />} />
           <Route path='signin' element={<SignInPage />} />
           <Route path='signout' element={<SignOutPage />} />
-          <Route path='settings' element={<SettingsPage />} />
+          <Route path='settings' element={<RouteUserPrivate element={<SettingsPage />} />} />
           <Route path='*' element={<Navigate to='/' replace />} />
         </Route>
       </Routes>

@@ -24,6 +24,6 @@
   "rules": {
     "semi": ["error", "always"],
     "@typescript-eslint/semi": ["error", "always"],
-    "@typescript-eslint/strict-boolean-expressions": ["error", { "allowNullableObject": true }]
+    "@typescript-eslint/strict-boolean-expressions": ["error", { "allowNullableObject": true, "allowNullableBoolean": true }]
   }
 }
