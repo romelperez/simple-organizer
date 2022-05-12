@@ -4,7 +4,7 @@ import { NhostClient } from '@nhost/nhost-js';
 import { DataUser, Store } from '@app/types';
 
 const useStore = createStore<Store>((set, get) => ({
-  nhost: null,
+  nhost: null as any,
   user: null,
 
   setup: () => {
@@ -32,11 +32,7 @@ const useStore = createStore<Store>((set, get) => ({
   },
 
   signIn: async (email, password) => {
-    const nhost = get().nhost;
-    if (!nhost) {
-      throw new Error('Store not setup.');
-    }
-
+    const { nhost } = get();
     const response = await nhost.auth.signIn({ email, password });
 
     if (response.error) {
@@ -45,11 +41,7 @@ const useStore = createStore<Store>((set, get) => ({
   },
 
   signOut: async () => {
-    const nhost = get().nhost;
-    if (!nhost) {
-      throw new Error('Store not setup.');
-    }
-
+    const { nhost } = get();
     await nhost.auth.signOut();
   }
 }));

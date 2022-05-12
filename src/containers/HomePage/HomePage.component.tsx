@@ -1,33 +1,48 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-import { DataBoard_WithDetails } from '@app/types';
 import { BoardWithDetailsItem } from '@app/views/BoardWithDetailsItem';
 import { BoardCreator } from '@app/containers/BoardCreator';
+import { useUserBoards } from '@app/api/useUserBoards';
+
+const HomePageList = (): ReactElement => {
+  const { data, error } = useUserBoards();
+  const boards = data?.boards ?? [];
+
+  if (error) {
+    return <p>Error fetching the boards.</p>;
+  }
+
+  if (!data) {
+    return <p>Loading boards...</p>;
+  }
+
+  if (!boards.length) {
+    return <p>No boards to show.</p>;
+  }
+
+  return (
+    <>
+      {boards.map(board =>
+        <Link
+          key={board.id}
+          to={`/boards/${board.id}`}
+        >
+          <BoardWithDetailsItem
+            boardWithDetails={board as any}
+          />
+        </Link>
+      )}
+    </>
+  );
+};
 
 const HomePage = (): ReactElement => {
-  const [isLoading] = useState(false);
-
-  const boardsWithDetails: DataBoard_WithDetails[] = [];
-
   return (
     <>
       <BoardCreator />
       <main>
-        {!isLoading && !boardsWithDetails.length && <p>No boards to show.</p>}
-
-        {isLoading && !boardsWithDetails.length && <p>Loading boards...</p>}
-
-        {boardsWithDetails.map(boardWithDetails =>
-          <Link
-            key={boardWithDetails.id}
-            to={`/boards/${boardWithDetails.id}`}
-          >
-            <BoardWithDetailsItem
-              boardWithDetails={boardWithDetails}
-            />
-          </Link>
-        )}
+        <HomePageList />
       </main>
     </>
   );

@@ -39,7 +39,7 @@ export interface DataTask_Initial {
 }
 
 export interface Store {
-  nhost: NhostClient | null
+  nhost: NhostClient
   user: DataUser | null
   setup: () => void
   isAuthenticated: () => boolean
