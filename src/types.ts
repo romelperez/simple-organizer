@@ -4,12 +4,14 @@ export interface DataUser {
   displayName: string
   avatarUrl: string
   createdAt: string
+  updatedAt: string
 }
 
 export interface DataBoard {
   id: string
   name: string
   createdAt: string
+  updatedAt: string
 }
 
 export interface DataBoard_Initial {
@@ -28,6 +30,7 @@ export interface DataTask {
   name: string
   isCompleted: boolean
   createdAt: string
+  updatedAt: string
 }
 
 export interface DataTask_Initial {

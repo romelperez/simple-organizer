@@ -1,18 +1,19 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { DataBoard_WithDetails } from '@app/types';
+import { useUserBoard } from '@app/api/useUserBoard';
 
 const BoardPage = (): ReactElement => {
   const { boardId } = useParams();
-  const [isLoading] = useState(false);
-  const boardsWithDetails: DataBoard_WithDetails[] = [];
+  const { data, error } = useUserBoard(boardId as string);
+  const board = data?.boards_by_pk;
 
-  const board = boardsWithDetails
-    .find(boardWithDetails => boardWithDetails.id === boardId);
+  if (error) {
+    return <p>Error fetching board data.</p>;
+  }
 
-  if (isLoading) {
-    return <p>Loading board...</p>;
+  if (!data) {
+    return <p>Loading board data...</p>;
   }
 
   if (!board) {
@@ -22,7 +23,7 @@ const BoardPage = (): ReactElement => {
   return (
     <main>
       <h1>{board.name}</h1>
-      <p>BoardPage details.</p>
+      <p>Last updated at: {board.updatedAt}</p>
     </main>
   );
 };
