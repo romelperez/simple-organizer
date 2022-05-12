@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode } from 'react';
 
 interface LayoutProps {
   header?: ReactNode
-  children: ReactNode
+  children?: ReactNode
 }
 
 const Layout = (props: LayoutProps): ReactElement => {

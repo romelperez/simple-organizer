@@ -50,7 +50,8 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "test": "jest",
+    "test-coverage": "jest --coverage",
     "test-watch": "jest --watch",
-    "integration": "npm run lint && npm run test && npm run build"
+    "integration": "npm run lint && npm run test-coverage && npm run build"
   }
 }
