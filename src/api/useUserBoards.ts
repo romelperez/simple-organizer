@@ -7,7 +7,7 @@ interface UserBoards {
 
 const useUserBoards = (): QueryResponse<UserBoards> => {
   return useQuery<UserBoards>('boards', `
-    query {
+    query getBoards {
       boards {
         id,
         name,

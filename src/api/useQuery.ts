@@ -6,7 +6,7 @@ type QueryResponse<R, E = Error> = SWRResponse<R, E>;
 const useQuery = <QueryData>(key: string, query: string, variables?: Record<string, unknown>): QueryResponse<QueryData> => {
   const nhost = useNhostClient();
 
-  return useSWR<QueryData>(key, async () => {
+  return useSWR<QueryData>([key, variables], async () => {
     const response = await nhost.graphql.request<QueryData>(query, variables);
 
     const { data, error } = response;
