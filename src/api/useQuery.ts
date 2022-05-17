@@ -3,10 +3,14 @@ import { useNhostClient } from '@nhost/react';
 
 type QueryResponse<R, E = Error> = SWRResponse<R, E>;
 
-const useQuery = <QueryData>(key: string, query: string, variables?: Record<string, unknown>): QueryResponse<QueryData> => {
+const useQuery = <QueryData>(
+  key: string | Array<string | number>,
+  query: string,
+  variables?: Record<string, unknown>
+): QueryResponse<QueryData> => {
   const nhost = useNhostClient();
 
-  return useSWR<QueryData>([key, variables], async () => {
+  return useSWR<QueryData>(key, async () => {
     const response = await nhost.graphql.request<QueryData>(query, variables);
 
     const { data, error } = response;

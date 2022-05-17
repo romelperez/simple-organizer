@@ -29,7 +29,7 @@ const HomePageList = (): ReactElement => {
           to={`/boards/${board.id}`}
         >
           <BoardWithDetailsItem
-            boardWithDetails={board as any}
+            boardWithDetails={board}
           />
         </Link>
       )}

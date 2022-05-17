@@ -1,8 +1,8 @@
-import { DataBoard } from '@app/types';
+import { DataBoard_WithDetails } from '@app/types';
 import { useQuery, QueryResponse } from '@app/api/useQuery';
 
 interface UserBoards {
-  boards: DataBoard[]
+  boards: DataBoard_WithDetails[]
 }
 
 const useUserBoards = (): QueryResponse<UserBoards> => {
@@ -12,7 +12,12 @@ const useUserBoards = (): QueryResponse<UserBoards> => {
         id,
         name,
         createdAt,
-        updatedAt
+        updatedAt,
+        tasks_aggregate {
+          aggregate {
+            count
+          }
+        }
       }
     }
   `);

@@ -1,21 +1,29 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
 
+import { useInsertUserBoard } from '@app/api/useInsertUserBoard';
+
 const BoardCreator = (): ReactElement => {
   const [name, setName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const insertUserBoard = useInsertUserBoard();
 
   const nameFormatted = name.trim();
   const nameIsValid = nameFormatted !== '' &&
     nameFormatted.length >= 2 &&
     nameFormatted.length <= 64;
 
-  const onCreate = (event: FormEvent<HTMLFormElement>): void => {
+  const onCreate = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
 
     if (!nameIsValid) {
       return;
     }
 
-    // TODO: Create board.
+    setIsLoading(true);
+
+    await insertUserBoard({ input: { name } });
+
+    setIsLoading(false);
 
     setName('');
   };
@@ -24,12 +32,13 @@ const BoardCreator = (): ReactElement => {
     <form onSubmit={onCreate}>
       <input
         type='text'
-        placeholder='Type new board name..'
+        placeholder='Type new board name...'
+        disabled={isLoading}
         value={name}
         onChange={event => setName(event.currentTarget.value)}
       />
       <button
-        disabled={!nameIsValid}
+        disabled={!nameIsValid || isLoading}
       >
         Create
       </button>

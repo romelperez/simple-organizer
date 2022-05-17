@@ -23,8 +23,11 @@ export interface DataBoard_Initial {
 }
 
 export interface DataBoard_WithDetails extends DataBoard {
-  tasksLength: number
-  tasksCompleted: number
+  tasks_aggregate: {
+    aggregate: {
+      count: number
+    }
+  }
 }
 
 export interface DataTask {
