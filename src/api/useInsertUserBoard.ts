@@ -1,19 +1,21 @@
 import { DataBoard_WithTasks } from '@app/types';
-import { MutationAction, useMutation } from './useMutation';
+import { MutationResponse, MutationAction, useMutation } from './useMutation';
 
-interface InsertUserBoardRequest {
+interface RequestData {
   input: {
     name: string
   }
 }
 
-interface InsertUserBoardResponse {
+interface ResponseData {
   insert_boards_one: DataBoard_WithTasks
 }
 
-const useInsertUserBoard = (): MutationAction<InsertUserBoardRequest, InsertUserBoardResponse> => {
-  return useMutation<InsertUserBoardRequest, InsertUserBoardResponse>(
-    'boards',
+type InsertUserBoardResponse = MutationResponse<ResponseData>;
+
+const useInsertUserBoard = (): MutationAction<RequestData, ResponseData> => {
+  return useMutation<RequestData, ResponseData>(
+    ['boards'],
     `mutation createBoard($input: boards_insert_input!) {
       insert_boards_one(object: $input) {
         id,
@@ -30,4 +32,5 @@ const useInsertUserBoard = (): MutationAction<InsertUserBoardRequest, InsertUser
   );
 };
 
+export type { InsertUserBoardResponse };
 export { useInsertUserBoard };

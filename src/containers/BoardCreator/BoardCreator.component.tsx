@@ -1,10 +1,11 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
 
-import { useInsertUserBoard } from '@app/api/useInsertUserBoard';
+import { InsertUserBoardResponse, useInsertUserBoard } from '@app/api/useInsertUserBoard';
 
 const BoardCreator = (): ReactElement => {
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [response, setResponse] = useState<InsertUserBoardResponse | null>(null);
   const insertUserBoard = useInsertUserBoard();
 
   const nameFormatted = name.trim();
@@ -19,30 +20,38 @@ const BoardCreator = (): ReactElement => {
       return;
     }
 
+    setResponse(null);
     setIsLoading(true);
 
-    await insertUserBoard({ input: { name } });
+    const newReponse = await insertUserBoard({ input: { name } });
 
+    setResponse(newReponse);
     setIsLoading(false);
 
     setName('');
   };
 
   return (
-    <form onSubmit={onCreate}>
-      <input
-        type='text'
-        placeholder='Type new board name...'
-        disabled={isLoading}
-        value={name}
-        onChange={event => setName(event.currentTarget.value)}
-      />
-      <button
-        disabled={!nameIsValid || isLoading}
-      >
-        Create
-      </button>
-    </form>
+    <div>
+      <form onSubmit={onCreate}>
+        <input
+          type='text'
+          placeholder='Type new board name...'
+          disabled={isLoading}
+          value={name}
+          onChange={event => setName(event.currentTarget.value)}
+        />
+        <button
+          disabled={!nameIsValid || isLoading}
+        >
+          Create
+        </button>
+      </form>
+
+      {!!response?.error && (
+        <div>There was an error creating the board. Please try again.</div>
+      )}
+    </div>
   );
 };
 

@@ -1,6 +1,10 @@
+// TODO: Add optimistic update support.
+
 import { useCallback } from 'react';
 import { useSWRConfig } from 'swr';
 import { useNhostClient } from '@nhost/react';
+
+type MutationKey = string | Array<string | number>;
 
 interface MutationResponse<ResponseData> {
   data?: ResponseData
@@ -10,7 +14,7 @@ interface MutationResponse<ResponseData> {
 type MutationAction<RequestData, ResponseData> = (data: RequestData) => Promise<MutationResponse<ResponseData>>;
 
 const useMutation = <RequestData, ResponseData>(
-  key: string | Array<string | number>,
+  keys: MutationKey[],
   mutation: string
 ): MutationAction<RequestData, ResponseData> => {
   const nhost = useNhostClient();
@@ -28,7 +32,9 @@ const useMutation = <RequestData, ResponseData>(
       return { error: err };
     }
 
-    await mutate(key);
+    for (const key of keys) {
+      await mutate(key);
+    }
 
     return { data };
   }, []);
