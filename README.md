@@ -8,3 +8,22 @@ Manage simple personal tasks.
 Open [production preview](https://main--romelperez-simple-organizer.netlify.app).
 
 See [requirements](./REQUIREMENTS.md).
+
+## Setup
+
+```bash
+nvm use
+npm install
+cp example.env .env
+```
+
+## Workflow
+
+```bash
+# development environment
+npm run dev
+
+# production environment
+npm run build
+npm run serve
+```
