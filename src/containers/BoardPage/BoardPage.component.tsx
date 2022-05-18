@@ -74,15 +74,29 @@ const BoardPage = (): ReactElement => {
     setIsDeleting(true);
     setErrorMsg('');
 
-    void deleteUserBoard({ boardId: boardId as string }).then(({ error }) => {
-      setIsDeleting(false);
-
-      if (error) {
+    deleteUserTasks({
+      boardId: boardId as string,
+      tasksIds: tasks.map(task => task.id)
+    })
+      .then(async ({ error }) => {
+        if (error) {
+          throw new Error();
+        }
+        return await deleteUserBoard({ boardId: boardId as string });
+      })
+      .then(({ error }) => {
+        if (error) {
+          throw new Error();
+        } else {
+          navigate('/');
+        }
+      })
+      .catch(() => {
         setErrorMsg('Error deleting board. Please try again.');
-      } else {
-        navigate('/');
-      }
-    });
+      })
+      .finally(() => {
+        setIsDeleting(false);
+      });
   };
 
   const onMarkAllTasks = (): void => {

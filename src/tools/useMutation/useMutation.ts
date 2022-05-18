@@ -19,7 +19,7 @@ type MutationExecute<RequestData, RequestVariables = undefined> = (variables: Re
 
 type MutationAction<RequestData, ResponseData> = (data: RequestData) => Promise<MutationResponse<ResponseData>>;
 
-const useMutation = <RequestData, ResponseData, RequestVariables = undefined>(
+const useMutation = <RequestData = undefined, ResponseData = undefined, RequestVariables = undefined>(
   execute: MutationExecute<RequestData, RequestVariables>
 ): MutationAction<RequestData, ResponseData> => {
   const nhost = useNhostClient();

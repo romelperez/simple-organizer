@@ -8,7 +8,7 @@
 
 - [x] Users need to be signed up and signed in to manage boards and tasks.
 - [ ] Should show optimistic updates on user data changes.
-- [ ] When a board is deleted, all its corresponding tasks should be deleted too.
+- [x] When a board is deleted, all its corresponding tasks should be deleted too.
 
 ### Users management
 
