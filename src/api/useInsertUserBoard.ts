@@ -14,22 +14,26 @@ interface ResponseData {
 type InsertUserBoardResponse = MutationResponse<ResponseData>;
 
 const useInsertUserBoard = (): MutationAction<RequestData, ResponseData> => {
-  return useMutation<RequestData, ResponseData>(
-    ['boards'],
-    `mutation createBoard($input: boards_insert_input!) {
-      insert_boards_one(object: $input) {
-        id,
-        name,
-        createdAt,
-        updatedAt,
-        tasks {
+  return useMutation<RequestData, ResponseData>(() => ({
+    keys: ['boards'],
+    mutation: `
+      mutation createBoard($input: boards_insert_input!) {
+        insert_boards_one(object: $input) {
           id,
           name,
-          isCompleted
+          createdAt,
+          updatedAt,
+          tasks {
+            id,
+            name,
+            isCompleted,
+            createdAt,
+            updatedAt
+          }
         }
       }
-    }`
-  );
+    `
+  }));
 };
 
 export type { InsertUserBoardResponse };

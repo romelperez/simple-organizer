@@ -11,16 +11,22 @@ interface MutationResponse<ResponseData> {
   error?: Error
 }
 
+type MutationExecute<RequestData> = (variables: RequestData) => {
+  keys: MutationKey[]
+  mutation: string
+};
+
 type MutationAction<RequestData, ResponseData> = (data: RequestData) => Promise<MutationResponse<ResponseData>>;
 
 const useMutation = <RequestData, ResponseData>(
-  keys: MutationKey[],
-  mutation: string
+  execute: MutationExecute<RequestData>
 ): MutationAction<RequestData, ResponseData> => {
   const nhost = useNhostClient();
-  const { mutate } = useSWRConfig();
+  const swr = useSWRConfig();
 
-  const call = useCallback(async (variables: RequestData) => {
+  const mutate = useCallback(async (variables: RequestData) => {
+    const { keys, mutation } = await execute(variables);
+
     const response = await nhost.graphql.request(mutation, variables);
     const { data, error: resError } = response;
 
@@ -33,14 +39,14 @@ const useMutation = <RequestData, ResponseData>(
     }
 
     for (const key of keys) {
-      await mutate(key);
+      await swr.mutate(key);
     }
 
     return { data };
   }, []);
 
-  return call;
+  return mutate;
 };
 
-export type { MutationResponse, MutationAction };
+export type { MutationResponse, MutationExecute, MutationAction };
 export { useMutation };
