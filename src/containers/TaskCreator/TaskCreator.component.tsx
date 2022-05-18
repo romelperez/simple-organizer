@@ -56,6 +56,7 @@ const TaskCreator = (props: TaskCreatorProps): ReactElement => {
           value={name}
           onChange={event => setName(event.currentTarget.value)}
         />
+        {' '}
         <button
           disabled={!isNameValid || isLoading}
         >

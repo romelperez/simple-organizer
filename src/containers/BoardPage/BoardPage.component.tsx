@@ -7,6 +7,7 @@ import { useUserBoardTasks } from '@app/api/useUserBoardTasks';
 import { useDeleteUserBoard } from '@app/api/useDeleteUserBoard';
 import { useUpdateUserBoard } from '@app/api/useUpdateUserBoard';
 import { TaskCreator } from '@app/containers/TaskCreator';
+import { Task } from '@app/containers/Task';
 
 const BoardPage = (): ReactElement => {
   const { boardId } = useParams();
@@ -145,28 +146,7 @@ const BoardPage = (): ReactElement => {
         }}
       >
         {tasks.map(task => (
-          <div key={task.id}>
-            <form>
-              <input
-                type='checkbox'
-                defaultChecked={task.isCompleted}
-              />
-              {' '}
-              <input
-                style={{
-                  width: 200
-                }}
-                type='text'
-                defaultValue={task.name}
-              />
-              <button>
-                Save
-              </button>
-              <button>
-                Delete
-              </button>
-            </form>
-          </div>
+          <Task key={task.id} task={task} />
         ))}
       </div>
 
@@ -174,9 +154,11 @@ const BoardPage = (): ReactElement => {
         <button>
           Mark All Tasks
         </button>
+        {' '}
         <button>
           Delete Completed Tasks
         </button>
+        {' '}
         <button
           onClick={onDelete}
         >
