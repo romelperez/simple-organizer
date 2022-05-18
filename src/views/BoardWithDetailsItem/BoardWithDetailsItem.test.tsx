@@ -11,10 +11,13 @@ test('Should render', () => {
   const boardWithDetails: DataBoard_WithDetails = {
     id: 'x',
     name: 'y',
-    tasksLength: 2,
-    tasksCompleted: 1,
-    createdAt: '0',
-    updatedAt: '0'
+    createdAt: '2022-01-01T00:00:00.000000+00:00',
+    updatedAt: '2022-01-01T00:00:00.000000+00:00',
+    tasks_aggregate: {
+      aggregate: {
+        count: 0
+      }
+    }
   };
   render(
     <BrowserRouter>
