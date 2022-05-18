@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { useSWRConfig } from 'swr';
 import { useNhostClient } from '@nhost/react';
 
-type MutationKey = string | Array<string | number>;
+type MutationKey = Array<string | number>;
 
 interface MutationResponse<ResponseData> {
   data?: ResponseData

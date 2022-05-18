@@ -16,7 +16,7 @@ type InsertUserBoardResponse = MutationResponse<ResponseData>;
 const useInsertUserBoard = (): MutationAction<RequestData, ResponseData> => {
   return useMutation<RequestData, ResponseData>(() => ({
     keys: [
-      'boards'
+      ['boards']
     ],
     mutation: `
       mutation createBoard($input: boards_insert_input!) {

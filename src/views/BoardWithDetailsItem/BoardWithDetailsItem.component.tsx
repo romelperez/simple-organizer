@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { format } from 'date-fns';
+import formatDate from 'date-fns/format';
 
 import { DataBoard_WithDetails } from '@app/types';
 import { parseServerDate } from '@app/tools/date';
@@ -12,7 +12,7 @@ const BoardWithDetailsItem = (props: BoardWithDetailsItemProps): ReactElement =>
   const { boardWithDetails } = props;
   const { name, createdAt, tasks_aggregate: tasksAggregate } = boardWithDetails;
   const tasksCount = tasksAggregate.aggregate.count;
-  const taskDate = format(parseServerDate(createdAt), 'PPpp');
+  const taskDate = formatDate(parseServerDate(createdAt), 'PPpp');
 
   return (
     <article>

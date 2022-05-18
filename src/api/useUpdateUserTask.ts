@@ -30,9 +30,9 @@ const useUpdateUserTask = (): MutationAction<RequestData, ResponseData> => {
           id,
           name,
           isCompleted,
+          boardId,
           createdAt,
-          updatedAt,
-          boardId
+          updatedAt
         }
       }
     `

@@ -1,6 +1,7 @@
 import React, { FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { format } from 'date-fns';
+import sortBy from 'lodash/sortBy';
+import formatDate from 'date-fns/format';
 
 import { parseServerDate } from '@app/tools/date';
 import { useUserBoardTasks } from '@app/api/useUserBoardTasks';
@@ -18,6 +19,7 @@ const BoardPage = (): ReactElement => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [boardName, setBoardName] = useState('');
+  const [hideCompletedTasks, setHideCompletedTasks] = useState(false);
 
   const { data, error } = useUserBoardTasks(boardId as string);
   const deleteUserBoard = useDeleteUserBoard();
@@ -25,6 +27,10 @@ const BoardPage = (): ReactElement => {
 
   const board = data?.boards_by_pk;
   const tasks = board?.tasks ?? [];
+  const visibleTasks = sortBy(
+    tasks.filter(task => hideCompletedTasks ? !task.isCompleted : true),
+    task => parseServerDate(task.createdAt).getTime()
+  ).reverse();
   const tasksCompleted = tasks.filter(task => task.isCompleted);
 
   useEffect(() => {
@@ -120,37 +126,31 @@ const BoardPage = (): ReactElement => {
           margin: '0 0 20px'
         }}
       >
-        {tasks.length > 0 && (
-          <span>
-            {tasksCompleted.length}/{tasks.length} tasks completed
-            {' '}
-            ({Math.floor((tasksCompleted.length / tasks.length) * 100)}%)
-            {' - '}
-          </span>
-        )}
+        <span>
+          {tasksCompleted.length}/{tasks.length} tasks completed
+          {' '}
+          ({tasks.length === 0 ? 0 : Math.floor((tasksCompleted.length / tasks.length) * 100)}%)
+          {' - '}
+        </span>
         {/* TODO: Show the last update either in board or task. */}
-        <span>Updated at: {format(parseServerDate(board.updatedAt), 'PPpp')}</span>
+        <span>Updated at: {formatDate(parseServerDate(board.updatedAt), 'PPpp')}</span>
       </div>
 
       <TaskCreator
         boardId={boardId as string}
       />
 
-      {!tasks.length && (
-        <p>No tasks created.</p>
-      )}
-
       <div
         style={{
           margin: '0 0 20px'
         }}
       >
-        {tasks.map(task => (
-          <Task key={task.id} task={task} />
-        ))}
-      </div>
-
-      <div>
+        <button
+          onClick={() => setHideCompletedTasks(v => !v)}
+        >
+          {hideCompletedTasks ? 'Show All' : 'Hide Completed'}
+        </button>
+        {' '}
         <button>
           Mark All Tasks
         </button>
@@ -164,6 +164,20 @@ const BoardPage = (): ReactElement => {
         >
           Delete Board
         </button>
+      </div>
+
+      {!tasks.length && (
+        <p>No tasks created.</p>
+      )}
+
+      <div
+        style={{
+          margin: '0 0 20px'
+        }}
+      >
+        {visibleTasks.map(task => (
+          <Task key={task.id} task={task} />
+        ))}
       </div>
 
       <div
