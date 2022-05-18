@@ -7,6 +7,7 @@
 ### General
 
 - [x] Users need to be signed up and signed in to manage boards and tasks.
+- [ ] Should show optimistic updates on user data changes.
 - [ ] When a board is deleted, all its corresponding tasks should be deleted too.
 
 ### Users management
@@ -28,17 +29,17 @@ When a user enters the app index:
 When a user opens a board:
 
 - [x] Should be able to edit board name.
-- [x] Should be able to remove board.
+- [x] Should be able to delete board.
 - [x] Should see all uncompleted and completed tasks
   with a counter of the number of tasks in list and a progress percentage
   in creation chronological descending order.
 - [x] Should be able to create a new task with a name.
 - [x] Should be able to editor any task completation.
 - [x] Should be able to edit any task name.
-- [x] Should be able to remove any task.
+- [x] Should be able to delete any task.
 - [x] Should be able to list only uncompleted tasks.
 - [x] Should be able to complete all tasks.
-- [ ] Should be able to remove completed tasks.
+- [x] Should be able to delete completed tasks.
 
 ## Data Models
 

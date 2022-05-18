@@ -8,6 +8,7 @@ import { useUserBoardTasks } from '@app/api/useUserBoardTasks';
 import { useDeleteUserBoard } from '@app/api/useDeleteUserBoard';
 import { useUpdateUserBoard } from '@app/api/useUpdateUserBoard';
 import { useUpdateUserTasks } from '@app/api/useUpdateUserTasks';
+import { useDeleteUserTasks } from '@app/api/useDeleteUserTasks';
 import { TaskCreator } from '@app/containers/TaskCreator';
 import { Task } from '@app/containers/Task';
 
@@ -23,9 +24,10 @@ const BoardPage = (): ReactElement => {
   const [hideCompletedTasks, setHideCompletedTasks] = useState(false);
 
   const { data, error } = useUserBoardTasks(boardId as string);
-  const deleteUserBoard = useDeleteUserBoard();
   const updateUserBoard = useUpdateUserBoard();
+  const deleteUserBoard = useDeleteUserBoard();
   const updateUserTasks = useUpdateUserTasks();
+  const deleteUserTasks = useDeleteUserTasks();
 
   const board = data?.boards_by_pk;
   const tasks = board?.tasks ?? [];
@@ -90,16 +92,23 @@ const BoardPage = (): ReactElement => {
       return;
     }
 
-    updateUserTasks({
+    // TODO: Handle errors.
+    void updateUserTasks({
       boardId: boardId as string,
       tasksIds,
       values: {
         isCompleted: true,
         updatedAt: new Date().toISOString()
       }
-    })
-      .then(() => {})
-      .finally(() => {});
+    });
+  };
+
+  const onDeleteCompletedTasks = (): void => {
+    // TODO: Handle errors.
+    void deleteUserTasks({
+      boardId: boardId as string,
+      tasksIds: tasksCompleted.map(task => task.id)
+    });
   };
 
   if (error) {
@@ -183,6 +192,7 @@ const BoardPage = (): ReactElement => {
         {' '}
         <button
           disabled={!tasksCompleted.length}
+          onClick={onDeleteCompletedTasks}
         >
           Delete Completed Tasks
         </button>
