@@ -1,11 +1,16 @@
 import { MutationAction, useMutation } from '@app/tools/useMutation';
 
 interface RequestData {
+  boardId: string
   taskId: string
 }
 
-const useDeleteUserTask = (boardId: string): MutationAction<RequestData, undefined> => {
-  return useMutation<RequestData, undefined>(() => ({
+interface RequestVariables {
+  taskId: string
+}
+
+const useDeleteUserTask = (): MutationAction<RequestData, undefined> => {
+  return useMutation<RequestData, undefined, RequestVariables>(({ boardId, taskId }) => ({
     keys: [
       ['boards', boardId]
     ],
@@ -16,7 +21,8 @@ const useDeleteUserTask = (boardId: string): MutationAction<RequestData, undefin
           name
         }
       }
-    `
+    `,
+    variables: { taskId }
   }));
 };
 

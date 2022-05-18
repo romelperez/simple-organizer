@@ -20,7 +20,7 @@ type UpdateUserBoardResponse = MutationResponse<ResponseData>;
 const useUpdateUserBoard = (): MutationAction<RequestData, ResponseData> => {
   return useMutation<RequestData, ResponseData>(variables => ({
     keys: [
-      'boards',
+      ['boards'],
       ['boards', variables.filter.id]
     ],
     mutation: `

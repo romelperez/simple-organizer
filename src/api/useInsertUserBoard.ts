@@ -27,6 +27,7 @@ const useInsertUserBoard = (): MutationAction<RequestData, ResponseData> => {
           updatedAt,
           tasks {
             id,
+            boardId,
             name,
             isCompleted,
             createdAt,

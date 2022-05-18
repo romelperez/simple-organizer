@@ -11,21 +11,22 @@ interface MutationResponse<ResponseData> {
   error?: Error
 }
 
-type MutationExecute<RequestData> = (variables: RequestData) => {
+type MutationExecute<RequestData, RequestVariables = undefined> = (variables: RequestData) => {
   keys: MutationKey[]
   mutation: string
+  variables?: RequestVariables
 };
 
 type MutationAction<RequestData, ResponseData> = (data: RequestData) => Promise<MutationResponse<ResponseData>>;
 
-const useMutation = <RequestData, ResponseData>(
-  execute: MutationExecute<RequestData>
+const useMutation = <RequestData, ResponseData, RequestVariables = undefined>(
+  execute: MutationExecute<RequestData, RequestVariables>
 ): MutationAction<RequestData, ResponseData> => {
   const nhost = useNhostClient();
   const swr = useSWRConfig();
 
-  const mutate = useCallback(async (variables: RequestData) => {
-    const { keys, mutation } = await execute(variables);
+  const mutate = useCallback(async (userVariables: RequestData) => {
+    const { keys, mutation, variables = userVariables } = await execute(userVariables);
 
     const response = await nhost.graphql.request(mutation, variables);
     const { data, error: resError } = response;

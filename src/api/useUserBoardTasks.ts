@@ -15,9 +15,9 @@ const useUserBoardTasks = (boardId: string): QueryResponse<UserBoardTasks> => {
         updatedAt,
         tasks {
           id,
+          boardId,
           name,
           isCompleted,
-          boardId,
           createdAt,
           updatedAt
         }

@@ -1,4 +1,4 @@
-import { DataBoard } from '@app/types';
+import { DataTask } from '@app/types';
 import { MutationResponse, MutationAction, useMutation } from '@app/tools/useMutation';
 
 interface RequestData {
@@ -14,23 +14,23 @@ interface RequestData {
 }
 
 interface ResponseData {
-  update_boards_by_pk: DataBoard
+  update_boards_by_pk: DataTask
 }
 
 type UpdateUserTaskResponse = MutationResponse<ResponseData>;
 
 const useUpdateUserTask = (): MutationAction<RequestData, ResponseData> => {
-  return useMutation<RequestData, ResponseData>(variables => ({
+  return useMutation<RequestData, ResponseData>(data => ({
     keys: [
-      ['boards', variables.values.boardId]
+      ['boards', data.values.boardId]
     ],
     mutation: `
       mutation updateTask ($filter: tasks_pk_columns_input!, $values: tasks_set_input!) {
         update_tasks_by_pk(pk_columns: $filter, _set: $values) {
           id,
+          boardId,
           name,
           isCompleted,
-          boardId,
           createdAt,
           updatedAt
         }

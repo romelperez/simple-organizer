@@ -37,7 +37,7 @@ When a user opens a board:
 - [x] Should be able to edit any task name.
 - [x] Should be able to remove any task.
 - [x] Should be able to list only uncompleted tasks.
-- [ ] Should be able to complete all tasks.
+- [x] Should be able to complete all tasks.
 - [ ] Should be able to remove completed tasks.
 
 ## Data Models

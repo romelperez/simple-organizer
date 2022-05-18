@@ -7,6 +7,7 @@ import { parseServerDate } from '@app/tools/date';
 import { useUserBoardTasks } from '@app/api/useUserBoardTasks';
 import { useDeleteUserBoard } from '@app/api/useDeleteUserBoard';
 import { useUpdateUserBoard } from '@app/api/useUpdateUserBoard';
+import { useUpdateUserTasks } from '@app/api/useUpdateUserTasks';
 import { TaskCreator } from '@app/containers/TaskCreator';
 import { Task } from '@app/containers/Task';
 
@@ -24,14 +25,16 @@ const BoardPage = (): ReactElement => {
   const { data, error } = useUserBoardTasks(boardId as string);
   const deleteUserBoard = useDeleteUserBoard();
   const updateUserBoard = useUpdateUserBoard();
+  const updateUserTasks = useUpdateUserTasks();
 
   const board = data?.boards_by_pk;
   const tasks = board?.tasks ?? [];
   const visibleTasks = sortBy(
     tasks.filter(task => hideCompletedTasks ? !task.isCompleted : true),
     task => parseServerDate(task.createdAt).getTime()
-  ).reverse();
+  );
   const tasksCompleted = tasks.filter(task => task.isCompleted);
+  const tasksUncompleted = tasks.filter(task => !task.isCompleted);
 
   useEffect(() => {
     if (!board) {
@@ -78,6 +81,25 @@ const BoardPage = (): ReactElement => {
         navigate('/');
       }
     });
+  };
+
+  const onMarkAllTasks = (): void => {
+    const tasksIds = tasksUncompleted.map(task => task.id);
+
+    if (!tasksIds.length) {
+      return;
+    }
+
+    updateUserTasks({
+      boardId: boardId as string,
+      tasksIds,
+      values: {
+        isCompleted: true,
+        updatedAt: new Date().toISOString()
+      }
+    })
+      .then(() => {})
+      .finally(() => {});
   };
 
   if (error) {
@@ -146,16 +168,22 @@ const BoardPage = (): ReactElement => {
         }}
       >
         <button
+          disabled={!tasksUncompleted.length}
           onClick={() => setHideCompletedTasks(v => !v)}
         >
           {hideCompletedTasks ? 'Show All' : 'Hide Completed'}
         </button>
         {' '}
-        <button>
+        <button
+          disabled={!tasksUncompleted.length}
+          onClick={onMarkAllTasks}
+        >
           Mark All Tasks
         </button>
         {' '}
-        <button>
+        <button
+          disabled={!tasksCompleted.length}
+        >
           Delete Completed Tasks
         </button>
         {' '}

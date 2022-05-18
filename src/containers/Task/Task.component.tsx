@@ -1,9 +1,9 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
 
 import { DataTask } from '@app/types';
+import { useOnUpdate } from '@app/tools/useOnUpdate';
 import { useUpdateUserTask } from '@app/api/useUpdateUserTask';
 import { useDeleteUserTask } from '@app/api/useDeleteUserTask';
-import { useOnUpdate } from '@app/tools/useOnUpdate';
 
 interface TaskProps {
   task: DataTask
@@ -18,13 +18,14 @@ const Task = (props: TaskProps): ReactElement => {
   const [error, setError] = useState('');
 
   const updateUserTask = useUpdateUserTask();
-  const deleteUserTask = useDeleteUserTask(task.boardId);
+  const deleteUserTask = useDeleteUserTask();
 
   const nameFormatted = name.trim();
-  const isNameValid = nameFormatted !== '' && nameFormatted.length > 2 && nameFormatted.length < 100;
+  const areChangesValid = nameFormatted !== '' && nameFormatted.length > 2 && nameFormatted.length < 100;
+  const hasUserChanges = task.name !== name || task.isCompleted !== isCompleted;
 
   const update = (): void => {
-    if (!isNameValid) {
+    if (!areChangesValid || !hasUserChanges) {
       return;
     }
 
@@ -58,7 +59,7 @@ const Task = (props: TaskProps): ReactElement => {
   };
 
   const onDelete = (): void => {
-    deleteUserTask({ taskId: task.id })
+    deleteUserTask({ boardId: task.boardId, taskId: task.id })
       .then(({ error }) => {
         if (error) {
           setError('Error deleting task. Please try again.');
@@ -70,6 +71,11 @@ const Task = (props: TaskProps): ReactElement => {
   useOnUpdate(() => {
     update();
   }, [isCompleted]);
+
+  useOnUpdate(() => {
+    setName(task.name);
+    setIsCompleted(task.isCompleted);
+  }, [task.updatedAt]);
 
   return (
     <div
@@ -98,7 +104,7 @@ const Task = (props: TaskProps): ReactElement => {
         />
         {' '}
         <button
-          disabled={!isNameValid || isLoading}
+          disabled={!areChangesValid || isLoading}
         >
           Save
         </button>

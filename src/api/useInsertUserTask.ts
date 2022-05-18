@@ -23,11 +23,11 @@ const useInsertUserTask = (): MutationAction<RequestData, ResponseData> => {
       mutation insertTask($input: tasks_insert_input!) {
         insert_tasks_one(object: $input) {
           id,
+          boardId,
           name,
           isCompleted,
           createdAt,
-          updatedAt,
-          boardId
+          updatedAt
         }
       }
     `
