@@ -6,6 +6,7 @@ import { parseServerDate } from '@app/tools/date';
 import { useUserBoardTasks } from '@app/api/useUserBoardTasks';
 import { useDeleteUserBoard } from '@app/api/useDeleteUserBoard';
 import { useUpdateUserBoard } from '@app/api/useUpdateUserBoard';
+import { TaskCreator } from '@app/containers/TaskCreator';
 
 const BoardPage = (): ReactElement => {
   const { boardId } = useParams();
@@ -24,7 +25,6 @@ const BoardPage = (): ReactElement => {
   const board = data?.boards_by_pk;
   const tasks = board?.tasks ?? [];
   const tasksCompleted = tasks.filter(task => task.isCompleted);
-  const tasksProgress = Math.floor((tasksCompleted.length / tasks.length) * 100);
 
   useEffect(() => {
     if (!board) {
@@ -91,7 +91,12 @@ const BoardPage = (): ReactElement => {
 
   return (
     <main>
-      <form onSubmit={onUpdateBoardName}>
+      <form
+        style={{
+          margin: '0 0 20px'
+        }}
+        onSubmit={onUpdateBoardName}
+      >
         <input
           ref={boardNameElementRef}
           style={{
@@ -109,41 +114,61 @@ const BoardPage = (): ReactElement => {
         </button>
       </form>
 
-      <p>Last updated at: {format(parseServerDate(board.updatedAt), 'PPpp')}</p>
-      <p>
-        {tasksCompleted.length}/{tasks.length} tasks completed
-        {' '}
-        {tasks.length === 0 ? '' : `(${tasksProgress}%)`}
-      </p>
+      <div
+        style={{
+          margin: '0 0 20px'
+        }}
+      >
+        {tasks.length > 0 && (
+          <span>
+            {tasksCompleted.length}/{tasks.length} tasks completed
+            {' '}
+            ({Math.floor((tasksCompleted.length / tasks.length) * 100)}%)
+            {' - '}
+          </span>
+        )}
+        {/* TODO: Show the last update either in board or task. */}
+        <span>Updated at: {format(parseServerDate(board.updatedAt), 'PPpp')}</span>
+      </div>
+
+      <TaskCreator
+        boardId={boardId as string}
+      />
 
       {!tasks.length && (
         <p>No tasks created.</p>
       )}
 
-      {tasks.map(task => (
-        <div key={task.id}>
-          <form>
-            <input
-              type='checkbox'
-              defaultChecked={task.isCompleted}
-            />
-            {' '}
-            <input
-              style={{
-                width: 200
-              }}
-              type='text'
-              defaultValue={task.name}
-            />
-            <button>
-              Save
-            </button>
-            <button>
-              Delete
-            </button>
-          </form>
-        </div>
-      ))}
+      <div
+        style={{
+          margin: '0 0 20px'
+        }}
+      >
+        {tasks.map(task => (
+          <div key={task.id}>
+            <form>
+              <input
+                type='checkbox'
+                defaultChecked={task.isCompleted}
+              />
+              {' '}
+              <input
+                style={{
+                  width: 200
+                }}
+                type='text'
+                defaultValue={task.name}
+              />
+              <button>
+                Save
+              </button>
+              <button>
+                Delete
+              </button>
+            </form>
+          </div>
+        ))}
+      </div>
 
       <div>
         <button>
@@ -159,7 +184,11 @@ const BoardPage = (): ReactElement => {
         </button>
       </div>
 
-      <div>
+      <div
+        style={{
+          margin: '0 0 20px'
+        }}
+      >
         {errorMsg !== '' && (
           <p>{errorMsg}</p>
         )}

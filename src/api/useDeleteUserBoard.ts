@@ -1,4 +1,4 @@
-import { MutationAction, useMutation } from './useMutation';
+import { MutationAction, useMutation } from '@app/tools/useMutation';
 
 interface RequestData {
   boardId: string
@@ -6,7 +6,9 @@ interface RequestData {
 
 const useDeleteUserBoard = (): MutationAction<RequestData, undefined> => {
   return useMutation<RequestData, undefined>(() => ({
-    keys: ['boards'],
+    keys: [
+      'boards'
+    ],
     mutation: `
       mutation deleteBoard ($boardId: uuid!) {
         delete_boards_by_pk(id: $boardId) {

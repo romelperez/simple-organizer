@@ -9,10 +9,13 @@ import { parseServerDate } from '@app/tools/date';
 
 const HomePageList = (): ReactElement => {
   const { data, error } = useUserBoards();
-  const boards = sortBy(data?.boards ?? [], board => parseServerDate(board.createdAt)).reverse();
+  const boards = sortBy(
+    data?.boards ?? [],
+    board => parseServerDate(board.createdAt)
+  ).reverse();
 
   if (error) {
-    return <p>Error fetching the boards.</p>;
+    return <p>Error fetching boards.</p>;
   }
 
   if (!data) {

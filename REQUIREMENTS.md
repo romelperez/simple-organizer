@@ -25,12 +25,12 @@ When a user enters the app index:
 
 When a user opens a board:
 
+- [x] Should be able to edit board name.
+- [x] Should be able to remove board.
 - [x] Should see all uncompleted and completed tasks
   with a counter of the number of tasks in list and a progress percentage
   in creation chronological descending order.
-- [x] Should be able to edit board name.
-- [x] Should be able to remove board.
-- [ ] Should be able to create a new task with a name.
+- [x] Should be able to create a new task with a name.
 - [ ] Should be able to edit any task name.
 - [ ] Should be able to remove any task.
 - [ ] Should be able to list only uncompleted tasks.

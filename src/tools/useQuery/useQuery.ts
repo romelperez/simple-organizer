@@ -4,7 +4,7 @@ import { useNhostClient } from '@nhost/react';
 type QueryResponse<R, E = Error> = SWRResponse<R, E>;
 
 const useQuery = <QueryData>(
-  key: string | Array<string | number>,
+  key: Array<string | number>,
   query: string,
   variables?: Record<string, unknown>
 ): QueryResponse<QueryData> => {

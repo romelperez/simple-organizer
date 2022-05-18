@@ -1,5 +1,5 @@
 import { DataBoard_WithTasks } from '@app/types';
-import { useQuery, QueryResponse } from '@app/api/useQuery';
+import { useQuery, QueryResponse } from '@app/tools/useQuery';
 
 interface UserBoardTasks {
   boards_by_pk: DataBoard_WithTasks
@@ -16,7 +16,8 @@ const useUserBoardTasks = (boardId: string): QueryResponse<UserBoardTasks> => {
         tasks {
           id,
           name,
-          isCompleted
+          isCompleted,
+          boardId
         }
       }
     }

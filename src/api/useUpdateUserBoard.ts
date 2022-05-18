@@ -1,5 +1,5 @@
 import { DataBoard } from '@app/types';
-import { MutationResponse, MutationAction, useMutation } from './useMutation';
+import { MutationResponse, MutationAction, useMutation } from '@app/tools/useMutation';
 
 interface RequestData {
   filter: {
@@ -20,7 +20,7 @@ type UpdateUserBoardResponse = MutationResponse<ResponseData>;
 const useUpdateUserBoard = (): MutationAction<RequestData, ResponseData> => {
   return useMutation<RequestData, ResponseData>(variables => ({
     keys: [
-      ['boards'],
+      'boards',
       ['boards', variables.filter.id]
     ],
     mutation: `
