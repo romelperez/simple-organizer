@@ -33,7 +33,7 @@ When a user opens a board:
 - [x] Should be able to create a new task with a name.
 - [x] Should be able to editor any task completation.
 - [x] Should be able to edit any task name.
-- [ ] Should be able to remove any task.
+- [x] Should be able to remove any task.
 - [ ] Should be able to list only uncompleted tasks.
 - [ ] Should be able to list only completed tasks.
 - [ ] Should be able to complete all tasks.

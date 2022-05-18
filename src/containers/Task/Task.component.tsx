@@ -2,6 +2,7 @@ import React, { FormEvent, ReactElement, useState } from 'react';
 
 import { DataTask } from '@app/types';
 import { useUpdateUserTask } from '@app/api/useUpdateUserTask';
+import { useDeleteUserTask } from '@app/api/useDeleteUserTask';
 import { useOnUpdate } from '@app/tools/useOnUpdate';
 
 interface TaskProps {
@@ -15,7 +16,9 @@ const Task = (props: TaskProps): ReactElement => {
   const [isCompleted, setIsCompleted] = useState(task.isCompleted);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
   const updateUserTask = useUpdateUserTask();
+  const deleteUserTask = useDeleteUserTask(task.boardId);
 
   const nameFormatted = name.trim();
   const isNameValid = nameFormatted !== '' && nameFormatted.length > 2 && nameFormatted.length < 100;
@@ -52,6 +55,16 @@ const Task = (props: TaskProps): ReactElement => {
     if (task.name !== name) {
       update();
     }
+  };
+
+  const onDelete = (): void => {
+    deleteUserTask({ taskId: task.id })
+      .then(({ error }) => {
+        if (error) {
+          setError('Error deleting task. Please try again.');
+        }
+      })
+      .finally(() => setIsLoading(false));
   };
 
   useOnUpdate(() => {
@@ -92,6 +105,7 @@ const Task = (props: TaskProps): ReactElement => {
         {' '}
         <button
           disabled={isLoading}
+          onClick={onDelete}
         >
           Delete
         </button>
