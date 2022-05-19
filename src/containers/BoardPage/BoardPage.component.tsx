@@ -45,7 +45,6 @@ const BoardPage = (): ReactElement => {
     setBoardName(board.name);
   }, [board]);
 
-  // TODO: How to handle optimistic update?
   const onUpdateBoardName = (event: FormEvent): void => {
     event.preventDefault();
 
@@ -53,13 +52,8 @@ const BoardPage = (): ReactElement => {
     setErrorMsg('');
 
     void updateUserBoard({
-      filter: {
-        id: boardId as string
-      },
-      values: {
-        name: boardName,
-        updatedAt: new Date().toISOString()
-      }
+      filter: { id: boardId as string },
+      values: { name: boardName }
     }).then(({ error }) => {
       setIsUpdating(false);
       boardNameElementRef.current?.focus();
@@ -157,6 +151,7 @@ const BoardPage = (): ReactElement => {
           disabled={isUpdating}
           value={boardName}
           onChange={event => setBoardName(event.currentTarget.value)}
+          // TODO: Handle unBlur event change.
         />
         {' '}
         <button
@@ -218,7 +213,7 @@ const BoardPage = (): ReactElement => {
         </button>
       </div>
 
-      {!tasks.length && (
+      {!visibleTasks.length && (
         <p>No tasks created.</p>
       )}
 

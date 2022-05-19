@@ -6,7 +6,7 @@ interface UserBoardTasks {
 }
 
 const useUserBoardTasks = (boardId: string): QueryResponse<UserBoardTasks> => {
-  return useQuery<UserBoardTasks>(['boards', boardId], `
+  return useQuery<UserBoardTasks>(['boards', boardId, 'with-tasks'], `
     query getBoardById($boardId: uuid!) {
       boards_by_pk(id: $boardId) {
         id,

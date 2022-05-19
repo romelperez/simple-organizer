@@ -11,6 +11,7 @@ interface HeaderStructureProps {
 
 const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
   const { isLoading, isUserLoggedIn, user } = props;
+  const hasAvatarURL = user?.avatarUrl !== undefined && user?.avatarUrl !== '';
 
   return (
     <header
@@ -29,16 +30,20 @@ const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
               <li><Link to='/signout'>Sign Out</Link></li>
               <li>
                 <Link to='/settings'>
-                  <img
-                    style={{
-                      display: 'inline-block',
-                      width: 30,
-                      height: 30
-                    }}
-                    alt='User Profile Picture'
-                    src={user?.avatarUrl ?? 'EMPTY'}
-                  />
-                  Settings
+                  {hasAvatarURL && (
+                    <img
+                      style={{
+                        display: 'inline-block',
+                        width: 30,
+                        height: 30
+                      }}
+                      alt='User Profile Picture'
+                      src={user?.avatarUrl}
+                    />
+                  )}
+                  {!hasAvatarURL && (
+                    <span>{user?.displayName}</span>
+                  )}
                 </Link>
               </li>
             </>

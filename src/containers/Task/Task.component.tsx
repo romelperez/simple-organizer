@@ -59,6 +59,8 @@ const Task = (props: TaskProps): ReactElement => {
   };
 
   const onDelete = (): void => {
+    setIsLoading(true);
+
     deleteUserTask({ boardId: task.boardId, taskId: task.id })
       .then(({ error }) => {
         if (error) {

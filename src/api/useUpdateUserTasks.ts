@@ -30,7 +30,7 @@ type UpdateUserTasksResponse = MutationResponse<ResponseData>;
 const useUpdateUserTasks = (): MutationAction<RequestData, ResponseData> => {
   return useMutation<RequestData, ResponseData, RequestVariables>(data => ({
     keys: [
-      ['boards', data.boardId]
+      ['boards', data.boardId, 'with-tasks']
     ],
     mutation: `
       mutation updateTasks($where: tasks_bool_exp!, $values: tasks_set_input!) {

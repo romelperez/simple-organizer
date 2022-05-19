@@ -1,5 +1,3 @@
-// TODO: Add optimistic update support.
-
 import { useCallback } from 'react';
 import { useSWRConfig } from 'swr';
 import { useNhostClient } from '@nhost/react';
@@ -11,8 +9,14 @@ interface MutationResponse<ResponseData> {
   error?: Error
 }
 
+interface MutationKeyOptimisticUpdate {
+  key: MutationKey
+  revalidate?: boolean
+  optimisticData: (data: any) => any
+}
+
 type MutationExecute<RequestData, RequestVariables = undefined> = (variables: RequestData) => {
-  keys: MutationKey[]
+  keys: Array<MutationKey | MutationKeyOptimisticUpdate>
   mutation: string
   variables?: RequestVariables
 };
@@ -39,8 +43,16 @@ const useMutation = <RequestData = undefined, ResponseData = undefined, RequestV
       return { error: err };
     }
 
-    for (const key of keys) {
-      await swr.mutate(key);
+    for (const keyItem of keys) {
+      if (Array.isArray(keyItem)) {
+        await swr.mutate(keyItem);
+      } else {
+        const { key, optimisticData, revalidate = false } = keyItem;
+        await swr.mutate(key, optimisticData, {
+          rollbackOnError: true,
+          revalidate: revalidate
+        });
+      }
     }
 
     return { data };

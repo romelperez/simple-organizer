@@ -1,4 +1,5 @@
 import { MutationAction, useMutation } from '@app/tools/useMutation';
+import { UserBoardTasks } from './useUserBoardTasks';
 
 interface RequestData {
   boardId: string
@@ -12,8 +13,18 @@ interface RequestVariables {
 const useDeleteUserTask = (): MutationAction<RequestData, undefined> => {
   return useMutation<RequestData, undefined, RequestVariables>(({ boardId, taskId }) => ({
     keys: [
-      ['boards', boardId]
+      {
+        key: ['boards', boardId, 'with-tasks'],
+        optimisticData: (data?: UserBoardTasks): UserBoardTasks | undefined => {
+          if (data) {
+            const newTasks = data.boards_by_pk.tasks.filter(task => task.id !== taskId);
+            const newBoard = { ...data.boards_by_pk, tasks: newTasks };
+            return { boards_by_pk: newBoard };
+          }
+        }
+      }
     ],
+    variables: { taskId },
     mutation: `
       mutation deleteTask ($taskId: uuid!) {
         delete_tasks_by_pk(id: $taskId) {
@@ -21,8 +32,7 @@ const useDeleteUserTask = (): MutationAction<RequestData, undefined> => {
           name
         }
       }
-    `,
-    variables: { taskId }
+    `
   }));
 };
 

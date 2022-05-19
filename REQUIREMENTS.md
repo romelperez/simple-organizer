@@ -2,13 +2,11 @@
 
 "Simple Organizer" is a simple single page web application to manage personal tasks.
 
-## Stories
+## General Requirements
 
 ### General
 
 - [x] Users need to be signed up and signed in to manage boards and tasks.
-- [x] When a board is deleted, all its corresponding tasks should be deleted too.
-- [ ] Should show optimistic updates on user data changes.
 
 ### Users management
 
@@ -40,6 +38,11 @@ When a user opens a board:
 - [x] Should be able to list only uncompleted tasks.
 - [x] Should be able to complete all tasks.
 - [x] Should be able to delete completed tasks.
+
+## Functional Requirements
+
+- [x] When a board is deleted, all its corresponding tasks should be deleted too.
+- [x] Should show optimistic updates on user data changes side-effects.
 
 ## Data Models
 

@@ -14,7 +14,7 @@ interface RequestVariables {
 const useDeleteUserTasks = (): MutationAction<RequestData, undefined> => {
   return useMutation<RequestData, undefined, RequestVariables>(({ boardId, tasksIds }) => ({
     keys: [
-      ['boards', boardId]
+      ['boards', boardId, 'with-tasks']
     ],
     mutation: `
       mutation deleteTasks($where: tasks_bool_exp!) {
