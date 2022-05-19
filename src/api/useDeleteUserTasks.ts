@@ -11,23 +11,23 @@ interface RequestVariables {
   }
 }
 
-const useDeleteUserTasks = (): MutationAction<RequestData, undefined> => {
-  return useMutation<RequestData, undefined, RequestVariables>(({ boardId, tasksIds }) => ({
+const useDeleteUserTasks = (): MutationAction<RequestData> => {
+  return useMutation<RequestData, RequestVariables>(({ boardId, tasksIds }) => ({
     keys: [
       ['boards', boardId, 'with-tasks']
     ],
+    variables: {
+      where: {
+        _or: tasksIds.map(id => ({ id: { _eq: id } }))
+      }
+    },
     mutation: `
       mutation deleteTasks($where: tasks_bool_exp!) {
         delete_tasks(where: $where) {
           affected_rows
         }
       }
-    `,
-    variables: {
-      where: {
-        _or: tasksIds.map(id => ({ id: { _eq: id } }))
-      }
-    }
+    `
   }));
 };
 

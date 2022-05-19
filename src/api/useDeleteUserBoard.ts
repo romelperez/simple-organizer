@@ -4,8 +4,8 @@ interface RequestData {
   boardId: string
 }
 
-const useDeleteUserBoard = (): MutationAction<RequestData, undefined> => {
-  return useMutation<RequestData, undefined>(() => ({
+const useDeleteUserBoard = (): MutationAction<RequestData> => {
+  return useMutation<RequestData>(() => ({
     keys: [
       ['boards']
     ],

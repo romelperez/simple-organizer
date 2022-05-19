@@ -15,9 +15,9 @@ interface ResponseData {
 type InsertUserTaskResponse = MutationResponse<ResponseData>;
 
 const useInsertUserTask = (): MutationAction<RequestData, ResponseData> => {
-  return useMutation<RequestData, ResponseData>(variables => ({
+  return useMutation<RequestData, undefined, ResponseData>(data => ({
     keys: [
-      ['boards', variables.input.boardId, 'with-tasks']
+      ['boards', data.input.boardId, 'with-tasks']
     ],
     mutation: `
       mutation insertTask($input: tasks_insert_input!) {

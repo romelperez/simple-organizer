@@ -29,15 +29,15 @@ interface ResponseData {
 type UpdateUserBoardResponse = MutationResponse<ResponseData>;
 
 const useUpdateUserBoard = (): MutationAction<RequestData, ResponseData> => {
-  return useMutation<RequestData, ResponseData, RequestVariables>(variables => ({
+  return useMutation<RequestData, RequestVariables, ResponseData>(data => ({
     keys: [
       {
         key: ['boards'],
-        optimisticData: (data: undefined | UserBoards): undefined | UserBoards => {
-          if (data) {
-            const newBoards = data.boards.map(board => {
-              if (board.id === variables.filter.id) {
-                return { ...board, ...variables.values };
+        optimisticData: (boardsData: undefined | UserBoards): undefined | UserBoards => {
+          if (boardsData) {
+            const newBoards = boardsData.boards.map(board => {
+              if (board.id === data.filter.id) {
+                return { ...board, ...data.values };
               }
               return board;
             });
@@ -46,19 +46,19 @@ const useUpdateUserBoard = (): MutationAction<RequestData, ResponseData> => {
         }
       },
       {
-        key: ['boards', variables.filter.id, 'with-tasks'],
-        optimisticData: (data?: UserBoardTasks): UserBoardTasks | undefined => {
-          if (data) {
-            const newBoard = { ...data.boards_by_pk, ...variables.values };
+        key: ['boards', data.filter.id, 'with-tasks'],
+        optimisticData: (boardWithTasksData?: UserBoardTasks): UserBoardTasks | undefined => {
+          if (boardWithTasksData) {
+            const newBoard = { ...boardWithTasksData.boards_by_pk, ...data.values };
             return { boards_by_pk: newBoard };
           }
         }
       }
     ],
-    variables: {
-      ...variables,
+    data: {
+      ...data,
       values: {
-        ...variables.values,
+        ...data.values,
         updatedAt: new Date().toISOString()
       }
     },

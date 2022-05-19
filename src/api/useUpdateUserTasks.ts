@@ -28,23 +28,23 @@ interface ResponseData {
 type UpdateUserTasksResponse = MutationResponse<ResponseData>;
 
 const useUpdateUserTasks = (): MutationAction<RequestData, ResponseData> => {
-  return useMutation<RequestData, ResponseData, RequestVariables>(data => ({
+  return useMutation<RequestData, RequestVariables, ResponseData>(data => ({
     keys: [
       ['boards', data.boardId, 'with-tasks']
     ],
+    variables: {
+      where: {
+        _or: data.tasksIds.map(id => ({ id: { _eq: id } }))
+      },
+      values: data.values
+    },
     mutation: `
       mutation updateTasks($where: tasks_bool_exp!, $values: tasks_set_input!) {
         update_tasks(where: $where, _set: $values) {
           affected_rows
         }
       }
-    `,
-    variables: {
-      where: {
-        _or: data.tasksIds.map(id => ({ id: { _eq: id } }))
-      },
-      values: data.values
-    }
+    `
   }));
 };
 

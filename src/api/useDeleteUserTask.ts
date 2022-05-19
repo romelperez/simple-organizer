@@ -10,8 +10,8 @@ interface RequestVariables {
   taskId: string
 }
 
-const useDeleteUserTask = (): MutationAction<RequestData, undefined> => {
-  return useMutation<RequestData, undefined, RequestVariables>(({ boardId, taskId }) => ({
+const useDeleteUserTask = (): MutationAction<RequestData> => {
+  return useMutation<RequestData, RequestVariables>(({ boardId, taskId }) => ({
     keys: [
       {
         key: ['boards', boardId, 'with-tasks'],

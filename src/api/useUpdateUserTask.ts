@@ -21,19 +21,19 @@ interface ResponseData {
 type UpdateUserTaskResponse = MutationResponse<ResponseData>;
 
 const useUpdateUserTask = (): MutationAction<RequestData, ResponseData> => {
-  return useMutation<RequestData, ResponseData>(variables => ({
+  return useMutation<RequestData, undefined, ResponseData>(data => ({
     keys: [
       {
-        key: ['boards', variables.values.boardId, 'with-tasks'],
-        optimisticData: (data?: UserBoardTasks): UserBoardTasks | undefined => {
-          if (data) {
-            const newTasks = data.boards_by_pk.tasks.map(task => {
-              if (task.id === variables.filter.id) {
-                return { ...task, ...variables.values };
+        key: ['boards', data.values.boardId, 'with-tasks'],
+        optimisticData: (boardWithTasksData?: UserBoardTasks): UserBoardTasks | undefined => {
+          if (boardWithTasksData) {
+            const newTasks = boardWithTasksData.boards_by_pk.tasks.map(task => {
+              if (task.id === data.filter.id) {
+                return { ...task, ...data.values };
               }
               return task;
             });
-            const newBoard = { ...data.boards_by_pk, tasks: newTasks };
+            const newBoard = { ...boardWithTasksData.boards_by_pk, tasks: newTasks };
             return { boards_by_pk: newBoard };
           }
         }

@@ -4,26 +4,26 @@ import { useNhostClient } from '@nhost/react';
 
 type MutationKey = Array<string | number>;
 
-interface MutationResponse<ResponseData> {
-  data?: ResponseData
-  error?: Error
-}
-
 interface MutationKeyOptimisticUpdate {
   key: MutationKey
   revalidate?: boolean
   optimisticData: (data: any) => any
 }
 
-type MutationExecute<RequestData, RequestVariables = undefined> = (variables: RequestData) => {
+interface MutationResponse<ResponseData> {
+  data?: ResponseData
+  error?: Error
+}
+
+type MutationExecute<RequestData = undefined, RequestVariables = undefined> = (variables: RequestData) => {
   keys: Array<MutationKey | MutationKeyOptimisticUpdate>
-  mutation: string
   variables?: RequestVariables
+  mutation: string
 };
 
-type MutationAction<RequestData, ResponseData> = (data: RequestData) => Promise<MutationResponse<ResponseData>>;
+type MutationAction<RequestData = undefined, ResponseData = undefined> = (data: RequestData) => Promise<MutationResponse<ResponseData>>;
 
-const useMutation = <RequestData = undefined, ResponseData = undefined, RequestVariables = undefined>(
+const useMutation = <RequestData = undefined, RequestVariables = undefined, ResponseData = undefined>(
   execute: MutationExecute<RequestData, RequestVariables>
 ): MutationAction<RequestData, ResponseData> => {
   const nhost = useNhostClient();
@@ -61,5 +61,11 @@ const useMutation = <RequestData = undefined, ResponseData = undefined, RequestV
   return mutate;
 };
 
-export type { MutationResponse, MutationExecute, MutationAction };
+export type {
+  MutationKey,
+  MutationKeyOptimisticUpdate,
+  MutationResponse,
+  MutationExecute,
+  MutationAction
+};
 export { useMutation };

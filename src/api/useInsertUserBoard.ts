@@ -14,7 +14,7 @@ interface ResponseData {
 type InsertUserBoardResponse = MutationResponse<ResponseData>;
 
 const useInsertUserBoard = (): MutationAction<RequestData, ResponseData> => {
-  return useMutation<RequestData, ResponseData>(() => ({
+  return useMutation<RequestData, undefined, ResponseData>(() => ({
     keys: [
       ['boards']
     ],
