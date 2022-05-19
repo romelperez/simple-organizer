@@ -1,58 +1,69 @@
-import React, { FormEvent, ReactElement, useState } from 'react';
+import React, { FormEvent, ReactElement, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuthenticated, useSignInEmailPassword } from '@nhost/react';
+import { useSignInEmailPassword } from '@nhost/react';
 
 const SignInPage = (): ReactElement => {
-  const isAuthenticated = useAuthenticated();
   const { signInEmailPassword, isLoading, isSuccess, isError } = useSignInEmailPassword();
 
+  const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (isError) {
+      setError('Error in the authentication. Please review your data.');
+    }
+  }, [isError]);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     if (!email || !password) {
+      setError('Email and password are invalid.');
       return;
     }
 
-    signInEmailPassword(email, password).finally(null);
+    setError('');
+
+    void signInEmailPassword(email, password);
   };
 
-  if (isAuthenticated || isSuccess) {
-    return (
-      <Navigate to='/' />
-    );
+  if (isSuccess) {
+    return <Navigate to='/' />;
   }
 
   return (
     <>
       <h2>Sign In</h2>
 
-      {isLoading && <p>Loading data...</p>}
+      {!!error && <p>{error}</p>}
 
-      {isError && <p>There is an error in the process.</p>}
+      {isLoading && <p>Signing in...</p>}
 
       <form onSubmit={onSubmit}>
-        <div>
+        <div style={{ margin: '0 0 20px' }}>
           <input
             type='email'
             placeholder='Email'
             autoComplete='email'
+            required
+            autoFocus
             value={email}
             onChange={event => setEmail(event.currentTarget.value)}
           />
         </div>
-        <div>
+        <div style={{ margin: '0 0 20px' }}>
           <input
             type='password'
             placeholder='Password'
             autoComplete='current-password'
+            required
+            minLength={8}
             value={password}
             onChange={event => setPassword(event.currentTarget.value)}
           />
         </div>
-        <div>
+        <div style={{ margin: '0 0 20px' }}>
           <button>
             Sign In
           </button>

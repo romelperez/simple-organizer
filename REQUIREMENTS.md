@@ -7,12 +7,12 @@
 ### General
 
 - [x] Users need to be signed up and signed in to manage boards and tasks.
-- [ ] Should show optimistic updates on user data changes.
 - [x] When a board is deleted, all its corresponding tasks should be deleted too.
+- [ ] Should show optimistic updates on user data changes.
 
 ### Users management
 
-- [ ] Should be able to sign up.
+- [x] Should be able to sign up.
 - [x] Should be able to sign in.
 - [x] Should be able to sign out.
 

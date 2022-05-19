@@ -56,6 +56,7 @@ export default {
   },
   plugins: [
     new webpack.DefinePlugin({
+      'process.env.APP_URL': JSON.stringify(process.env.APP_URL),
       'process.env.NHOST_BACKEND_URL': JSON.stringify(process.env.NHOST_BACKEND_URL)
     }),
     new HtmlWebpackPlugin({
