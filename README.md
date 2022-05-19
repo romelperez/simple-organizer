@@ -7,7 +7,7 @@ Manage simple personal tasks.
 
 Open [production preview](https://main--romelperez-simple-organizer.netlify.app).
 
-See [requirements](./REQUIREMENTS.md).
+See [system design requirements and specifications](./SYSTEM_DESIGN.md).
 
 ## Setup
 
@@ -15,6 +15,7 @@ See [requirements](./REQUIREMENTS.md).
 nvm use
 npm install
 cp example.env .env
+# configure environment variables
 ```
 
 ## Workflow

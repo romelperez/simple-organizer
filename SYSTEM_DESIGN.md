@@ -1,8 +1,8 @@
-# Requirements
+# System Design
 
-"Simple Organizer" is a simple single page web application to manage personal tasks.
+Simple Organizer is a small single page web application to manage personal tasks.
 
-## General Requirements
+## User Requirements
 
 ### General
 
@@ -14,7 +14,7 @@
 - [x] Should be able to sign in.
 - [x] Should be able to sign out.
 
-### User boards
+### Boards
 
 When a user enters the app index:
 
@@ -22,7 +22,7 @@ When a user enters the app index:
   descending order.
 - [x] Should be able to create a new board and inmediately see it in the list.
 
-### User board
+### Board and Tasks
 
 When a user opens a board:
 
@@ -41,6 +41,8 @@ When a user opens a board:
 
 ## Functional Requirements
 
+- [x] App is a SPA with code-splitting for each page.
+- [x] Should work for mobile from 360px viewport width and any desktop viewport size.
 - [x] When a board is deleted, all its corresponding tasks should be deleted too.
 - [x] Should show optimistic updates on user data changes side-effects.
 
@@ -52,13 +54,19 @@ When a user opens a board:
 - Password.
 - Name.
 - Photo.
+- Created date.
+- Last updated date.
 
 ### Board
 
 - Name as string.
+- Created date.
+- Last updated date.
 
 ### Task
 
 - Board as a reference to parent board.
 - Name.
 - Completed as boolean.
+- Created date.
+- Last updated date.
