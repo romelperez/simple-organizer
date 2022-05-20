@@ -51,17 +51,19 @@ const BoardPage = (): ReactElement => {
     setIsUpdating(true);
     setErrorMsg('');
 
-    void updateBoard({
+    updateBoard({
       filter: { id: boardId as string },
       values: { name: boardName }
-    }).then(({ error }) => {
-      setIsUpdating(false);
-      boardNameElementRef.current?.focus();
+    })
+      .then(({ error }) => {
+        setIsUpdating(false);
+        boardNameElementRef.current?.focus();
 
-      if (error) {
-        setErrorMsg('Error updating board name.');
-      }
-    });
+        if (error) {
+          setErrorMsg('Error updating board name.');
+        }
+      })
+      .finally(null);
   };
 
   const onDelete = (): void => {
@@ -101,22 +103,24 @@ const BoardPage = (): ReactElement => {
     }
 
     // TODO: Handle errors.
-    void updateTasks({
+    updateTasks({
       boardId: boardId as string,
       tasksIds,
       values: {
         isCompleted: true,
         updatedAt: new Date().toISOString()
       }
-    });
+    })
+      .finally(null);
   };
 
   const onDeleteCompletedTasks = (): void => {
     // TODO: Handle errors.
-    void deleteTasks({
+    deleteTasks({
       boardId: boardId as string,
       tasksIds: tasksCompleted.map(task => task.id)
-    });
+    })
+      .finally(null);
   };
 
   if (error) {

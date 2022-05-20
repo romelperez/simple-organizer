@@ -46,10 +46,11 @@ const SignUpPage = (): ReactElement => {
       return;
     }
 
-    void signUpEmailPassword(email, password, {
+    signUpEmailPassword(email, password, {
       displayName,
       redirectTo: `${String(process.env.APP_URL)}/signin`
-    });
+    })
+      .finally(null);
   };
 
   return (

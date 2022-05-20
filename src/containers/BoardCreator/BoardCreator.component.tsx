@@ -6,14 +6,14 @@ const BoardCreator = (): ReactElement => {
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<InsertBoardResponse | null>(null);
-  const insertUserBoard = useInsertBoard();
+  const insertBoard = useInsertBoard();
 
   const nameFormatted = name.trim();
   const nameIsValid = nameFormatted !== '' &&
     nameFormatted.length >= 2 &&
     nameFormatted.length <= 64;
 
-  const onCreate = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+  const onCreate = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     if (!nameIsValid) {
@@ -23,12 +23,14 @@ const BoardCreator = (): ReactElement => {
     setResponse(null);
     setIsLoading(true);
 
-    const newReponse = await insertUserBoard({ input: { name } });
-
-    setResponse(newReponse);
-    setIsLoading(false);
-
-    setName('');
+    // TODO: Handle error.
+    insertBoard({ input: { name } })
+      .then(newReponse => {
+        setResponse(newReponse);
+        setIsLoading(false);
+        setName('');
+      })
+      .finally(null);
   };
 
   return (

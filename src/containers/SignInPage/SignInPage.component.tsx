@@ -25,7 +25,7 @@ const SignInPage = (): ReactElement => {
 
     setError('');
 
-    void signInEmailPassword(email, password);
+    signInEmailPassword(email, password).finally(null);
   };
 
   if (isSuccess) {
