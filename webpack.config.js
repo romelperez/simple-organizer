@@ -1,9 +1,9 @@
-import 'dotenv/config';
-import path from 'path';
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import webpack from 'webpack';
+require('dotenv/config');
+const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 const cwd = process.cwd();
 const tsConfigFilePath = path.join(cwd, 'tsconfig.json');
@@ -15,7 +15,7 @@ const BUILD_PATH = path.join(cwd, 'build');
 
 const isProduction = NODE_ENV === 'production';
 
-export default {
+module.exports = {
   mode: NODE_ENV ?? 'development',
   devtool: isProduction ? false : 'eval-source-map',
   entry: {
