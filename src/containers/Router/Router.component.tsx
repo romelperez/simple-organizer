@@ -12,7 +12,7 @@ const BoardPage = React.lazy(() => import('@app/containers/BoardPage').then(c =>
 const SignUpPage = React.lazy(() => import('@app/containers/SignUpPage').then(c => ({ default: c.SignUpPage })));
 const SignInPage = React.lazy(() => import('@app/containers/SignInPage').then(c => ({ default: c.SignInPage })));
 const SignOutPage = React.lazy(() => import('@app/containers/SignOutPage').then(c => ({ default: c.SignOutPage })));
-const SettingsPage = React.lazy(() => import('@app/containers/SettingsPage').then(c => ({ default: c.SettingsPage })));
+const AccountPage = React.lazy(() => import('@app/containers/AccountPage').then(c => ({ default: c.AccountPage })));
 
 const Router = (): ReactElement => {
   return (
@@ -26,7 +26,7 @@ const Router = (): ReactElement => {
           <Route path='signup' element={<RouteUserPublicOnly element={<SignUpPage />} />} />
           <Route path='signin' element={<RouteUserPublicOnly element={<SignInPage />} />} />
           <Route path='signout' element={<SignOutPage />} />
-          <Route path='settings' element={<RouteUserPrivate element={<SettingsPage />} />} />
+          <Route path='account' element={<RouteUserPrivate element={<AccountPage />} />} />
           <Route path='*' element={<Navigate to='/' replace />} />
         </Route>
       </Routes>

@@ -68,10 +68,10 @@ const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
             {!isLoading && !!isUserLoggedIn && (
               <Fragment>
                 <Link to='/signout'>Sign Out</Link>
-                <Link to='/settings'>
+                <Link to='/account'>
                   {hasAvatarURL && (
                     <Avatar
-                      alt='User Profile Picture'
+                      alt={user?.displayName}
                       src={user?.avatarUrl}
                       sx={{
                         backgroundColor: theme => theme.palette.grey[700]
