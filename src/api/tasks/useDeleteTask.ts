@@ -1,17 +1,17 @@
 import { MutationAction, useMutation } from '@app/tools/useMutation';
 import { SelectBoardWithTasksData, getSelectBoardWithTasksKey } from '@app/api/boards/useSelectBoardWithTasks';
 
-interface RequestData {
+interface Request {
   boardId: string
   taskId: string
 }
 
-interface RequestVariables {
+interface Variables {
   taskId: string
 }
 
-const useDeleteUserTask = (): MutationAction<RequestData> => {
-  return useMutation<RequestData, RequestVariables>(({ boardId, taskId }) => ({
+const useDeleteTask = (): MutationAction<Request> => {
+  return useMutation<Request, Variables>(({ boardId, taskId }) => ({
     keys: [
       {
         key: getSelectBoardWithTasksKey(boardId),
@@ -36,4 +36,4 @@ const useDeleteUserTask = (): MutationAction<RequestData> => {
   }));
 };
 
-export { useDeleteUserTask };
+export { useDeleteTask };

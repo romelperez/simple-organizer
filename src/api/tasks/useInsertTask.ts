@@ -12,9 +12,9 @@ interface ResponseData {
   insert_tasks_one: DataTask
 }
 
-type InsertUserTaskResponse = MutationResponse<ResponseData>;
+type InsertTaskResponse = MutationResponse<ResponseData>;
 
-const useInsertUserTask = (): MutationAction<RequestData, ResponseData> => {
+const useInsertTask = (): MutationAction<RequestData, ResponseData> => {
   return useMutation<RequestData, undefined, ResponseData>(data => ({
     keys: [
       ['boards', data.input.boardId, 'with-tasks']
@@ -34,5 +34,5 @@ const useInsertUserTask = (): MutationAction<RequestData, ResponseData> => {
   }));
 };
 
-export type { InsertUserTaskResponse };
-export { useInsertUserTask };
+export type { InsertTaskResponse };
+export { useInsertTask };

@@ -2,8 +2,8 @@ import React, { FormEvent, ReactElement, useState } from 'react';
 
 import { DataTask } from '@app/types';
 import { useOnUpdate } from '@app/tools/useOnUpdate';
-import { useUpdateUserTask } from '@app/api/useUpdateUserTask';
-import { useDeleteUserTask } from '@app/api/useDeleteUserTask';
+import { useUpdateTask } from '@app/api/tasks/useUpdateTask';
+import { useDeleteTask } from '@app/api/tasks/useDeleteTask';
 
 interface TaskProps {
   task: DataTask
@@ -17,8 +17,8 @@ const Task = (props: TaskProps): ReactElement => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const updateUserTask = useUpdateUserTask();
-  const deleteUserTask = useDeleteUserTask();
+  const updateTask = useUpdateTask();
+  const deleteTask = useDeleteTask();
 
   const nameFormatted = name.trim();
   const areChangesValid = nameFormatted !== '' && nameFormatted.length > 2 && nameFormatted.length < 100;
@@ -35,7 +35,7 @@ const Task = (props: TaskProps): ReactElement => {
     setIsLoading(true);
     setError('');
 
-    updateUserTask({
+    updateTask({
       filter: { id: task.id },
       values: { name: nameFormatted, isCompleted, boardId, updatedAt }
     })
@@ -61,7 +61,7 @@ const Task = (props: TaskProps): ReactElement => {
   const onDelete = (): void => {
     setIsLoading(true);
 
-    deleteUserTask({ boardId: task.boardId, taskId: task.id })
+    deleteTask({ boardId: task.boardId, taskId: task.id })
       .then(({ error }) => {
         if (error) {
           setError('Error deleting task. Please try again.');

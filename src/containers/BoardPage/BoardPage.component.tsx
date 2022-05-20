@@ -7,8 +7,8 @@ import { parseServerDate } from '@app/tools/date';
 import { useSelectBoardWithTasks } from '@app/api/boards/useSelectBoardWithTasks';
 import { useDeleteBoard } from '@app/api/boards/useDeleteBoard';
 import { useUpdateBoard } from '@app/api/boards/useUpdateBoard';
-import { useUpdateUserTasks } from '@app/api/useUpdateUserTasks';
-import { useDeleteUserTasks } from '@app/api/useDeleteUserTasks';
+import { useUpdateTasks } from '@app/api/tasks/useUpdateTasks';
+import { useDeleteTasks } from '@app/api/tasks/useDeleteTasks';
 import { TaskCreator } from '@app/containers/TaskCreator';
 import { Task } from '@app/containers/Task';
 
@@ -24,10 +24,10 @@ const BoardPage = (): ReactElement => {
   const [hideCompletedTasks, setHideCompletedTasks] = useState(false);
 
   const { data, error } = useSelectBoardWithTasks(boardId as string);
-  const updateUserBoard = useUpdateBoard();
-  const deleteUserBoard = useDeleteBoard();
-  const updateUserTasks = useUpdateUserTasks();
-  const deleteUserTasks = useDeleteUserTasks();
+  const updateBoard = useUpdateBoard();
+  const deleteBoard = useDeleteBoard();
+  const updateTasks = useUpdateTasks();
+  const deleteTasks = useDeleteTasks();
 
   const board = data?.boards_by_pk;
   const tasks = board?.tasks ?? [];
@@ -51,7 +51,7 @@ const BoardPage = (): ReactElement => {
     setIsUpdating(true);
     setErrorMsg('');
 
-    void updateUserBoard({
+    void updateBoard({
       filter: { id: boardId as string },
       values: { name: boardName }
     }).then(({ error }) => {
@@ -68,7 +68,7 @@ const BoardPage = (): ReactElement => {
     setIsDeleting(true);
     setErrorMsg('');
 
-    deleteUserTasks({
+    deleteTasks({
       boardId: boardId as string,
       tasksIds: tasks.map(task => task.id)
     })
@@ -76,7 +76,7 @@ const BoardPage = (): ReactElement => {
         if (error) {
           throw new Error();
         }
-        return await deleteUserBoard({ boardId: boardId as string });
+        return await deleteBoard({ boardId: boardId as string });
       })
       .then(({ error }) => {
         if (error) {
@@ -101,7 +101,7 @@ const BoardPage = (): ReactElement => {
     }
 
     // TODO: Handle errors.
-    void updateUserTasks({
+    void updateTasks({
       boardId: boardId as string,
       tasksIds,
       values: {
@@ -113,7 +113,7 @@ const BoardPage = (): ReactElement => {
 
   const onDeleteCompletedTasks = (): void => {
     // TODO: Handle errors.
-    void deleteUserTasks({
+    void deleteTasks({
       boardId: boardId as string,
       tasksIds: tasksCompleted.map(task => task.id)
     });

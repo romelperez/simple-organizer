@@ -1,6 +1,6 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
 
-import { useInsertUserTask } from '@app/api/useInsertUserTask';
+import { useInsertTask } from '@app/api/tasks/useInsertTask';
 
 interface TaskCreatorProps {
   boardId: string
@@ -12,7 +12,7 @@ const TaskCreator = (props: TaskCreatorProps): ReactElement => {
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const insertUserTask = useInsertUserTask();
+  const insertTask = useInsertTask();
 
   const nameFormatted = name.trim();
   const isNameValid = nameFormatted !== '' && nameFormatted.length > 2 && nameFormatted.length < 100;
@@ -27,7 +27,7 @@ const TaskCreator = (props: TaskCreatorProps): ReactElement => {
     setIsLoading(true);
     setError('');
 
-    insertUserTask({ input: { name, boardId } })
+    insertTask({ input: { name, boardId } })
       .then(({ error }) => {
         if (error) {
           setError('Error creating task. Please try again.');

@@ -25,9 +25,9 @@ interface ResponseData {
   }
 }
 
-type UpdateUserTasksResponse = MutationResponse<ResponseData>;
+type UpdateTasksResponse = MutationResponse<ResponseData>;
 
-const useUpdateUserTasks = (): MutationAction<RequestData, ResponseData> => {
+const useUpdateTasks = (): MutationAction<RequestData, ResponseData> => {
   return useMutation<RequestData, RequestVariables, ResponseData>(data => ({
     keys: [
       ['boards', data.boardId, 'with-tasks']
@@ -48,5 +48,5 @@ const useUpdateUserTasks = (): MutationAction<RequestData, ResponseData> => {
   }));
 };
 
-export type { UpdateUserTasksResponse };
-export { useUpdateUserTasks };
+export type { UpdateTasksResponse };
+export { useUpdateTasks };
