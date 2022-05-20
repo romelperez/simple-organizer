@@ -1,12 +1,12 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
 
-import { InsertUserBoardResponse, useInsertUserBoard } from '@app/api/useInsertUserBoard';
+import { InsertBoardResponse, useInsertBoard } from '@app/api/boards/useInsertBoard';
 
 const BoardCreator = (): ReactElement => {
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [response, setResponse] = useState<InsertUserBoardResponse | null>(null);
-  const insertUserBoard = useInsertUserBoard();
+  const [response, setResponse] = useState<InsertBoardResponse | null>(null);
+  const insertUserBoard = useInsertBoard();
 
   const nameFormatted = name.trim();
   const nameIsValid = nameFormatted !== '' &&

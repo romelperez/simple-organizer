@@ -11,9 +11,9 @@ interface ResponseData {
   insert_boards_one: DataBoard_WithTasks
 }
 
-type InsertUserBoardResponse = MutationResponse<ResponseData>;
+type InsertBoardResponse = MutationResponse<ResponseData>;
 
-const useInsertUserBoard = (): MutationAction<RequestData, ResponseData> => {
+const useInsertBoard = (): MutationAction<RequestData, ResponseData> => {
   return useMutation<RequestData, undefined, ResponseData>(() => ({
     keys: [
       ['boards']
@@ -39,5 +39,5 @@ const useInsertUserBoard = (): MutationAction<RequestData, ResponseData> => {
   }));
 };
 
-export type { InsertUserBoardResponse };
-export { useInsertUserBoard };
+export type { InsertBoardResponse };
+export { useInsertBoard };

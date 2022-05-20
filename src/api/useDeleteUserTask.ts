@@ -1,5 +1,5 @@
 import { MutationAction, useMutation } from '@app/tools/useMutation';
-import { UserBoardTasks } from './useUserBoardTasks';
+import { SelectBoardWithTasksData, getSelectBoardWithTasksKey } from '@app/api/boards/useSelectBoardWithTasks';
 
 interface RequestData {
   boardId: string
@@ -14,8 +14,8 @@ const useDeleteUserTask = (): MutationAction<RequestData> => {
   return useMutation<RequestData, RequestVariables>(({ boardId, taskId }) => ({
     keys: [
       {
-        key: ['boards', boardId, 'with-tasks'],
-        optimisticData: (data?: UserBoardTasks): UserBoardTasks | undefined => {
+        key: getSelectBoardWithTasksKey(boardId),
+        optimisticData: (data?: SelectBoardWithTasksData): SelectBoardWithTasksData | undefined => {
           if (data) {
             const newTasks = data.boards_by_pk.tasks.filter(task => task.id !== taskId);
             const newBoard = { ...data.boards_by_pk, tasks: newTasks };

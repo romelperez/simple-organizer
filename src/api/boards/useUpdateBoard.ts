@@ -1,9 +1,9 @@
 import { DataBoard } from '@app/types';
 import { MutationResponse, MutationAction, useMutation } from '@app/tools/useMutation';
-import { UserBoards } from './useUserBoards';
-import { UserBoardTasks } from './useUserBoardTasks';
+import { SelectBoardsWithDetailsData, getSelectBoardsWithDetailsKey } from '@app/api/boards/useSelectBoardsWithDetails';
+import { SelectBoardWithTasksData, getSelectBoardWithTasksKey } from '@app/api/boards/useSelectBoardWithTasks';
 
-interface RequestData {
+interface Request {
   filter: {
     id: string
   }
@@ -12,7 +12,7 @@ interface RequestData {
   }
 }
 
-interface RequestVariables {
+interface Variables {
   filter: {
     id: string
   }
@@ -22,18 +22,18 @@ interface RequestVariables {
   }
 }
 
-interface ResponseData {
+interface Result {
   update_boards_by_pk: DataBoard
 }
 
-type UpdateUserBoardResponse = MutationResponse<ResponseData>;
+type UpdateBoardResponse = MutationResponse<Result>;
 
-const useUpdateUserBoard = (): MutationAction<RequestData, ResponseData> => {
-  return useMutation<RequestData, RequestVariables, ResponseData>(data => ({
+const useUpdateBoard = (): MutationAction<Request, Result> => {
+  return useMutation<Request, Variables, Result>(data => ({
     keys: [
       {
-        key: ['boards'],
-        optimisticData: (boardsData: undefined | UserBoards): undefined | UserBoards => {
+        key: getSelectBoardsWithDetailsKey(),
+        optimisticData: (boardsData?: SelectBoardsWithDetailsData): SelectBoardsWithDetailsData | undefined => {
           if (boardsData) {
             const newBoards = boardsData.boards.map(board => {
               if (board.id === data.filter.id) {
@@ -46,8 +46,8 @@ const useUpdateUserBoard = (): MutationAction<RequestData, ResponseData> => {
         }
       },
       {
-        key: ['boards', data.filter.id, 'with-tasks'],
-        optimisticData: (boardWithTasksData?: UserBoardTasks): UserBoardTasks | undefined => {
+        key: getSelectBoardWithTasksKey(data.filter.id),
+        optimisticData: (boardWithTasksData?: SelectBoardWithTasksData): SelectBoardWithTasksData | undefined => {
           if (boardWithTasksData) {
             const newBoard = { ...boardWithTasksData.boards_by_pk, ...data.values };
             return { boards_by_pk: newBoard };
@@ -75,5 +75,5 @@ const useUpdateUserBoard = (): MutationAction<RequestData, ResponseData> => {
   }));
 };
 
-export type { UpdateUserBoardResponse };
-export { useUpdateUserBoard };
+export type { UpdateBoardResponse };
+export { useUpdateBoard };

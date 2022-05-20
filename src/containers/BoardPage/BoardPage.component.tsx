@@ -4,9 +4,9 @@ import sortBy from 'lodash/sortBy';
 import formatDate from 'date-fns/format';
 
 import { parseServerDate } from '@app/tools/date';
-import { useUserBoardTasks } from '@app/api/useUserBoardTasks';
-import { useDeleteUserBoard } from '@app/api/useDeleteUserBoard';
-import { useUpdateUserBoard } from '@app/api/useUpdateUserBoard';
+import { useSelectBoardWithTasks } from '@app/api/boards/useSelectBoardWithTasks';
+import { useDeleteBoard } from '@app/api/boards/useDeleteBoard';
+import { useUpdateBoard } from '@app/api/boards/useUpdateBoard';
 import { useUpdateUserTasks } from '@app/api/useUpdateUserTasks';
 import { useDeleteUserTasks } from '@app/api/useDeleteUserTasks';
 import { TaskCreator } from '@app/containers/TaskCreator';
@@ -23,9 +23,9 @@ const BoardPage = (): ReactElement => {
   const [boardName, setBoardName] = useState('');
   const [hideCompletedTasks, setHideCompletedTasks] = useState(false);
 
-  const { data, error } = useUserBoardTasks(boardId as string);
-  const updateUserBoard = useUpdateUserBoard();
-  const deleteUserBoard = useDeleteUserBoard();
+  const { data, error } = useSelectBoardWithTasks(boardId as string);
+  const updateUserBoard = useUpdateBoard();
+  const deleteUserBoard = useDeleteBoard();
   const updateUserTasks = useUpdateUserTasks();
   const deleteUserTasks = useDeleteUserTasks();
 

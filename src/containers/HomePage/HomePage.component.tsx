@@ -4,11 +4,11 @@ import sortBy from 'lodash/sortBy';
 
 import { BoardWithDetailsItem } from '@app/views/BoardWithDetailsItem';
 import { BoardCreator } from '@app/containers/BoardCreator';
-import { useUserBoards } from '@app/api/useUserBoards';
+import { useSelectBoardsWithDetails } from '@app/api/boards/useSelectBoardsWithDetails';
 import { parseServerDate } from '@app/tools/date';
 
 const HomePageList = (): ReactElement => {
-  const { data, error } = useUserBoards();
+  const { data, error } = useSelectBoardsWithDetails();
   const boards = sortBy(
     data?.boards ?? [],
     board => parseServerDate(board.createdAt)

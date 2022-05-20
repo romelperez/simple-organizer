@@ -1,10 +1,11 @@
 import useSWR, { SWRResponse } from 'swr';
 import { useNhostClient } from '@nhost/react';
 
+type QueryKey = Array<string | number>;
 type QueryResponse<R, E = Error> = SWRResponse<R, E>;
 
 const useQuery = <QueryData>(
-  key: Array<string | number>,
+  key: QueryKey,
   query: string,
   variables?: Record<string, unknown>
 ): QueryResponse<QueryData> => {
@@ -25,5 +26,5 @@ const useQuery = <QueryData>(
   });
 };
 
-export type { QueryResponse };
+export type { QueryKey, QueryResponse };
 export { useQuery };
