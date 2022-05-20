@@ -1,0 +1,25 @@
+const path = require('path');
+
+module.exports = {
+  "stories": [
+    "../src/**/*.stories.mdx",
+    "../src/**/*.stories.@(js|jsx|ts|tsx)"
+  ],
+  "addons": [
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions"
+  ],
+  "framework": "@storybook/react",
+  "core": {
+    "builder": "@storybook/builder-webpack5",
+    disableTelemetry: true
+  },
+  webpackFinal: async (config) => {
+    config.resolve.alias['@app'] = path.join(process.cwd(), 'src');
+    return config;
+  },
+  staticDirs: [
+    '../static'
+  ]
+};
