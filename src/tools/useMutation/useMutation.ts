@@ -2,9 +2,11 @@ import { useCallback } from 'react';
 import { useSWRConfig } from 'swr';
 import { useNhostClient } from '@nhost/react';
 
-type MutationKey = Array<string | number>;
+import { QueryKey } from '@app/tools/useQuery';
 
-interface MutationKeyOptimisticUpdate {
+type MutationKey = QueryKey;
+
+interface MutationKeyWithOptions {
   key: MutationKey
   revalidate?: boolean
   optimisticData: (data: any) => any
@@ -15,8 +17,8 @@ interface MutationResponse<ResponseData> {
   error?: Error
 }
 
-type MutationExecute<RequestData = undefined, RequestVariables = undefined> = (variables: RequestData) => {
-  keys: Array<MutationKey | MutationKeyOptimisticUpdate>
+type MutationExecute<RequestData = undefined, RequestVariables = undefined> = (data: RequestData) => {
+  keys: Array<MutationKey | MutationKeyWithOptions>
   variables?: RequestVariables
   mutation: string
 };
@@ -63,7 +65,7 @@ const useMutation = <RequestData = undefined, RequestVariables = undefined, Resp
 
 export type {
   MutationKey,
-  MutationKeyOptimisticUpdate,
+  MutationKeyWithOptions,
   MutationResponse,
   MutationExecute,
   MutationAction

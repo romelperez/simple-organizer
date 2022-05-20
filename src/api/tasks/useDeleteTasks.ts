@@ -1,18 +1,18 @@
 import { MutationAction, useMutation } from '@app/tools/useMutation';
 
-interface Request {
+interface RequestData {
   boardId: string
   tasksIds: string[]
 }
 
-interface Variables {
+interface RequestVariables {
   where: {
     _or: Array<{ id: { _eq: string } }>
   }
 }
 
-const useDeleteTasks = (): MutationAction<Request> => {
-  return useMutation<Request, Variables>(({ boardId, tasksIds }) => ({
+const useDeleteTasks = (): MutationAction<RequestData> => {
+  return useMutation<RequestData, RequestVariables>(({ boardId, tasksIds }) => ({
     keys: [
       ['boards', boardId, 'with-tasks']
     ],

@@ -1,12 +1,12 @@
 import { MutationAction, useMutation } from '@app/tools/useMutation';
 import { getSelectBoardsWithDetailsKey } from '@app/api/boards/useSelectBoardsWithDetails';
 
-interface DeleteBoardRequest {
+interface RequestData {
   boardId: string
 }
 
-const useDeleteBoard = (): MutationAction<DeleteBoardRequest> => {
-  return useMutation<DeleteBoardRequest>(() => ({
+const useDeleteBoard = (): MutationAction<RequestData> => {
+  return useMutation<RequestData>(() => ({
     keys: [
       getSelectBoardsWithDetailsKey()
     ],
