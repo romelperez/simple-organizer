@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 import { jsx } from '@emotion/react';
 import { ReactElement, Fragment } from 'react';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 
 import { DataUser } from '@app/types';
+import { Logo } from '@app/views/Logo';
 
 interface HeaderStructureProps {
   isLoading?: boolean
@@ -26,21 +27,35 @@ const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
       sx={theme => ({
         marginBottom: '2rem',
         a: {
+          fontWeight: theme.typography.h1.fontWeight,
           color: theme.palette.background.default
         }
       })}
     >
       <Toolbar>
         <div
-          css={{ flex: 1 }}
+          style={{ flex: 1 }}
         >
           <Link to='/'>
             <Typography
               component='h1'
               variant='h1'
-              color={theme => theme.palette.background.default}
+              sx={theme => ({
+                display: 'inline-flex',
+                alignItems: 'center',
+                color: theme.palette.background.default,
+                svg: {
+                  marginRight: '0.5rem'
+                }
+              })}
             >
-              Simple Organizer
+              <Logo
+                css={{
+                  width: '1em',
+                  height: '1em'
+                }}
+              />
+              <span>Simple Organizer</span>
             </Typography>
           </Link>
         </div>
