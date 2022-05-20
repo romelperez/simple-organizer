@@ -1,5 +1,8 @@
 import React, { ReactElement } from 'react';
 import formatDate from 'date-fns/format';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 import { DataBoard_WithDetails } from '@app/types';
 import { parseServerDate } from '@app/tools/date';
@@ -15,14 +18,21 @@ const BoardWithDetailsItem = (props: BoardWithDetailsItemProps): ReactElement =>
   const taskDate = formatDate(parseServerDate(createdAt), 'PPpp');
 
   return (
-    <article>
-      <h2>{name}</h2>
-      <p>
-        {tasksCount} task{tasksCount === 1 ? '' : 's'}
-        {' - '}
-        {taskDate}
-      </p>
-    </article>
+    <Card
+      component='article'
+      variant='outlined'
+    >
+      <CardContent>
+        <Typography component='h1' variant='h2' gutterBottom>
+          {name}
+        </Typography>
+        <Typography component='p' variant='body1'>
+          {tasksCount} task{tasksCount === 1 ? '' : 's'}
+          {' - '}
+          {taskDate}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 };
 

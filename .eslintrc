@@ -24,6 +24,10 @@
   "rules": {
     "semi": ["error", "always"],
     "@typescript-eslint/semi": ["error", "always"],
-    "@typescript-eslint/strict-boolean-expressions": ["error", { "allowNullableObject": true, "allowNullableBoolean": true }]
+    "@typescript-eslint/strict-boolean-expressions": ["error", { "allowNullableObject": true, "allowNullableBoolean": true }],
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "varsIgnorePattern": "^jsx$",
+      "ignoreRestSiblings": true
+    }]
   }
 }

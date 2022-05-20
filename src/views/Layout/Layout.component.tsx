@@ -1,4 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react';
+import Container from '@mui/material/Container';
 
 interface LayoutProps {
   header?: ReactNode
@@ -11,9 +12,9 @@ const Layout = (props: LayoutProps): ReactElement => {
   return (
     <div>
       {header}
-      <div>
+      <Container maxWidth='sm'>
         {children}
-      </div>
+      </Container>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { render, cleanup } from '@testing-library/react';
 
@@ -20,8 +21,10 @@ test('Should render', () => {
     }
   };
   render(
-    <BrowserRouter>
-      <BoardWithDetailsItem boardWithDetails={boardWithDetails} />
-    </BrowserRouter>
+    <ThemeProvider theme={createTheme()}>
+      <BrowserRouter>
+        <BoardWithDetailsItem boardWithDetails={boardWithDetails} />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 });

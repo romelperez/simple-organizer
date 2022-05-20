@@ -1,5 +1,12 @@
-import React, { ReactElement } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import { ReactElement, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 
 import { DataUser } from '@app/types';
 
@@ -14,49 +21,62 @@ const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
   const hasAvatarURL = user?.avatarUrl !== undefined && user?.avatarUrl !== '';
 
   return (
-    <header
-      style={{
-        marginBottom: 20,
-        borderBottom: '1px solid black'
-      }}
+    <AppBar
+      position='sticky'
+      sx={theme => ({
+        marginBottom: '2rem',
+        a: {
+          color: theme.palette.background.default
+        }
+      })}
     >
-      <Link to='/'>
-        <h1>Simple Organizer</h1>
-      </Link>
-      <nav>
-        <ul>
-          {!isLoading && !!isUserLoggedIn && (
-            <>
-              <li><Link to='/signout'>Sign Out</Link></li>
-              <li>
+      <Toolbar>
+        <div
+          css={{ flex: 1 }}
+        >
+          <Link to='/'>
+            <Typography
+              component='h1'
+              variant='h1'
+              color={theme => theme.palette.background.default}
+            >
+              Simple Organizer
+            </Typography>
+          </Link>
+        </div>
+        <nav>
+          <Stack
+            direction='row'
+            spacing={2}
+            alignItems='center'
+          >
+            {!isLoading && !!isUserLoggedIn && (
+              <Fragment>
+                <Link to='/signout'>Sign Out</Link>
                 <Link to='/settings'>
                   {hasAvatarURL && (
-                    <img
-                      style={{
-                        display: 'inline-block',
-                        width: 30,
-                        height: 30
-                      }}
+                    <Avatar
                       alt='User Profile Picture'
                       src={user?.avatarUrl}
+                      sx={{
+                        backgroundColor: theme => theme.palette.grey[700]
+                      }}
                     />
                   )}
-                  {!hasAvatarURL && (
-                    <span>{user?.displayName}</span>
-                  )}
+                  {!hasAvatarURL && user?.displayName}
                 </Link>
-              </li>
-            </>
-          )}
-          {!isLoading && !isUserLoggedIn && (
-            <>
-              <li><Link to='/signin'>Sign In</Link></li>
-              <li><Link to='/signup'>Sign Up</Link></li>
-            </>
-          )}
-        </ul>
-      </nav>
-    </header>
+              </Fragment>
+            )}
+            {!isLoading && !isUserLoggedIn && (
+              <Fragment>
+                <Link to='/signin'>Sign In</Link>
+                <Link to='/signup'>Sign Up</Link>
+              </Fragment>
+            )}
+          </Stack>
+        </nav>
+      </Toolbar>
+    </AppBar>
   );
 };
 

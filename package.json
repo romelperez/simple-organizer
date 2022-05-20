@@ -7,6 +7,10 @@
   },
   "type": "module",
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.0",
+    "@mui/material": "^5.8.0",
     "@nhost/nhost-js": "^1.1.11",
     "@nhost/react": "^0.7.5",
     "@types/lodash": "^4.14.182",

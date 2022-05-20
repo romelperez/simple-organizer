@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import sortBy from 'lodash/sortBy';
+import Stack from '@mui/material/Stack';
 
 import { BoardWithDetailsItem } from '@app/views/BoardWithDetailsItem';
 import { BoardCreator } from '@app/containers/BoardCreator';
@@ -27,7 +28,10 @@ const HomePageList = (): ReactElement => {
   }
 
   return (
-    <>
+    <Stack
+      direction='column'
+      spacing={2}
+    >
       {boards.map(board =>
         <Link
           key={board.id}
@@ -38,7 +42,7 @@ const HomePageList = (): ReactElement => {
           />
         </Link>
       )}
-    </>
+    </Stack>
   );
 };
 
