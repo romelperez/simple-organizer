@@ -23,7 +23,7 @@ const BoardWithDetailsItem = (props: BoardWithDetailsItemProps): ReactElement =>
       variant='outlined'
     >
       <CardContent>
-        <Typography component='h1' variant='h2' gutterBottom>
+        <Typography component='h1' variant='h3' gutterBottom>
           {name}
         </Typography>
         <Typography component='p' variant='body1'>

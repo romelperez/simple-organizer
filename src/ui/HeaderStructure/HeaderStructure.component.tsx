@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 
 import { DataUser } from '@app/types';
-import { Logo } from '@app/views/Logo';
+import { Logo } from '@app/ui/Logo';
 
 interface HeaderStructureProps {
   isLoading?: boolean
