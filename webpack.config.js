@@ -49,10 +49,7 @@ module.exports = {
       new TsconfigPathsPlugin({
         configFile: tsConfigFilePath
       })
-    ],
-    alias: {
-      '@app': path.join(process.cwd(), 'app')
-    }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -67,7 +64,8 @@ module.exports = {
     isProduction && new CopyWebpackPlugin({
       patterns: [{
         from: STATIC_PATH,
-        to: BUILD_PATH
+        to: BUILD_PATH,
+        info: { minimized: true }
       }]
     })
   ].filter(Boolean),

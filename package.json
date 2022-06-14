@@ -57,7 +57,6 @@
     "husky": "^8.0.1",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
-    "json-server": "^0.17.0",
     "serve": "^13.0.2",
     "ts-jest": "^28.0.2",
     "ts-loader": "^9.3.0",
