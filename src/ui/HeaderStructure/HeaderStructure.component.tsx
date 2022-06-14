@@ -25,7 +25,7 @@ const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
     <AppBar
       position='sticky'
       sx={theme => ({
-        marginBottom: '2rem',
+        mb: 4,
         a: {
           fontWeight: theme.typography.h1.fontWeight,
           color: theme.palette.background.default

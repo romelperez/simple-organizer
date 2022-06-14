@@ -1,6 +1,12 @@
-import React, { FormEvent, ReactElement, useState } from 'react';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
+import { FormEvent, ReactElement, useState } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
-import { InsertBoardResponse, useInsertBoard } from '@app/api/boards/useInsertBoard';
+import { InsertBoardResponse, useInsertBoard } from '@app/api';
 
 const BoardCreator = (): ReactElement => {
   const [name, setName] = useState('');
@@ -13,8 +19,8 @@ const BoardCreator = (): ReactElement => {
     nameFormatted.length >= 2 &&
     nameFormatted.length <= 64;
 
-  const onCreate = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
+  const onCreate = (event?: FormEvent): void => {
+    event?.preventDefault();
 
     if (!nameIsValid) {
       return;
@@ -34,26 +40,43 @@ const BoardCreator = (): ReactElement => {
   };
 
   return (
-    <div>
-      <form onSubmit={onCreate}>
-        <input
-          type='text'
-          placeholder='Type new board name...'
-          disabled={isLoading}
-          value={name}
-          onChange={event => setName(event.currentTarget.value)}
-        />
-        <button
-          disabled={!nameIsValid || isLoading}
-        >
-          Create
-        </button>
+    <Box sx={{ mb: 4 }}>
+      <form css={{ display: 'block' }} onSubmit={onCreate}>
+        <Box sx={{ display: 'flex' }}>
+          <TextField
+            sx={{ flex: 1 }}
+            color={response?.error ? 'error' : 'primary'}
+            type='text'
+            size='small'
+            autoComplete='off'
+            placeholder='Type new board name...'
+            disabled={isLoading}
+            value={name}
+            onChange={event => {
+              setName(event.currentTarget.value);
+              setResponse(null);
+            }}
+          />
+          <Button
+            sx={{ ml: 2 }}
+            variant='contained'
+            disabled={!nameIsValid || isLoading}
+            onClick={() => onCreate()}
+          >
+            Create
+          </Button>
+        </Box>
       </form>
 
       {!!response?.error && (
-        <div>There was an error creating the board. Please try again.</div>
+        <Typography
+          component='p'
+          sx={{ mt: 2, color: 'error.main' }}
+        >
+          There was an error creating the board. Please try again.
+        </Typography>
       )}
-    </div>
+    </Box>
   );
 };
 

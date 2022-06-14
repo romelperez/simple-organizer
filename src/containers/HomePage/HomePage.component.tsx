@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import sortBy from 'lodash/sortBy';
 import Stack from '@mui/material/Stack';
 
+import { parseServerDate } from '@app/tools';
 import { BoardWithDetailsItem } from '@app/ui/BoardWithDetailsItem';
 import { BoardCreator } from '@app/containers/BoardCreator';
 import { useSelectBoardsWithDetails } from '@app/api/boards/useSelectBoardsWithDetails';
-import { parseServerDate } from '@app/tools/date';
 
 const HomePageList = (): ReactElement => {
   const { data, error } = useSelectBoardsWithDetails();

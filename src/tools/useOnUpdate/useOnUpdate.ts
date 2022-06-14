@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 
+// TODO: Create a better alternative.
 const useOnUpdate = (callback: () => void, dependencies: unknown[] = []): void => {
   const isFirstRef = useRef(true);
 

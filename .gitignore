@@ -43,6 +43,4 @@ yarn-error.log
 yarn-error.log*
 .yarn-integrity
 
-production.env
-development.env
 build

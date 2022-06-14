@@ -1,5 +1,6 @@
 import { DataBoard_WithTasks } from '@app/types';
 import { MutationResponse, MutationAction, useMutation } from '@app/tools/useMutation';
+import { getSelectBoardsWithDetailsKey } from '../boards/useSelectBoardsWithDetails';
 
 interface RequestData {
   input: {
@@ -16,7 +17,7 @@ type InsertBoardResponse = MutationResponse<ResponseData>;
 const useInsertBoard = (): MutationAction<RequestData, ResponseData> => {
   return useMutation<RequestData, undefined, ResponseData>(() => ({
     keys: [
-      ['boards']
+      getSelectBoardsWithDetailsKey()
     ],
     mutation: `
       mutation createBoard($input: boards_insert_input!) {

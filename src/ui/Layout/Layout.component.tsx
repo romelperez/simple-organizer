@@ -12,7 +12,7 @@ const Layout = (props: LayoutProps): ReactElement => {
   return (
     <div>
       {header}
-      <Container maxWidth='sm'>
+      <Container sx={{ mb: 2 }} maxWidth='sm'>
         {children}
       </Container>
     </div>
