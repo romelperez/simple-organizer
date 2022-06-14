@@ -7,7 +7,7 @@ Manage simple personal tasks.
 
 Open [production preview](https://main--romelperez-simple-organizer.netlify.app).
 
-See [system design requirements and specifications](./SYSTEM_DESIGN.md).
+See [system design](./SYSTEM_DESIGN.md).
 
 ## Setup
 

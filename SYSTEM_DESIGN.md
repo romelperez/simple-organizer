@@ -15,15 +15,16 @@ Simple Organizer is a small single page web application to manage personal tasks
 
 ### Boards
 
-When a user enters the app index:
+When a signed in user enters the app index:
 
 - [x] Should see all boards with number of tasks in creation chronological
   descending order.
 - [x] Should be able to create a new board and inmediately see it in the list.
+- [x] Should be able to open a specific board.
 
 ### Board and Tasks
 
-When a user opens a board:
+When a signed in user opens a board:
 
 - [x] Should be able to edit board name.
 - [x] Should be able to delete board.
@@ -31,11 +32,11 @@ When a user opens a board:
   with a counter of the number of tasks in list and a progress percentage
   in creation chronological ascending order.
 - [x] Should be able to create a new task with a name.
-- [x] Should be able to editor any task completation.
+- [x] Should be able to edit if a task is completed or not.
 - [x] Should be able to edit any task name.
 - [x] Should be able to delete any task.
 - [x] Should be able to list only uncompleted tasks.
-- [x] Should be able to complete all tasks.
+- [x] Should be able to complete all uncompleted tasks.
 - [x] Should be able to delete completed tasks.
 
 ## Functional Requirements
@@ -53,11 +54,11 @@ When a user opens a board:
 - [x] HTML/JavaScript/CSS/JSON files should be minified.
 - [x] Server encoding in GZIP or Brotli.
 - [ ] Should work on Fast 3G connection with response time less than 2 seconds.
-- [ ] Use webp image file format for pictures.
+- [ ] Use `webp` image file format for pictures.
 - [ ] Images should be lazy loaded.
 - [x] Should show optimistic updates on user data changes side-effects.
 - [ ] Animations should only trigger repaint.
-- [ ] Show loading skeletons for page data content.
+- [ ] Show loading skeletons for page data content after 100ms wait.
 - [ ] Analytics file should be loaded after main app.
 - [ ] Preconnect to image assets servers.
 - [x] Preconnect to font assets servers.
@@ -81,6 +82,7 @@ When a user opens a board:
 
 ### User
 
+- Id as string.
 - Email.
 - Password.
 - Name.
@@ -90,12 +92,16 @@ When a user opens a board:
 
 ### Board
 
+- Id as string.
+- User as a reference to user owner.
 - Name as string.
 - Created datetime.
 - Updated datetime.
 
 ### Task
 
+- Id as string.
+- User as a reference to user owner.
 - Board as a reference to parent board.
 - Name.
 - Completed as boolean.
