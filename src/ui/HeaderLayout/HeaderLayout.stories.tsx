@@ -5,20 +5,20 @@ import { BrowserRouter } from 'react-router-dom';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { ThemeSetup } from '@app/base/ThemeSetup';
-import { HeaderStructure } from './index';
+import { HeaderLayout } from './index';
 
 export default {
-  title: 'views/HeaderStructure',
-  component: HeaderStructure,
+  title: 'views/HeaderLayout',
+  component: HeaderLayout,
   parameters: {
     layout: 'fullscreen'
   }
-} as ComponentMeta<typeof HeaderStructure>;
+} as ComponentMeta<typeof HeaderLayout>;
 
-const Template: ComponentStory<typeof HeaderStructure> = (args) => (
+const Template: ComponentStory<typeof HeaderLayout> = (args) => (
   <ThemeSetup>
     <BrowserRouter>
-      <HeaderStructure {...args} />
+      <HeaderLayout {...args} />
     </BrowserRouter>
   </ThemeSetup>
 );

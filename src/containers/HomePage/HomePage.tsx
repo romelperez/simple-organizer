@@ -4,9 +4,9 @@ import sortBy from 'lodash/sortBy';
 import Stack from '@mui/material/Stack';
 
 import { parseServerDate } from '@app/tools';
-import { BoardWithDetailsItem } from '@app/ui/BoardWithDetailsItem';
+import { useSelectBoardsWithDetails } from '@app/api';
+import { BoardWithDetailsLayout } from '@app/ui';
 import { BoardCreator } from '@app/containers/BoardCreator';
-import { useSelectBoardsWithDetails } from '@app/api/boards/useSelectBoardsWithDetails';
 
 const HomePageList = (): ReactElement => {
   const { data, error } = useSelectBoardsWithDetails();
@@ -37,7 +37,7 @@ const HomePageList = (): ReactElement => {
           key={board.id}
           to={`/boards/${board.id}`}
         >
-          <BoardWithDetailsItem
+          <BoardWithDetailsLayout
             boardWithDetails={board}
           />
         </Link>

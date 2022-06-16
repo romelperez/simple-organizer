@@ -8,16 +8,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 
-import { DataUser } from '@app/types';
 import { Logo } from '@app/ui/Logo';
+import { HeaderLayoutProps } from './HeaderLayout.types';
 
-interface HeaderStructureProps {
-  isLoading?: boolean
-  isUserLoggedIn?: boolean
-  user?: DataUser | null
-}
-
-const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
+const HeaderLayout = (props: HeaderLayoutProps): ReactElement => {
   const { isLoading, isUserLoggedIn, user } = props;
   const hasAvatarURL = user?.avatarUrl !== undefined && user?.avatarUrl !== '';
 
@@ -95,5 +89,4 @@ const HeaderStructure = (props: HeaderStructureProps): ReactElement => {
   );
 };
 
-export type { HeaderStructureProps };
-export { HeaderStructure };
+export { HeaderLayout };

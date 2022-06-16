@@ -1,7 +1,9 @@
-import React, { ReactNode, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { Global } from '@emotion/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+
+import { ThemeSetupProps } from './ThemeSetup.types';
 
 const theme = createTheme({
   typography: {
@@ -24,10 +26,6 @@ const theme = createTheme({
   }
 });
 
-interface ThemeSetupProps {
-  children: ReactNode
-}
-
 const ThemeSetup = (props: ThemeSetupProps): ReactElement => {
   const { children } = props;
 
@@ -44,5 +42,4 @@ const ThemeSetup = (props: ThemeSetupProps): ReactElement => {
   );
 };
 
-export type { ThemeSetupProps };
 export { ThemeSetup };

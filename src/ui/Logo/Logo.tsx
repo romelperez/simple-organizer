@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react';
 
-interface LogoProps {
-  className?: string
-}
+import { LogoProps } from './Logo.types';
 
 const Logo = (props: LogoProps): ReactElement => {
   const { className } = props;

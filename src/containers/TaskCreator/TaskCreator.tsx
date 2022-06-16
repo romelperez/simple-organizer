@@ -1,10 +1,7 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
 
 import { useInsertTask } from '@app/api/tasks/useInsertTask';
-
-interface TaskCreatorProps {
-  boardId: string
-}
+import { TaskCreatorProps } from './TaskCreator.types';
 
 const TaskCreator = (props: TaskCreatorProps): ReactElement => {
   const { boardId } = props;

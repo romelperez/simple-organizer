@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { render, cleanup } from '@testing-library/react';
 
 import { DataBoard_WithDetails } from '@app/types';
-import { BoardWithDetailsItem } from './index';
+import { BoardWithDetailsLayout } from './index';
 
 afterEach(cleanup);
 
@@ -23,7 +23,7 @@ test('Should render', () => {
   render(
     <ThemeProvider theme={createTheme()}>
       <BrowserRouter>
-        <BoardWithDetailsItem boardWithDetails={boardWithDetails} />
+        <BoardWithDetailsLayout boardWithDetails={boardWithDetails} />
       </BrowserRouter>
     </ThemeProvider>
   );

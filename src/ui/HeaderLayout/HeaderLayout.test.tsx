@@ -3,7 +3,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { render, cleanup } from '@testing-library/react';
 
-import { Layout } from './index';
+import { HeaderLayout } from './index';
 
 afterEach(cleanup);
 
@@ -11,7 +11,7 @@ test('Should render', () => {
   render(
     <ThemeProvider theme={createTheme()}>
       <BrowserRouter>
-        <Layout />
+        <HeaderLayout />
       </BrowserRouter>
     </ThemeProvider>
   );

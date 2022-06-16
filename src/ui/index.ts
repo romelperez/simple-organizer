@@ -1,4 +1,4 @@
-export * from './BoardWithDetailsItem';
-export * from './HeaderStructure';
-export * from './Layout';
+export * from './BoardWithDetailsLayout';
+export * from './HeaderLayout';
+export * from './MainLayout';
 export * from './Logo';

@@ -4,14 +4,10 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
-import { DataBoard_WithDetails } from '@app/types';
 import { parseServerDate } from '@app/tools/date';
+import { BoardWithDetailsLayoutProps } from './BoardWithDetailsLayout.types';
 
-interface BoardWithDetailsItemProps {
-  boardWithDetails: DataBoard_WithDetails
-}
-
-const BoardWithDetailsItem = (props: BoardWithDetailsItemProps): ReactElement => {
+const BoardWithDetailsLayout = (props: BoardWithDetailsLayoutProps): ReactElement => {
   const { boardWithDetails } = props;
   const { name, createdAt, tasks_aggregate: tasksAggregate } = boardWithDetails;
   const tasksCount = tasksAggregate.aggregate.count;
@@ -36,4 +32,4 @@ const BoardWithDetailsItem = (props: BoardWithDetailsItemProps): ReactElement =>
   );
 };
 
-export { BoardWithDetailsItem };
+export { BoardWithDetailsLayout };

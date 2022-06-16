@@ -1,13 +1,9 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
 
-import { DataTask } from '@app/types';
 import { useOnUpdate } from '@app/tools/useOnUpdate';
 import { useUpdateTask } from '@app/api/tasks/useUpdateTask';
 import { useDeleteTask } from '@app/api/tasks/useDeleteTask';
-
-interface TaskProps {
-  task: DataTask
-}
+import { TaskProps } from './Task.types';
 
 const Task = (props: TaskProps): ReactElement => {
   const { task } = props;
@@ -125,5 +121,4 @@ const Task = (props: TaskProps): ReactElement => {
   );
 };
 
-export type { TaskProps };
 export { Task };

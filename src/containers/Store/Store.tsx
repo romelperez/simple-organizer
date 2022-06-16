@@ -1,10 +1,8 @@
-import React, { ReactElement, ReactNode, useRef } from 'react';
+import React, { ReactElement, useRef } from 'react';
 import type { NhostClient as NhostClientType } from '@nhost/nhost-js';
 import { NhostClient, NhostReactProvider } from '@nhost/react';
 
-interface StoreProps {
-  children: ReactNode
-}
+import { StoreProps } from './Store.types';
 
 const Store = (props: StoreProps): ReactElement => {
   const { children } = props;
@@ -24,5 +22,4 @@ const Store = (props: StoreProps): ReactElement => {
   );
 };
 
-export type { StoreProps };
 export { Store };

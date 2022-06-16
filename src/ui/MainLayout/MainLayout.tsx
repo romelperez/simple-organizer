@@ -1,12 +1,9 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactElement } from 'react';
 import Container from '@mui/material/Container';
 
-interface LayoutProps {
-  header?: ReactNode
-  children?: ReactNode
-}
+import { MainLayoutProps } from './MainLayout.types';
 
-const Layout = (props: LayoutProps): ReactElement => {
+const MainLayout = (props: MainLayoutProps): ReactElement => {
   const { header, children } = props;
 
   return (
@@ -19,5 +16,4 @@ const Layout = (props: LayoutProps): ReactElement => {
   );
 };
 
-export type { LayoutProps };
-export { Layout };
+export { MainLayout };
