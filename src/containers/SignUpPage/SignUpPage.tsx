@@ -122,7 +122,7 @@ const SignUpPage = (): ReactElement => {
             />
           </FormField>
           <div>
-            <button>
+            <button title='Sign Up'>
               Sign Up
             </button>
           </div>

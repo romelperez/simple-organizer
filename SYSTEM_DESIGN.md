@@ -54,10 +54,10 @@ When a signed in user opens a board:
 - [x] HTML/JavaScript/CSS/JSON files should be minified.
 - [x] Server encoding in GZIP or Brotli.
 - [ ] Should work on Fast 3G connection with response time less than 2 seconds.
-- [ ] Use `webp` image file format for pictures.
-- [ ] Images should be lazy loaded.
+- [x] Use `webp` image file format if possible.
+- [x] Images should be lazy loaded.
 - [x] Should show optimistic updates on user data changes side-effects.
-- [ ] Animations should only trigger repaint.
+- [x] Animations should only trigger repaint.
 - [ ] Show loading skeletons for page data content after 100ms wait.
 - [ ] Analytics file should be loaded after main app.
 - [ ] Preconnect to image assets servers.
@@ -66,16 +66,16 @@ When a signed in user opens a board:
 
 ### Accessibility
 
-- [ ] Since content is dynamic and private, it is not crawable by search engines.
+- [x] Since content is dynamic and private, it is not crawable by search engines.
 - [ ] Should allow dark and light theme color schemes.
 - [ ] Should allow to reduce/disable animations.
-- [ ] Visual colors should have AA contrast ratio.
+- [x] Visual colors should have AA contrast ratio.
 - [ ] Edition form inputs should update data when user blurs from them on change.
 - [ ] Should show social media share metadata.
-- [ ] Images should have alternative texts.
+- [x] Images should have alternative texts.
 - [ ] Form inputs should have autocomplete names where needed.
-- [ ] Call to actions should have titles with longer explanations.
-- [ ] Call to action elements should be able to be focused with keyboard.
+- [x] Call to actions should have titles with longer explanations.
+- [x] Call to action elements should be able to be focused with keyboard.
 - [ ] Use CSS REM units for user resizing customization.
 
 ## Data Models

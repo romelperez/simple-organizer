@@ -84,6 +84,7 @@ const Task = (props: TaskProps): ReactElement => {
       <form onSubmit={onUpdate}>
         <input
           type='checkbox'
+          title={isCompleted ? 'Mark task as uncompleted' : 'Mark task as completed'}
           disabled={isLoading}
           checked={isCompleted}
           onChange={event => setIsCompleted(event.currentTarget.checked)}
@@ -102,12 +103,14 @@ const Task = (props: TaskProps): ReactElement => {
         />
         {' '}
         <button
+          title='Update task name'
           disabled={!areChangesValid || isLoading}
         >
           Save
         </button>
         {' '}
         <button
+          title='Delete task'
           disabled={isLoading}
           onClick={onDelete}
         >

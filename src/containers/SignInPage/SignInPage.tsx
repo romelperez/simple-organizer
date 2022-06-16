@@ -64,7 +64,7 @@ const SignInPage = (): ReactElement => {
           />
         </div>
         <div style={{ margin: '0 0 20px' }}>
-          <button>
+          <button title='Sign In'>
             Sign In
           </button>
         </div>

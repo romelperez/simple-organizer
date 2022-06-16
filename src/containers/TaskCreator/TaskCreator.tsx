@@ -55,6 +55,7 @@ const TaskCreator = (props: TaskCreatorProps): ReactElement => {
         />
         {' '}
         <button
+          title='Create new task'
           disabled={!isNameValid || isLoading}
         >
           Add

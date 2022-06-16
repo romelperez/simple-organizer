@@ -61,8 +61,8 @@ const HeaderLayout = (props: HeaderLayoutProps): ReactElement => {
           >
             {!isLoading && !!isUserLoggedIn && (
               <Fragment>
-                <Link to='/signout'>Sign Out</Link>
-                <Link to='/account'>
+                <Link to='/signout' title='Sign Out'>Sign Out</Link>
+                <Link to='/account' title='Go to account details'>
                   {hasAvatarURL && (
                     <Avatar
                       alt={user?.displayName}
@@ -78,8 +78,8 @@ const HeaderLayout = (props: HeaderLayoutProps): ReactElement => {
             )}
             {!isLoading && !isUserLoggedIn && (
               <Fragment>
-                <Link to='/signin'>Sign In</Link>
-                <Link to='/signup'>Sign Up</Link>
+                <Link to='/signin' title='Sign In'>Sign In</Link>
+                <Link to='/signup' title='Sign Up'>Sign Up</Link>
               </Fragment>
             )}
           </Stack>

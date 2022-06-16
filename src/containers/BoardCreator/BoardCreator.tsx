@@ -60,6 +60,7 @@ const BoardCreator = (): ReactElement => {
           <Button
             sx={{ ml: 2 }}
             variant='contained'
+            title='Create new board'
             disabled={!nameIsValid || isLoading}
             onClick={() => onCreate()}
           >

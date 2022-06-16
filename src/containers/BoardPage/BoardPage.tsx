@@ -159,6 +159,7 @@ const BoardPage = (): ReactElement => {
         />
         {' '}
         <button
+          title='Update board name'
           disabled={isUpdating}
         >
           Save
@@ -190,6 +191,7 @@ const BoardPage = (): ReactElement => {
         }}
       >
         <button
+          title={hideCompletedTasks ? 'Show all tasks' : 'Hide completed tasks'}
           disabled={!tasksUncompleted.length}
           onClick={() => setHideCompletedTasks(v => !v)}
         >
@@ -197,6 +199,7 @@ const BoardPage = (): ReactElement => {
         </button>
         {' '}
         <button
+          title='Mark all uncompleted tasks as completed'
           disabled={!tasksUncompleted.length}
           onClick={onMarkAllTasks}
         >
@@ -204,6 +207,7 @@ const BoardPage = (): ReactElement => {
         </button>
         {' '}
         <button
+          title='Delete all completed tasks'
           disabled={!tasksCompleted.length}
           onClick={onDeleteCompletedTasks}
         >
@@ -211,6 +215,7 @@ const BoardPage = (): ReactElement => {
         </button>
         {' '}
         <button
+          title='Delete board and all its corresponding tasks'
           onClick={onDelete}
         >
           Delete Board
