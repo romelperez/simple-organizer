@@ -60,7 +60,7 @@ When a signed in user opens a board:
 - [x] Animations should only trigger repaint.
 - [ ] Show loading skeletons for page data content after 100ms wait.
 - [ ] Analytics file should be loaded after main app.
-- [ ] Preconnect to image assets servers.
+- [x] Preconnect to image assets servers.
 - [x] Preconnect to font assets servers.
 - [x] Font assets should be loaded and swapped.
 
@@ -70,13 +70,13 @@ When a signed in user opens a board:
 - [ ] Should allow dark and light theme color schemes.
 - [ ] Should allow to reduce/disable animations.
 - [x] Visual colors should have AA contrast ratio.
-- [ ] Edition form inputs should update data when user blurs from them on change.
+- [x] Edition form inputs should update data when user blurs from them on change.
 - [ ] Should show social media share metadata.
 - [x] Images should have alternative texts.
-- [ ] Form inputs should have autocomplete names where needed.
+- [x] Form inputs should have autocomplete names where needed.
 - [x] Call to actions should have titles with longer explanations.
 - [x] Call to action elements should be able to be focused with keyboard.
-- [ ] Use CSS REM units for user resizing customization.
+- [x] Use CSS REM units for user resizing customization.
 
 ## Data Models
 

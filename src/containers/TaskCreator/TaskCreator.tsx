@@ -48,6 +48,7 @@ const TaskCreator = (props: TaskCreatorProps): ReactElement => {
             width: 250
           }}
           type='text'
+          title='New task name'
           placeholder='Type new task name...'
           disabled={isLoading}
           value={name}

@@ -155,7 +155,7 @@ const BoardPage = (): ReactElement => {
           disabled={isUpdating}
           value={boardName}
           onChange={event => setBoardName(event.currentTarget.value)}
-          // TODO: Handle unBlur event change.
+          onBlur={onUpdateBoardName}
         />
         {' '}
         <button
