@@ -53,7 +53,7 @@ When a signed in user opens a board:
 - [x] JavaScript/CSS files should be bundled and splitted for each application page.
 - [x] HTML/JavaScript/CSS/JSON files should be minified.
 - [x] Server encoding in GZIP or Brotli.
-- [ ] Should work on Fast 3G connection with response time less than 2 seconds.
+- [x] Should work on Fast 3G connection with response time less than 2 seconds.
 - [x] Use `webp` image file format if possible.
 - [x] Images should be lazy loaded.
 - [x] Should show optimistic updates on user data changes side-effects.
@@ -66,7 +66,9 @@ When a signed in user opens a board:
 
 ### Accessibility
 
-- [x] Since content is dynamic and private, it is not crawable by search engines.
+- [x] Since content is dynamically created and private, it is not crawable by search engines.
+- [x] Requires Internet connection to work. Offline mode is not supported.
+- [x] Requires JavaScript enabled to work.
 - [ ] Should allow dark and light theme color schemes.
 - [ ] Should allow to reduce/disable animations.
 - [x] Visual colors should have AA contrast ratio.
