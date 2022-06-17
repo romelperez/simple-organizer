@@ -1,10 +1,18 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
+import { useTheme } from '@emotion/react';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import IconAdd from '@mui/icons-material/Add';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 
 import { useInsertTask } from '@app/api/tasks/useInsertTask';
 import { TaskCreatorProps } from './TaskCreator.types';
 
 const TaskCreator = (props: TaskCreatorProps): ReactElement => {
   const { boardId } = props;
+
+  const theme = useTheme();
 
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -37,35 +45,50 @@ const TaskCreator = (props: TaskCreatorProps): ReactElement => {
   };
 
   return (
-    <div
-      style={{
-        margin: '0 0 20px'
-      }}
-    >
-      <form onSubmit={onCreate}>
-        <input
-          style={{
-            width: 250
-          }}
+    <Box sx={{ mb: 2 }}>
+      <Box
+        component='form'
+        sx={{
+          position: 'relative',
+          display: 'flex'
+        }}
+        onSubmit={onCreate}
+      >
+        <TextField
           type='text'
+          size='small'
+          sx={{ flex: 1 }}
           title='New task name'
           placeholder='Type new task name...'
+          autoComplete='off'
           disabled={isLoading}
           value={name}
           onChange={event => setName(event.currentTarget.value)}
+          inputProps={{
+            style: { paddingRight: theme.spacing(6) }
+          }}
         />
-        {' '}
-        <button
+        <IconButton
+          sx={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            bottom: 0
+          }}
           title='Create new task'
           disabled={!isNameValid || isLoading}
+          onClick={onCreate}
         >
-          Add
-        </button>
-      </form>
+          <IconAdd />
+        </IconButton>
+      </Box>
+
       {!!error && (
-        <div>{error}</div>
+        <Typography sx={{ mt: 2 }}>
+          {error}
+        </Typography>
       )}
-    </div>
+    </Box>
   );
 };
 

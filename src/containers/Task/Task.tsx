@@ -1,4 +1,12 @@
 import React, { FormEvent, ReactElement, useState } from 'react';
+import { useTheme } from '@emotion/react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import IconDone from '@mui/icons-material/Done';
+import IconDelete from '@mui/icons-material/Delete';
 
 import { useOnUpdate } from '@app/tools/useOnUpdate';
 import { useUpdateTask } from '@app/api/tasks/useUpdateTask';
@@ -7,6 +15,8 @@ import { TaskProps } from './Task.types';
 
 const Task = (props: TaskProps): ReactElement => {
   const { task } = props;
+
+  const theme = useTheme();
 
   const [name, setName] = useState(task.name);
   const [isCompleted, setIsCompleted] = useState(task.isCompleted);
@@ -17,7 +27,9 @@ const Task = (props: TaskProps): ReactElement => {
   const deleteTask = useDeleteTask();
 
   const nameFormatted = name.trim();
-  const areChangesValid = nameFormatted !== '' && nameFormatted.length > 2 && nameFormatted.length < 100;
+  const areChangesValid = nameFormatted !== '' &&
+    nameFormatted.length > 2 &&
+    nameFormatted.length < 100;
   const hasUserChanges = task.name !== name || task.isCompleted !== isCompleted;
 
   const update = (): void => {
@@ -76,51 +88,61 @@ const Task = (props: TaskProps): ReactElement => {
   }, [task.updatedAt]);
 
   return (
-    <div
-      style={{
-        margin: '0 0 10px'
-      }}
-    >
-      <form onSubmit={onUpdate}>
-        <input
-          type='checkbox'
+    <Box sx={{ mb: 1 }}>
+      <Box
+        component='form'
+        sx={{ display: 'flex' }}
+        onSubmit={onUpdate}
+      >
+        <Checkbox
           title={isCompleted ? 'Mark task as uncompleted' : 'Mark task as completed'}
           disabled={isLoading}
           checked={isCompleted}
           onChange={event => setIsCompleted(event.currentTarget.checked)}
         />
-        {' '}
-        <input
-          style={{
-            width: 200
-          }}
-          type='text'
-          placeholder='Task name'
-          disabled={isLoading}
-          value={name}
-          onChange={event => setName(event.currentTarget.value)}
-          onBlur={onNameBlur}
-        />
-        {' '}
-        <button
-          title='Update task name'
-          disabled={!areChangesValid || isLoading}
-        >
-          Save
-        </button>
-        {' '}
-        <button
+        <Box sx={{ position: 'relative', flex: 1, display: 'flex', ml: 1, mr: 1 }}>
+          <TextField
+            type='text'
+            size='small'
+            sx={{ flex: 1 }}
+            autoComplete='off'
+            placeholder='Task name'
+            disabled={isLoading}
+            value={name}
+            onChange={event => setName(event.currentTarget.value)}
+            onBlur={onNameBlur}
+            inputProps={{
+              style: { paddingRight: theme.spacing(5) }
+            }}
+          />
+          <IconButton
+            sx={{
+              position: 'absolute',
+              right: 0,
+              top: 0,
+              bottom: 0
+            }}
+            title='Update task name'
+            disabled={!areChangesValid || !hasUserChanges || isLoading}
+          >
+            <IconDone />
+          </IconButton>
+        </Box>
+        <IconButton
           title='Delete task'
           disabled={isLoading}
           onClick={onDelete}
         >
-          Delete
-        </button>
-      </form>
+          <IconDelete />
+        </IconButton>
+      </Box>
+
       {!!error && (
-        <div>{error}</div>
+        <Typography>
+          {error}
+        </Typography>
       )}
-    </div>
+    </Box>
   );
 };
 
