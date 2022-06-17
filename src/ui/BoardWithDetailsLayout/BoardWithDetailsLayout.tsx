@@ -18,8 +18,8 @@ const BoardWithDetailsLayout = (props: BoardWithDetailsLayoutProps): ReactElemen
       component='article'
       variant='outlined'
     >
-      <CardContent>
-        <Typography component='h1' variant='h3' gutterBottom>
+      <CardContent sx={{ p: 2, '&:last-child': { p: 2 } }}>
+        <Typography component='h1' variant='h3' sx={{ mb: 1 }}>
           {name}
         </Typography>
         <Typography component='p' variant='body1'>

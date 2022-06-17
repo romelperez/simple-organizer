@@ -10,7 +10,7 @@ import { useInsertTask } from '@app/api/tasks/useInsertTask';
 import { TaskCreatorProps } from './TaskCreator.types';
 
 const TaskCreator = (props: TaskCreatorProps): ReactElement => {
-  const { boardId } = props;
+  const { className, boardId } = props;
 
   const theme = useTheme();
 
@@ -45,7 +45,7 @@ const TaskCreator = (props: TaskCreatorProps): ReactElement => {
   };
 
   return (
-    <Box sx={{ mb: 2 }}>
+    <Box className={className} sx={{ mb: 2 }}>
       <Box
         component='form'
         sx={{

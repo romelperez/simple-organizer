@@ -1,6 +1,7 @@
-import React, { FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
+/** @jsxImportSource @emotion/react */
+import { FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTheme } from '@emotion/react';
+import { jsx, useTheme } from '@emotion/react';
 import sortBy from 'lodash/sortBy';
 import formatDate from 'date-fns/format';
 import Box from '@mui/material/Box';
@@ -11,7 +12,6 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import IconDone from '@mui/icons-material/Done';
 import IconMoreVert from '@mui/icons-material/MoreVert';
-import IconWarningAmber from '@mui/icons-material/WarningAmber';
 
 import { parseServerDate } from '@app/tools/date';
 import { useSelectBoardWithTasks } from '@app/api/boards/useSelectBoardWithTasks';
@@ -175,7 +175,10 @@ const BoardPage = (): ReactElement => {
         >
           <TextField
             ref={boardNameElementRef}
-            sx={{ flex: 1 }}
+            sx={{
+              flex: 1,
+              ...theme.typography.h2
+            }}
             size='small'
             autoComplete='off'
             disabled={isUpdating}
@@ -183,7 +186,10 @@ const BoardPage = (): ReactElement => {
             onChange={event => setBoardName(event.currentTarget.value)}
             onBlur={onUpdateBoardName}
             inputProps={{
-              style: { paddingRight: theme.spacing(5) }
+              style: {
+                paddingRight: isUpdating || !isBoardNameValid ? undefined : theme.spacing(5),
+                ...theme.typography.h2
+              }
             }}
           />
           <IconButton
@@ -191,7 +197,8 @@ const BoardPage = (): ReactElement => {
               position: 'absolute',
               right: 0,
               top: 0,
-              bottom: 0
+              bottom: 0,
+              visibility: isUpdating || !isBoardNameValid ? 'hidden' : 'visible'
             }}
             title='Update board name'
             disabled={isUpdating || !isBoardNameValid}
@@ -271,22 +278,15 @@ const BoardPage = (): ReactElement => {
         ({tasks.length === 0 ? 0 : Math.floor((tasksCompleted.length / tasks.length) * 100)}%)
       </Typography>
 
-      <TaskCreator
-        boardId={boardId as string}
-      />
-
-      {!visibleTasks.length && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <IconWarningAmber sx={{ mr: 1 }} />
-          <Typography>No tasks created.</Typography>
-        </Box>
-      )}
-
       <Box sx={{ mb: 2 }}>
         {visibleTasks.map(task => (
           <Task key={task.id} task={task} />
         ))}
       </Box>
+
+      <TaskCreator
+        boardId={boardId as string}
+      />
 
       <Box sx={{ mb: 2 }}>
         {!!errorMsg && (

@@ -7,6 +7,9 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import IconLogin from '@mui/icons-material/Login';
+import IconLogout from '@mui/icons-material/Logout';
+import IconPersonAdd from '@mui/icons-material/PersonAdd';
 
 import { Logo } from '@app/ui/Logo';
 import { HeaderLayoutProps } from './HeaderLayout.types';
@@ -37,19 +40,25 @@ const HeaderLayout = (props: HeaderLayoutProps): ReactElement => {
               sx={theme => ({
                 display: 'inline-flex',
                 alignItems: 'center',
-                color: theme.palette.background.default,
-                svg: {
-                  marginRight: '0.5rem'
-                }
+                color: theme.palette.background.default
               })}
             >
               <Logo
                 css={{
-                  width: '1em',
-                  height: '1em'
+                  width: '1.1em',
+                  height: '1.1em'
                 }}
               />
-              <span>Simple Organizer</span>
+              <span
+                css={theme => ({
+                  marginLeft: '0.5em',
+                  [theme.breakpoints.down('sm')]: {
+                    display: 'none'
+                  }
+                })}
+              >
+                Simple Organizer
+              </span>
             </Typography>
           </Link>
         </div>
@@ -61,7 +70,9 @@ const HeaderLayout = (props: HeaderLayoutProps): ReactElement => {
           >
             {!isLoading && !!isUserLoggedIn && (
               <Fragment>
-                <Link to='/signout' title='Sign Out'>Sign Out</Link>
+                <Link to='/signout' title='Sign Out'>
+                  <IconLogout sx={{ verticalAlign: 'middle' }} />
+                </Link>
                 <Link to='/account' title='Go to account details'>
                   {hasAvatarURL && (
                     <Avatar
@@ -78,8 +89,12 @@ const HeaderLayout = (props: HeaderLayoutProps): ReactElement => {
             )}
             {!isLoading && !isUserLoggedIn && (
               <Fragment>
-                <Link to='/signin' title='Sign In'>Sign In</Link>
-                <Link to='/signup' title='Sign Up'>Sign Up</Link>
+                <Link to='/signin' title='Sign In'>
+                  <IconLogin sx={{ verticalAlign: 'middle' }} />
+                </Link>
+                <Link to='/signup' title='Sign Up'>
+                  <IconPersonAdd sx={{ verticalAlign: 'middle' }} />
+                </Link>
               </Fragment>
             )}
           </Stack>

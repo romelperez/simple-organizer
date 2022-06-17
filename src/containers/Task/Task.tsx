@@ -31,9 +31,10 @@ const Task = (props: TaskProps): ReactElement => {
     nameFormatted.length > 2 &&
     nameFormatted.length < 100;
   const hasUserChanges = task.name !== name || task.isCompleted !== isCompleted;
+  const isSaveDisabled = !areChangesValid || !hasUserChanges || isLoading;
 
   const update = (): void => {
-    if (!areChangesValid || !hasUserChanges) {
+    if (isSaveDisabled) {
       return;
     }
 
@@ -112,7 +113,9 @@ const Task = (props: TaskProps): ReactElement => {
             onChange={event => setName(event.currentTarget.value)}
             onBlur={onNameBlur}
             inputProps={{
-              style: { paddingRight: theme.spacing(5) }
+              style: {
+                paddingRight: isSaveDisabled ? undefined : theme.spacing(5)
+              }
             }}
           />
           <IconButton
@@ -120,10 +123,11 @@ const Task = (props: TaskProps): ReactElement => {
               position: 'absolute',
               right: 0,
               top: 0,
-              bottom: 0
+              bottom: 0,
+              visibility: isSaveDisabled ? 'hidden' : 'visible'
             }}
             title='Update task name'
-            disabled={!areChangesValid || !hasUserChanges || isLoading}
+            disabled={isSaveDisabled}
           >
             <IconDone />
           </IconButton>

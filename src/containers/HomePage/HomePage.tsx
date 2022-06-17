@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import sortBy from 'lodash/sortBy';
+import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
 import { parseServerDate } from '@app/tools';
@@ -16,21 +17,22 @@ const HomePageList = (): ReactElement => {
   ).reverse();
 
   if (error) {
-    return <p>Error fetching boards.</p>;
+    return <Typography>Error fetching boards.</Typography>;
   }
 
   if (!data) {
-    return <p>Loading boards...</p>;
+    return <Typography>Loading boards...</Typography>;
   }
 
   if (!boards.length) {
-    return <p>No boards to show.</p>;
+    return <Typography>No boards to show.</Typography>;
   }
 
   return (
     <Stack
       direction='column'
       spacing={2}
+      sx={{ mb: 4 }}
     >
       {boards.map(board =>
         <Link
