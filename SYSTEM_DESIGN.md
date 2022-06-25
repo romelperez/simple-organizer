@@ -44,7 +44,7 @@ When a signed in user opens a board:
 - [x] App is a SPA with code-splitting for each page.
 - [x] Only latest browser versions supported.
 - [x] Should work for mobile and desktop browsers.
-- [ ] Should work from minimum 360px browser viewport width.
+- [x] Should work from minimum 360px browser viewport width.
 - [x] When a board is deleted, all its corresponding tasks should be deleted too.
 - [ ] Should add analytics tracking.
 
@@ -54,7 +54,7 @@ When a signed in user opens a board:
 - [x] HTML/JavaScript/CSS/JSON files should be minified.
 - [x] Server encoding in GZIP or Brotli.
 - [x] Should work on Fast 3G connection with response time less than 2 seconds.
-- [x] Use `webp` image file format if possible.
+- [x] Use `webp` image file format and fallback `jpg` and `svg`.
 - [x] Images should be lazy loaded.
 - [x] Should show optimistic updates on user data changes side-effects.
 - [x] Animations should only trigger repaint.
@@ -66,9 +66,6 @@ When a signed in user opens a board:
 
 ### Accessibility
 
-- [x] Since content is dynamically created and private, it is not crawable by search engines.
-- [x] Requires Internet connection to work. Offline mode is not supported.
-- [x] Requires JavaScript enabled to work.
 - [ ] Should allow dark and light theme color schemes.
 - [ ] Should allow to reduce/disable animations.
 - [x] Visual colors should have AA contrast ratio.
@@ -79,6 +76,11 @@ When a signed in user opens a board:
 - [x] Call to actions should have titles with longer explanations.
 - [x] Call to action elements should be able to be focused with keyboard.
 - [x] Use CSS REM units for user resizing customization.
+- Requires Internet connection to work. Offline mode is not supported.
+- Requires JavaScript enabled to work.
+- Since content is dynamically created and private, it is not crawable by search engines.
+- Does not require schema markup data.
+- Not available for screen readers.
 
 ## Data Models
 
