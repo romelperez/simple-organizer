@@ -7,7 +7,7 @@ import { StoreProps } from './Store.types';
 const Store = (props: StoreProps): ReactElement => {
   const { children } = props;
 
-  const nhostRef = useRef<NhostClientType>(null as any);
+  const nhostRef = useRef<NhostClientType | null>(null);
 
   if (nhostRef.current === null) {
     nhostRef.current = new NhostClient({

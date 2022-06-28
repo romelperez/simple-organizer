@@ -7,12 +7,12 @@ import { App } from '@app/containers/App';
 import { RouteUserPrivate } from '@app/tools/RouteUserPrivate';
 import { RouteUserPublicOnly } from '@app/tools/RouteUserPublicOnly';
 
-const HomePage = React.lazy(() => import('@app/containers/HomePage').then(c => ({ default: c.HomePage })));
-const BoardPage = React.lazy(() => import('@app/containers/BoardPage').then(c => ({ default: c.BoardPage })));
-const SignUpPage = React.lazy(() => import('@app/containers/SignUpPage').then(c => ({ default: c.SignUpPage })));
-const SignInPage = React.lazy(() => import('@app/containers/SignInPage').then(c => ({ default: c.SignInPage })));
-const SignOutPage = React.lazy(() => import('@app/containers/SignOutPage').then(c => ({ default: c.SignOutPage })));
-const AccountPage = React.lazy(() => import('@app/containers/AccountPage').then(c => ({ default: c.AccountPage })));
+const HomePage = React.lazy(() => import('@app/pages/HomePage').then(c => ({ default: c.HomePage })));
+const BoardPage = React.lazy(() => import('@app/pages/BoardPage').then(c => ({ default: c.BoardPage })));
+const SignUpPage = React.lazy(() => import('@app/pages/SignUpPage').then(c => ({ default: c.SignUpPage })));
+const SignInPage = React.lazy(() => import('@app/pages/SignInPage').then(c => ({ default: c.SignInPage })));
+const SignOutPage = React.lazy(() => import('@app/pages/SignOutPage').then(c => ({ default: c.SignOutPage })));
+const AccountPage = React.lazy(() => import('@app/pages/AccountPage').then(c => ({ default: c.AccountPage })));
 
 const Router = (): ReactElement => {
   return (

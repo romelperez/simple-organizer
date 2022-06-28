@@ -32,8 +32,8 @@ const AccountPage = (): ReactElement => {
       </Typography>
       <Avatar
         sx={theme => ({
-          width: 120,
-          height: 120,
+          width: 80,
+          height: 80,
           mb: 2,
           backgroundColor: theme.palette.grey[700]
         })}
