@@ -20,6 +20,7 @@ const theme = createTheme({
     body2: { fontSize: '0.875rem', fontWeight: 400 }
   },
   palette: {
+    mode: 'light',
     primary: {
       main: '#2e7d32'
     }

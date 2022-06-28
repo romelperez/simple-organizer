@@ -14,12 +14,12 @@ export interface DataBoard {
   updatedAt: string
 }
 
-export interface DataBoard_WithTasks extends DataBoard {
-  tasks: DataTask[]
-}
-
 export interface DataBoard_Initial {
   name: string
+}
+
+export interface DataBoard_WithTasks extends DataBoard {
+  tasks: DataTask[]
 }
 
 export interface DataBoard_WithDetails extends DataBoard {

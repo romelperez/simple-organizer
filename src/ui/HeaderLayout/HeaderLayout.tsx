@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { jsx } from '@emotion/react';
+import { jsx, useTheme } from '@emotion/react';
 import { ReactElement, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
@@ -17,6 +17,8 @@ import { HeaderLayoutProps } from './HeaderLayout.types';
 const HeaderLayout = (props: HeaderLayoutProps): ReactElement => {
   const { isLoading, isUserLoggedIn, user } = props;
   const hasAvatarURL = user?.avatarUrl !== undefined && user?.avatarUrl !== '';
+
+  const theme = useTheme();
 
   return (
     <AppBar
@@ -70,7 +72,11 @@ const HeaderLayout = (props: HeaderLayoutProps): ReactElement => {
           >
             {!isLoading && !!isUserLoggedIn && (
               <Fragment>
-                <Link to='/signout' title='Sign Out'>
+                <Link
+                  css={{ padding: theme.spacing(1) }}
+                  to='/signout'
+                  title='Sign Out'
+                >
                   <IconLogout sx={{ verticalAlign: 'middle' }} />
                 </Link>
                 <Link to='/account' title='Go to account details'>
@@ -89,10 +95,18 @@ const HeaderLayout = (props: HeaderLayoutProps): ReactElement => {
             )}
             {!isLoading && !isUserLoggedIn && (
               <Fragment>
-                <Link to='/signin' title='Sign In'>
+                <Link
+                  css={{ padding: theme.spacing(1) }}
+                  to='/signin'
+                  title='Sign In'
+                >
                   <IconLogin sx={{ verticalAlign: 'middle' }} />
                 </Link>
-                <Link to='/signup' title='Sign Up'>
+                <Link
+                  css={{ padding: theme.spacing(1) }}
+                  to='/signup'
+                  title='Sign Up'
+                >
                   <IconPersonAdd sx={{ verticalAlign: 'middle' }} />
                 </Link>
               </Fragment>
