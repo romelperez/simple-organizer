@@ -44,3 +44,5 @@ export interface DataTask_Initial {
   name: string
   isCompleted: boolean
 }
+
+export type ThemeColorScheme = 'light' | 'dark';

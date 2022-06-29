@@ -4,4 +4,5 @@ export interface HeaderLayoutProps {
   isLoading?: boolean
   isUserLoggedIn?: boolean
   user?: DataUser | null
+  onToggleColorScheme?: () => void
 }

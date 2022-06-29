@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { ThemeSetup } from '@app/base/ThemeSetup';
+import { ThemeSetup } from '@app/containers/ThemeSetup';
 import { Store } from '@app/containers/Store';
 import { Router } from '@app/containers/Router';
 

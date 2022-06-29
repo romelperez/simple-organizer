@@ -40,7 +40,7 @@ const HomePageList = (): ReactElement => {
   }
 
   if (!boards.length) {
-    return <Alert severity='info'>No boards to show.</Alert>;
+    return <Alert severity='info'>Boards will appear here. Create a new one.</Alert>;
   }
 
   return (

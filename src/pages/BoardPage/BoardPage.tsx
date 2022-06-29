@@ -1,3 +1,5 @@
+// TODO: Modularize component.
+
 /** @jsxImportSource @emotion/react */
 import { FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';

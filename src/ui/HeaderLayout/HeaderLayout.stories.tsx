@@ -4,7 +4,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { ThemeSetup } from '@app/base/ThemeSetup';
+import { ThemeSetup } from '@app/containers/ThemeSetup';
 import { HeaderLayout } from './index';
 
 export default {
