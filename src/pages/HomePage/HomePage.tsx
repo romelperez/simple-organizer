@@ -4,7 +4,7 @@ import sortBy from 'lodash/sortBy';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
-import LinearProgress from '@mui/material/LinearProgress';
+import Skeleton from '@mui/material/Skeleton';
 
 import { parseServerDate } from '@app/tools';
 import { useSelectBoardsWithDetails } from '@app/api';
@@ -13,6 +13,7 @@ import { BoardCreator } from '@app/containers/BoardCreator';
 
 const HomePageList = (): ReactElement => {
   const { data, error } = useSelectBoardsWithDetails();
+
   const boards = sortBy(
     data?.boards ?? [],
     board => parseServerDate(board.createdAt)
@@ -29,7 +30,11 @@ const HomePageList = (): ReactElement => {
   if (!data) {
     return (
       <LoadingContainer>
-        <LinearProgress />
+        <Stack direction='column' spacing={2}>
+          <Skeleton variant='rectangular' height='5rem' animation='wave' />
+          <Skeleton variant='rectangular' height='5rem' animation='wave' />
+          <Skeleton variant='rectangular' height='5rem' animation='wave' />
+        </Stack>
       </LoadingContainer>
     );
   }

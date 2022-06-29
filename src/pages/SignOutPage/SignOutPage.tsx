@@ -15,9 +15,7 @@ const SignOutPage = (): ReactElement => {
     return <LinearProgress />;
   }
 
-  return (
-    <Navigate to='/signin' />
-  );
+  return <Navigate to='/signin' />;
 };
 
 export { SignOutPage };

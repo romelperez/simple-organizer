@@ -19,7 +19,7 @@ const AccountPage = (): ReactElement => {
 
   const updatedAt = user.updatedAt
     ? formatDate(parseServerDate(user.updatedAt), 'PPpp')
-    : 'No updated';
+    : 'No updates';
 
   return (
     <main>
@@ -46,10 +46,10 @@ const AccountPage = (): ReactElement => {
         Email: <b>{user.email}</b>
       </Typography>
       <Typography>
-        Account created at: <b>{formatDate(parseServerDate(user.createdAt), 'PPpp')}</b>
+        Account created: <b>{formatDate(parseServerDate(user.createdAt), 'PPpp')}</b>
       </Typography>
       <Typography>
-        Last updated at: <b>{updatedAt}</b>
+        Last updated: <b>{updatedAt}</b>
       </Typography>
     </main>
   );

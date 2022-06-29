@@ -1,24 +1,33 @@
 /** @jsxImportSource @emotion/react */
 import { FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { jsx, useTheme } from '@emotion/react';
 import sortBy from 'lodash/sortBy';
 import formatDate from 'date-fns/format';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Skeleton from '@mui/material/Skeleton';
+import LinearProgress from '@mui/material/LinearProgress';
 import IconButton from '@mui/material/IconButton';
 import IconDone from '@mui/icons-material/Done';
 import IconMoreVert from '@mui/icons-material/MoreVert';
 
-import { parseServerDate } from '@app/tools/date';
-import { useSelectBoardWithTasks } from '@app/api/boards/useSelectBoardWithTasks';
-import { useDeleteBoard } from '@app/api/boards/useDeleteBoard';
-import { useUpdateBoard } from '@app/api/boards/useUpdateBoard';
-import { useUpdateTasks } from '@app/api/tasks/useUpdateTasks';
-import { useDeleteTasks } from '@app/api/tasks/useDeleteTasks';
+import { parseServerDate } from '@app/tools';
+import {
+  useSelectBoardWithTasks,
+  useDeleteBoard,
+  useUpdateBoard,
+  useUpdateTasks,
+  useDeleteTasks
+} from '@app/api';
+import { LoadingContainer } from '@app/ui';
 import { TaskCreator } from '@app/containers/TaskCreator';
 import { Task } from '@app/containers/Task';
 
@@ -145,19 +154,36 @@ const BoardPage = (): ReactElement => {
   };
 
   if (error) {
-    return <Typography>Error fetching board data.</Typography>;
-  }
-
-  if (!data) {
-    return <Typography>Loading board data...</Typography>;
+    return (
+      <Alert severity='error'>
+        <AlertTitle>Board not found</AlertTitle>
+        <Typography gutterBottom>
+          The board you are looking for may have been deleted.
+        </Typography>
+        <Link to='/'>
+          <Button variant='outlined' size='small'>Go to Boards</Button>
+        </Link>
+      </Alert>
+    );
   }
 
   if (!board) {
-    return <Typography>Board not found.</Typography>;
+    return (
+      <LoadingContainer>
+        <Stack spacing={2}>
+          <Skeleton variant='rectangular' height='3rem' animation='wave' />
+          <Skeleton variant='text' animation='wave' />
+          <Skeleton variant='text' animation='wave' />
+          <Skeleton variant='rectangular' height='2rem' animation='wave' />
+          <Skeleton variant='rectangular' height='2rem' animation='wave' />
+          <Skeleton variant='rectangular' height='2rem' animation='wave' />
+        </Stack>
+      </LoadingContainer>
+    );
   }
 
   if (isDeleting) {
-    return <Typography>Deleting board...</Typography>;
+    return <LinearProgress />;
   }
 
   return (

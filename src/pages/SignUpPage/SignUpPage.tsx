@@ -213,9 +213,7 @@ const SignUpPage = (): ReactElement => {
       )}
 
       {isSignedUp && (
-        <Alert
-          severity='success'
-        >
+        <Alert severity='success'>
           <AlertTitle>
             Successfully signed up!
           </AlertTitle>

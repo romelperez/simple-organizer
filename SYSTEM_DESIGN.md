@@ -58,7 +58,7 @@ When a signed in user opens a board:
 - [x] Images should be lazy loaded.
 - [x] Should show optimistic updates on user data changes side-effects.
 - [x] Animations should only trigger repaint.
-- [ ] Show loading skeletons for page data content after 100ms wait.
+- [x] Show loading skeletons for page data content after 500ms wait.
 - [ ] Analytics file should be loaded after main app.
 - [x] Preconnect to image assets servers.
 - [x] Preconnect to font assets servers.
