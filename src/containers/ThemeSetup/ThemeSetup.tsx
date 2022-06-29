@@ -50,6 +50,12 @@ const ThemeSetup = (props: ThemeSetupProps): ReactElement => {
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />
       <Global styles={{
+        // Allow smooth transition between color schemes.
+        'body, header, footer, main': {
+          transitionProperty: 'background-color',
+          transitionDuration: '0.2s',
+          transitionTimingFunction: 'ease-out'
+        },
         a: {
           textDecoration: 'none'
         }
