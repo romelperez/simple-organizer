@@ -4,6 +4,8 @@ import { useNhostClient } from '@nhost/react';
 
 import { QueryKey } from '@app/tools/useQuery';
 
+// TODO: Simplify types.
+
 type MutationKey = QueryKey;
 
 interface MutationKeyWithOptions {

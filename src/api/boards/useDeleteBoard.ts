@@ -1,3 +1,5 @@
+// TODO: Add optimistic update.
+
 import { MutationAction, useMutation } from '@app/tools/useMutation';
 import { getSelectBoardsWithDetailsKey } from '@app/api/boards/useSelectBoardsWithDetails';
 

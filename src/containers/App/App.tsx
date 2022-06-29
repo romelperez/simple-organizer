@@ -2,7 +2,7 @@ import React, { ReactElement, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import LinearProgress from '@mui/material/LinearProgress';
 
-import { MainLayout } from '@app/ui/MainLayout';
+import { MainLayout, LoadingContainer } from '@app/ui';
 import { Header } from '@app/containers/Header';
 
 const App = (): ReactElement => {
@@ -10,7 +10,13 @@ const App = (): ReactElement => {
     <MainLayout
       header={<Header />}
     >
-      <Suspense fallback={<LinearProgress />}>
+      <Suspense
+        fallback={
+          <LoadingContainer>
+            <LinearProgress />
+          </LoadingContainer>
+        }
+      >
         <Outlet />
       </Suspense>
     </MainLayout>

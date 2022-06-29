@@ -1,6 +1,8 @@
 import useSWR, { SWRResponse } from 'swr';
 import { useNhostClient } from '@nhost/react';
 
+// TODO: Simplify types.
+
 type QueryKey = Array<string | number>;
 type QueryResponse<R, E = Error> = SWRResponse<R, E>;
 

@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import sortBy from 'lodash/sortBy';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
+import LinearProgress from '@mui/material/LinearProgress';
 
 import { parseServerDate } from '@app/tools';
 import { useSelectBoardsWithDetails } from '@app/api';
-import { BoardWithDetailsLayout } from '@app/ui';
+import { BoardWithDetailsLayout, LoadingContainer } from '@app/ui';
 import { BoardCreator } from '@app/containers/BoardCreator';
 
 const HomePageList = (): ReactElement => {
@@ -17,15 +19,23 @@ const HomePageList = (): ReactElement => {
   ).reverse();
 
   if (error) {
-    return <Typography>Error fetching boards.</Typography>;
+    return (
+      <Alert severity='error'>
+        <Typography>Error fetching boards. Please try again.</Typography>
+      </Alert>
+    );
   }
 
   if (!data) {
-    return <Typography>Loading boards...</Typography>;
+    return (
+      <LoadingContainer>
+        <LinearProgress />
+      </LoadingContainer>
+    );
   }
 
   if (!boards.length) {
-    return <Typography>No boards to show.</Typography>;
+    return <Alert severity='info'>No boards to show.</Alert>;
   }
 
   return (

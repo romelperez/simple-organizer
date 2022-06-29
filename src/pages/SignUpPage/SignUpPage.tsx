@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
@@ -212,14 +213,21 @@ const SignUpPage = (): ReactElement => {
       )}
 
       {isSignedUp && (
-        <Alert severity='success'>
-          <Typography component='h4' variant='h4'>
+        <Alert
+          severity='success'
+        >
+          <AlertTitle>
             Successfully signed up!
-          </Typography>
-          <Typography>
+          </AlertTitle>
+          <Typography gutterBottom>
             An activation link has been sent to your email account.{' '}
             Please open the link to activate your account.
           </Typography>
+          <Link to='/signin'>
+            <Button variant='outlined' size='small' title='Sign In'>
+              Sign In
+            </Button>
+          </Link>
         </Alert>
       )}
     </Container>

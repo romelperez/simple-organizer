@@ -2,7 +2,7 @@
 import { jsx, useTheme } from '@emotion/react';
 import { FormEvent, ReactElement, useState } from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import IconAdd from '@mui/icons-material/Add';
@@ -18,6 +18,7 @@ const BoardCreator = (): ReactElement => {
 
   const insertBoard = useInsertBoard();
 
+  const hasError = !!response?.error;
   const nameFormatted = name.trim();
   const nameIsValid = nameFormatted !== '' &&
     nameFormatted.length >= 2 &&
@@ -34,12 +35,14 @@ const BoardCreator = (): ReactElement => {
     setResponse(null);
     setIsLoading(true);
 
-    // TODO: Handle error.
     insertBoard({ input: { name } })
       .then(newReponse => {
         setResponse(newReponse);
         setIsLoading(false);
-        setName('');
+
+        if (!newReponse.error) {
+          setName('');
+        }
       })
       .finally(null);
   };
@@ -55,10 +58,10 @@ const BoardCreator = (): ReactElement => {
         onSubmit={onCreate}
       >
         <TextField
-          sx={{ flex: 1 }}
-          color={response?.error ? 'error' : 'primary'}
           type='text'
           size='small'
+          error={hasError}
+          sx={{ flex: 1 }}
           autoComplete='off'
           placeholder='Type new board name...'
           disabled={isLoading}
@@ -74,6 +77,7 @@ const BoardCreator = (): ReactElement => {
           }}
         />
         <IconButton
+          type='submit'
           sx={{
             position: 'absolute',
             right: 0,
@@ -88,13 +92,14 @@ const BoardCreator = (): ReactElement => {
         </IconButton>
       </Box>
 
-      {!!response?.error && (
-        <Typography
-          component='p'
-          sx={{ mt: 2, color: 'error.main' }}
+      {hasError && (
+        <Alert
+          sx={{ mt: 2 }}
+          severity='error'
+          onClose={() => setResponse(null)}
         >
           There was an error creating the board. Please try again.
-        </Typography>
+        </Alert>
       )}
     </Box>
   );

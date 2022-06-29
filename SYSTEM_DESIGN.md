@@ -76,6 +76,7 @@ When a signed in user opens a board:
 - [x] Call to actions should have titles with longer explanations.
 - [x] Call to action elements should be able to be focused with keyboard.
 - [x] Use CSS REM units for user resizing customization.
+- [x] Call to action elements should have at least 40px size.
 - Requires Internet connection to work. Offline mode is not supported.
 - Requires JavaScript enabled to work.
 - Since content is dynamically created and private, it is not crawable by search engines.

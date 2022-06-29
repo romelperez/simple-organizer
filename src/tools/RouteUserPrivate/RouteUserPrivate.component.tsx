@@ -3,6 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { useAuthenticationStatus } from '@nhost/react';
 import LinearProgress from '@mui/material/LinearProgress';
 
+import { LoadingContainer } from '@app/ui';
+
 interface RouteUserPrivateProps {
   element: ReactNode
 }
@@ -11,7 +13,11 @@ const RouteUserPrivate = (props: RouteUserPrivateProps): ReactElement => {
   const { isLoading, isAuthenticated } = useAuthenticationStatus();
 
   if (isLoading) {
-    return <LinearProgress />;
+    return (
+      <LoadingContainer>
+        <LinearProgress />
+      </LoadingContainer>
+    );
   }
 
   if (!isAuthenticated) {
