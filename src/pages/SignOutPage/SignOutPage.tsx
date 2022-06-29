@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuthenticated, useSignOut } from '@nhost/react';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const SignOutPage = (): ReactElement => {
   const isAuthenticated = useAuthenticated();
@@ -11,9 +12,7 @@ const SignOutPage = (): ReactElement => {
   }, []);
 
   if (isAuthenticated) {
-    return (
-      <p>Signing out...</p>
-    );
+    return <LinearProgress />;
   }
 
   return (

@@ -1,134 +1,228 @@
-import React, { ReactElement, ReactNode, FormEvent, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useSignUpEmailPassword } from '@nhost/react';
+import { Link } from 'react-router-dom';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
+import LinearProgress from '@mui/material/LinearProgress';
+import Stack from '@mui/material/Stack';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import isEmail from 'validator/es/lib/isEmail';
 
-interface FormFieldProps {
-  label: string
-  children: ReactNode
+interface SignUpPageForm {
+  displayName: string
+  email: string
+  password: string
+  passwordConfirmation: string
 }
-
-const FormField = (props: FormFieldProps): ReactElement => {
-  const { label, children } = props;
-  return (
-    <div
-      style={{
-        margin: '0 0 20px'
-      }}
-    >
-      <label>
-        <span>{label}</span>
-        {' '}
-        <span>{children}</span>
-      </label>
-    </div>
-  );
-};
 
 const SignUpPage = (): ReactElement => {
   const {
     signUpEmailPassword,
     isLoading,
     isSuccess,
-    isError,
     needsEmailVerification
   } = useSignUpEmailPassword();
 
-  const [displayName, setDisplayName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [error, setError] = useState('');
+
+  const form = useForm<SignUpPageForm>({
+    defaultValues: {
+      displayName: '',
+      email: '',
+      password: '',
+      passwordConfirmation: ''
+    },
+    mode: 'all',
+    reValidateMode: 'onBlur'
+  });
 
   const isSignedUp = isSuccess || needsEmailVerification;
 
-  const onSubmit = (event: FormEvent): void => {
-    event.preventDefault();
+  const onSubmit: SubmitHandler<SignUpPageForm> = (data): void => {
+    const { displayName, email, password } = data;
 
-    if (!displayName || !email || !password) {
-      return;
-    }
-
+    setError('');
     signUpEmailPassword(email, password, {
       displayName,
       redirectTo: `${String(process.env.APP_URL)}/signin`
     })
+      .then((response) => {
+        if (response.error) {
+          if (response.error.error === 'email-already-in-use') {
+            setError('Email is already in use.');
+          } else {
+            setError('Error signing up. Please review your account data.');
+          }
+        }
+      })
       .finally(null);
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-
-      {isLoading && <p>Signing up...</p>}
-
-      {isError && <p>Error signing up. Please review your account data.</p>}
-
-      {isSignedUp && (
-        <>
-          <h3>Successfully signed up!</h3>
-          <p>
-            We just sent an activation link to your email account.{' '}
-            Please open the link to activate your account.
-          </p>
-        </>
-      )}
+    <Container maxWidth='xs'>
+      <Typography
+        component='h1'
+        variant='h2'
+        sx={{ mb: 2 }}
+      >
+        Sign Up
+      </Typography>
 
       {!isSignedUp && (
-        <form onSubmit={onSubmit}>
-          <FormField label='Name'>
-            <input
-              type='text'
-              placeholder='Display name'
-              autoComplete='first-name'
-              required
-              minLength={2}
-              maxLength={64}
-              autoFocus
-              value={displayName}
-              onChange={event => setDisplayName(event.currentTarget.value)}
+        <Box
+          component='form'
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <Controller
+            name='displayName'
+            control={form.control}
+            rules={{
+              required: { value: true, message: 'Name is required.' },
+              minLength: { value: 2, message: 'Name should have at least 2 characters.' },
+              maxLength: { value: 32, message: 'Name can have maximum 32 characters.' }
+            }}
+            render={({ field, formState: { errors } }) =>
+              <TextField
+                type='text'
+                fullWidth
+                size='small'
+                sx={{ mb: 2 }}
+                label='Name'
+                autoFocus
+                autoComplete='first-name'
+                helperText={errors.displayName?.message}
+                error={!!errors.displayName}
+                disabled={isLoading}
+                {...field}
+              />
+            }
+          />
+          <Controller
+            name='email'
+            control={form.control}
+            rules={{
+              required: { value: true, message: 'Email is required.' },
+              maxLength: { value: 128, message: 'Email can have maximum 128 characters.' },
+              validate: {
+                isEmail: value => isEmail(value) || 'A valid email is required.'
+              }
+            }}
+            render={({ field, formState: { errors } }) =>
+              <TextField
+                type='email'
+                fullWidth
+                size='small'
+                sx={{ mb: 2 }}
+                label='Email'
+                autoComplete='email'
+                helperText={errors.email?.message}
+                error={!!errors.email}
+                disabled={isLoading}
+                {...field}
+              />
+            }
+          />
+          <Controller
+            name='password'
+            control={form.control}
+            rules={{
+              required: { value: true, message: 'Password is required.' },
+              minLength: { value: 8, message: 'Password should have at least 8 characters.' },
+              maxLength: { value: 128, message: 'Password can have maximum 128 characters.' }
+            }}
+            render={({ field, formState: { errors } }) =>
+              <TextField
+                type='password'
+                fullWidth
+                size='small'
+                sx={{ mb: 2 }}
+                label='Password'
+                autoComplete='new-password'
+                helperText={errors.password?.message}
+                error={!!errors.password}
+                disabled={isLoading}
+                {...field}
+              />
+            }
+          />
+          <Controller
+            name='passwordConfirmation'
+            control={form.control}
+            rules={{
+              deps: ['password'],
+              required: { value: true, message: 'Password confirmation is required.' },
+              validate: {
+                equalPassword: (value: string) =>
+                  form.getValues().password === value || 'The confirmation needs to be the same as the password.'
+              }
+            }}
+            render={({ field, formState: { errors } }) =>
+              <TextField
+                type='password'
+                fullWidth
+                size='small'
+                sx={{ mb: 2 }}
+                label='Password Confirmation'
+                autoComplete='new-password'
+                helperText={errors.passwordConfirmation?.message}
+                error={!!errors.passwordConfirmation}
+                disabled={isLoading}
+                {...field}
+              />
+            }
+          />
 
-            />
-          </FormField>
-          <FormField label='Email'>
-            <input
-              type='email'
-              placeholder='Account Email'
-              autoComplete='email'
-              required
-              value={email}
-              onChange={event => setEmail(event.currentTarget.value)}
-            />
-          </FormField>
-          <FormField label='Password'>
-            <input
-              type='password'
-              placeholder='Password'
-              autoComplete='new-password'
-              required
-              minLength={8}
-              maxLength={64}
-              value={password}
-              onChange={event => setPassword(event.currentTarget.value)}
-            />
-          </FormField>
-          <FormField label='Confirm Password'>
-            <input
-              type='password'
-              placeholder='Confirm Password'
-              autoComplete='new-password'
-              required
-              minLength={8}
-              maxLength={64}
-              value={passwordConfirmation}
-              onChange={event => setPasswordConfirmation(event.currentTarget.value)}
-            />
-          </FormField>
-          <div>
-            <button title='Sign Up'>
+          <Stack
+            direction='row'
+            spacing={2}
+            alignItems='center'
+            sx={{ mb: 2 }}
+          >
+            <Button
+              type='submit'
+              variant='contained'
+              title='Sign Up'
+              disabled={isLoading}
+            >
               Sign Up
-            </button>
-          </div>
-        </form>
+            </Button>
+            <Link to='/signin'>
+              <Button
+                variant='outlined'
+                title='Sign In'
+                disabled={isLoading}
+              >
+                Sign In
+              </Button>
+            </Link>
+          </Stack>
+        </Box>
       )}
-    </div>
+
+      {isLoading && <LinearProgress />}
+
+      {!!error && (
+        <Alert severity='error'>
+          {error}
+        </Alert>
+      )}
+
+      {isSignedUp && (
+        <Alert severity='success'>
+          <Typography component='h4' variant='h4'>
+            Successfully signed up!
+          </Typography>
+          <Typography>
+            An activation link has been sent to your email account.{' '}
+            Please open the link to activate your account.
+          </Typography>
+        </Alert>
+      )}
+    </Container>
   );
 };
 

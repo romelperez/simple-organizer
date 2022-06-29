@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { useSignInEmailPassword } from '@nhost/react';
 import Container from '@mui/material/Container';
@@ -18,7 +18,7 @@ interface SignInPageForm {
 }
 
 const SignInPage = (): ReactElement => {
-  const { signInEmailPassword, isLoading, isSuccess, isError } = useSignInEmailPassword();
+  const { signInEmailPassword, isLoading, isSuccess } = useSignInEmailPassword();
 
   const [error, setError] = useState('');
 
@@ -31,15 +31,17 @@ const SignInPage = (): ReactElement => {
     reValidateMode: 'onBlur'
   });
 
-  useEffect(() => {
-    if (isError) {
-      setError('Error in the authentication. Please review your email and password.');
-    }
-  }, [isError]);
-
   const onSubmit: SubmitHandler<SignInPageForm> = ({ email, password }): void => {
     setError('');
-    signInEmailPassword(email, password).finally(null);
+    signInEmailPassword(email, password)
+      .then(response => {
+        if (response.needsEmailVerification) {
+          setError('You need to activate your account first. Please open the email link sent to your email account.');
+        } else if (response.error) {
+          setError('Error in the authentication. Please review your email and password.');
+        }
+      })
+      .finally(null);
   };
 
   if (isSuccess) {
@@ -64,10 +66,10 @@ const SignInPage = (): ReactElement => {
           name='email'
           control={form.control}
           rules={{
-            required: true,
-            maxLength: 128,
+            required: { value: true, message: 'Email is required.' },
+            maxLength: { value: 128, message: 'Email can have maximum 128 characters.' },
             validate: {
-              isEmail: isEmail
+              isEmail: value => isEmail(value) || 'A valid email is required.'
             }
           }}
           render={({ field, formState: { errors } }) =>
@@ -79,7 +81,7 @@ const SignInPage = (): ReactElement => {
               label='Account Email'
               autoComplete='email'
               autoFocus
-              helperText={!!errors.email && 'Email is required.'}
+              helperText={errors.email?.message}
               error={!!errors.email}
               disabled={isLoading}
               {...field}
@@ -90,9 +92,8 @@ const SignInPage = (): ReactElement => {
           name='password'
           control={form.control}
           rules={{
-            required: true,
-            minLength: 8,
-            maxLength: 128
+            required: { value: true, message: 'Password is required.' },
+            maxLength: { value: 128, message: 'Password can have maximum 128 characters.' }
           }}
           render={({ field, formState: { errors } }) =>
             <TextField
@@ -102,7 +103,7 @@ const SignInPage = (): ReactElement => {
               sx={{ mb: 2 }}
               label='Account Password'
               autoComplete='current-password'
-              helperText={!!errors.password && 'Password is required.'}
+              helperText={errors.password?.message}
               error={!!errors.password}
               disabled={isLoading}
               {...field}
@@ -110,7 +111,12 @@ const SignInPage = (): ReactElement => {
           }
         />
 
-        <Stack direction='row' spacing={2} alignItems='center' sx={{ mb: 2 }}>
+        <Stack
+          direction='row'
+          spacing={2}
+          alignItems='center'
+          sx={{ mb: 2 }}
+        >
           <Button
             type='submit'
             variant='contained'
