@@ -13,22 +13,26 @@ const FooterLayout = (props: FooterLayoutProps): ReactElement => {
       component='footer'
       className={className}
       sx={theme => ({
-        borderTop: `1px solid ${theme.palette.primary.dark}`,
         padding: theme.spacing(1, 2)
       })}
     >
-      <Stack direction='row' justifyContent='space-between'>
+      <Stack direction='row' justifyContent='center' spacing={1}>
         <Typography
           component='a'
           variant='body2'
+          color='primary'
           href='https://romelperez.com'
           target='romelperez'
         >
           &copy; Romel Perez 2022
         </Typography>
+        <Typography variant='body2' color='primary'>
+          -
+        </Typography>
         <Typography
           component='a'
           variant='body2'
+          color='primary'
           href='https://github.com/romelperez/simple-organizer'
           target='repository'
         >

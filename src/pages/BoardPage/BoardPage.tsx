@@ -29,7 +29,6 @@ import {
   useUpdateTasks,
   useDeleteTasks
 } from '@app/api';
-import { LoadingContainer } from '@app/ui';
 import { TaskCreator } from '@app/containers/TaskCreator';
 import { Task } from '@app/containers/Task';
 
@@ -171,16 +170,14 @@ const BoardPage = (): ReactElement => {
 
   if (!board) {
     return (
-      <LoadingContainer>
-        <Stack spacing={2}>
-          <Skeleton variant='rectangular' height='3rem' animation='wave' />
-          <Skeleton variant='text' animation='wave' />
-          <Skeleton variant='text' animation='wave' />
-          <Skeleton variant='rectangular' height='2rem' animation='wave' />
-          <Skeleton variant='rectangular' height='2rem' animation='wave' />
-          <Skeleton variant='rectangular' height='2rem' animation='wave' />
-        </Stack>
-      </LoadingContainer>
+      <Stack spacing={2}>
+        <Skeleton variant='rectangular' height='3rem' animation='wave' />
+        <Skeleton variant='text' animation='wave' />
+        <Skeleton variant='text' animation='wave' />
+        <Skeleton variant='rectangular' height='2rem' animation='wave' />
+        <Skeleton variant='rectangular' height='2rem' animation='wave' />
+        <Skeleton variant='rectangular' height='2rem' animation='wave' />
+      </Stack>
     );
   }
 
@@ -316,11 +313,11 @@ const BoardPage = (): ReactElement => {
         boardId={boardId as string}
       />
 
-      <Box sx={{ mb: 2 }}>
-        {!!errorMsg && (
+      {!!errorMsg && (
+        <Box sx={{ mb: 2 }}>
           <Typography>{errorMsg}</Typography>
-        )}
-      </Box>
+        </Box>
+      )}
     </main>
   );
 };

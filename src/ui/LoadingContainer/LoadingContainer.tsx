@@ -8,7 +8,7 @@ const LoadingContainer = (props: LoadingContainerProps): null | ReactElement => 
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const tid = setTimeout(() => setShow(true), 500);
+    const tid = setTimeout(() => setShow(true), 300);
     return () => clearTimeout(tid);
   }, []);
 

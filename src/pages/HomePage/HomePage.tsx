@@ -8,7 +8,7 @@ import Skeleton from '@mui/material/Skeleton';
 
 import { parseServerDate } from '@app/tools';
 import { useSelectBoardsWithDetails } from '@app/api';
-import { BoardWithDetailsLayout, LoadingContainer } from '@app/ui';
+import { BoardWithDetailsLayout } from '@app/ui';
 import { BoardCreator } from '@app/containers/BoardCreator';
 
 const HomePageList = (): ReactElement => {
@@ -29,13 +29,11 @@ const HomePageList = (): ReactElement => {
 
   if (!data) {
     return (
-      <LoadingContainer>
-        <Stack direction='column' spacing={2}>
-          <Skeleton variant='rectangular' height='5rem' animation='wave' />
-          <Skeleton variant='rectangular' height='5rem' animation='wave' />
-          <Skeleton variant='rectangular' height='5rem' animation='wave' />
-        </Stack>
-      </LoadingContainer>
+      <Stack direction='column' spacing={2}>
+        <Skeleton variant='rectangular' height='5rem' animation='wave' />
+        <Skeleton variant='rectangular' height='5rem' animation='wave' />
+        <Skeleton variant='rectangular' height='5rem' animation='wave' />
+      </Stack>
     );
   }
 

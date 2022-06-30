@@ -53,7 +53,7 @@ const ThemeSetup = (props: ThemeSetupProps): ReactElement => {
         // Allow smooth transition between color schemes.
         'body, header, footer, main': {
           transitionProperty: 'background-color',
-          transitionDuration: '0.2s',
+          transitionDuration: '0.3s',
           transitionTimingFunction: 'ease-out'
         },
         a: {
