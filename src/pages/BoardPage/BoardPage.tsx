@@ -159,7 +159,7 @@ const BoardPage = (): ReactElement => {
       <Alert severity='error'>
         <AlertTitle>Board not found</AlertTitle>
         <Typography gutterBottom>
-          The board you are looking for may have been deleted.
+          There was an error fetching the board. It may have been deleted.
         </Typography>
         <Link to='/'>
           <Button variant='outlined' size='small'>Go to Boards</Button>
