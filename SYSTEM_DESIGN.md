@@ -12,10 +12,14 @@ Simple Organizer is a small single page web application to manage personal tasks
 - [x] Should be able to sign up with name, email, and password.
 - [x] Should be able to sign in with email and password.
 - [x] Should be able to sign out.
+- When a signed in user enters the account page:
+  - [x] Should see her/his account details.
+  - [ ] Should be able to edit name and profile picture.
+  - [ ] Should be able to edit password.
 
 ### Boards
 
-When a signed in user enters the app index:
+When a signed in user enters the app index page:
 
 - [x] Should see all boards with number of tasks in creation chronological
   descending order.
@@ -24,7 +28,7 @@ When a signed in user enters the app index:
 
 ### Board and Tasks
 
-When a signed in user opens a board:
+When a signed in user opens a board page:
 
 - [x] Should be able to edit board name.
 - [x] Should be able to delete board.
@@ -58,7 +62,7 @@ When a signed in user opens a board:
 - [x] Images should be lazy loaded.
 - [x] Should show optimistic updates on user data changes side-effects.
 - [x] Animations should only trigger repaint.
-- [x] Show loading skeletons for page data content after 500ms wait.
+- [x] Show page loading indicators after 0.3s wait.
 - [ ] Analytics file should be loaded after main app.
 - [x] Preconnect to image assets servers.
 - [x] Preconnect to font assets servers.
@@ -66,11 +70,12 @@ When a signed in user opens a board:
 
 ### Accessibility
 
-- [ ] Should allow dark and light theme color schemes.
+- [x] Should allow dark and light theme color schemes.
 - [ ] Should allow to reduce/disable animations.
 - [x] Visual colors should have AA contrast ratio.
 - [x] Edition form inputs should update data when user blurs from them on change.
 - [ ] Should show social media share metadata.
+- [ ] Should add manifest file to allow download on mobile devices.
 - [x] Images should have alternative texts.
 - [x] Form inputs should have autocomplete names where needed.
 - [x] Call to actions should have titles with longer explanations.
@@ -82,6 +87,10 @@ When a signed in user opens a board:
 - Since content is dynamically created and private, it is not crawable by search engines.
 - Does not require schema markup data.
 - Not available for screen readers.
+
+## Architecture
+
+![Architecture](./architecture.jpeg)
 
 ## Data Models
 
